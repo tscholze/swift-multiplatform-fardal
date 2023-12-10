@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A04AD092B25B87500CA9053 /* ItemCrudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD082B25B87500CA9053 /* ItemCrudView.swift */; };
+		4A04AD0C2B25B9E300CA9053 /* Color+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD0B2B25B9E300CA9053 /* Color+Data.swift */; };
+		4A04AD0F2B25CEBF00CA9053 /* PriceCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD0E2B25CEBF00CA9053 /* PriceCustomAttributeView.swift */; };
+		4A04AD112B25CFFE00CA9053 /* CustomAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD102B25CFFE00CA9053 /* CustomAttribute.swift */; };
 		4A848A342B24F2700090FC73 /* FardalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A332B24F2700090FC73 /* FardalApp.swift */; };
 		4A848A362B24F2700090FC73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A352B24F2700090FC73 /* ContentView.swift */; };
 		4A848A382B24F2700090FC73 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A372B24F2700090FC73 /* Item.swift */; };
@@ -15,6 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A04AD082B25B87500CA9053 /* ItemCrudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCrudView.swift; sourceTree = "<group>"; };
+		4A04AD0B2B25B9E300CA9053 /* Color+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Data.swift"; sourceTree = "<group>"; };
+		4A04AD0E2B25CEBF00CA9053 /* PriceCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCustomAttributeView.swift; sourceTree = "<group>"; };
+		4A04AD102B25CFFE00CA9053 /* CustomAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAttribute.swift; sourceTree = "<group>"; };
 		4A848A302B24F2700090FC73 /* Fardal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fardal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A848A332B24F2700090FC73 /* FardalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FardalApp.swift; sourceTree = "<group>"; };
 		4A848A352B24F2700090FC73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -35,6 +43,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A04AD072B25B86800CA9053 /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				4A04AD0D2B25CEA700CA9053 /* CustomAttributes */,
+				4A04AD082B25B87500CA9053 /* ItemCrudView.swift */,
+			);
+			path = Item;
+			sourceTree = "<group>";
+		};
+		4A04AD0A2B25B9D700CA9053 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4A04AD0B2B25B9E300CA9053 /* Color+Data.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4A04AD0D2B25CEA700CA9053 /* CustomAttributes */ = {
+			isa = PBXGroup;
+			children = (
+				4A04AD0E2B25CEBF00CA9053 /* PriceCustomAttributeView.swift */,
+				4A04AD102B25CFFE00CA9053 /* CustomAttribute.swift */,
+			);
+			path = CustomAttributes;
+			sourceTree = "<group>";
+		};
 		4A848A272B24F2700090FC73 = {
 			isa = PBXGroup;
 			children = (
@@ -54,9 +88,10 @@
 		4A848A322B24F2700090FC73 /* Fardal */ = {
 			isa = PBXGroup;
 			children = (
+				4A848A452B24F38C0090FC73 /* UI */,
+				4A848A442B24F3820090FC73 /* Models */,
 				4A848A332B24F2700090FC73 /* FardalApp.swift */,
 				4A848A352B24F2700090FC73 /* ContentView.swift */,
-				4A848A372B24F2700090FC73 /* Item.swift */,
 				4A848A392B24F2710090FC73 /* Assets.xcassets */,
 				4A848A3B2B24F2710090FC73 /* Fardal.entitlements */,
 				4A848A3C2B24F2710090FC73 /* Preview Content */,
@@ -70,6 +105,23 @@
 				4A848A3D2B24F2710090FC73 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4A848A442B24F3820090FC73 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4A04AD0A2B25B9D700CA9053 /* Extensions */,
+				4A848A372B24F2700090FC73 /* Item.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4A848A452B24F38C0090FC73 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4A04AD072B25B86800CA9053 /* Item */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,8 +194,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A04AD0F2B25CEBF00CA9053 /* PriceCustomAttributeView.swift in Sources */,
+				4A04AD0C2B25B9E300CA9053 /* Color+Data.swift in Sources */,
 				4A848A362B24F2700090FC73 /* ContentView.swift in Sources */,
+				4A04AD092B25B87500CA9053 /* ItemCrudView.swift in Sources */,
 				4A848A382B24F2700090FC73 /* Item.swift in Sources */,
+				4A04AD112B25CFFE00CA9053 /* CustomAttribute.swift in Sources */,
 				4A848A342B24F2700090FC73 /* FardalApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,7 +350,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.tscholze.Fardal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -330,7 +387,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.tscholze.Fardal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
