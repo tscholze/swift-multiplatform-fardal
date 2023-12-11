@@ -12,6 +12,7 @@
 		4A04AD0F2B25CEBF00CA9053 /* PriceCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD0E2B25CEBF00CA9053 /* PriceCustomAttributeView.swift */; };
 		4A04AD112B25CFFE00CA9053 /* ViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD102B25CFFE00CA9053 /* ViewMode.swift */; };
 		4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD132B26F6B700CA9053 /* ItemCustomAttribute.swift */; };
+		4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */; };
 		4A848A342B24F2700090FC73 /* FardalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A332B24F2700090FC73 /* FardalApp.swift */; };
 		4A848A362B24F2700090FC73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A352B24F2700090FC73 /* ContentView.swift */; };
 		4A848A382B24F2700090FC73 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A372B24F2700090FC73 /* Item.swift */; };
@@ -25,6 +26,7 @@
 		4A04AD0E2B25CEBF00CA9053 /* PriceCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCustomAttributeView.swift; sourceTree = "<group>"; };
 		4A04AD102B25CFFE00CA9053 /* ViewMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMode.swift; sourceTree = "<group>"; };
 		4A04AD132B26F6B700CA9053 /* ItemCustomAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCustomAttribute.swift; sourceTree = "<group>"; };
+		4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCustomAttributeView.swift; sourceTree = "<group>"; };
 		4A848A302B24F2700090FC73 /* Fardal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fardal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A848A332B24F2700090FC73 /* FardalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FardalApp.swift; sourceTree = "<group>"; };
 		4A848A352B24F2700090FC73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				4A04AD0E2B25CEBF00CA9053 /* PriceCustomAttributeView.swift */,
+				4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */,
 			);
 			path = CustomAttributes;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				4A04AD0C2B25B9E300CA9053 /* Color+Data.swift in Sources */,
 				4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */,
 				4A848A362B24F2700090FC73 /* ContentView.swift in Sources */,
+				4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */,
 				4A04AD092B25B87500CA9053 /* ItemCrudView.swift in Sources */,
 				4A848A382B24F2700090FC73 /* Item.swift in Sources */,
 				4A04AD112B25CFFE00CA9053 /* ViewMode.swift in Sources */,

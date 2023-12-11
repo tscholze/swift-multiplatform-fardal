@@ -44,6 +44,12 @@ extension ItemCustomAttribute {
         layout: "price",
         payload: ["title": "Price", "currencyCode":"EUR", "price":"00.00"]
     )
+    
+    /// Gets an empty (initial) empty date attribute.
+    static var emptyDateAttribute: ItemCustomAttribute = .init(
+        layout: "date",
+        payload: ["title": "Date", "date": Date.now.formatted(.dateTime)]
+    )
 }
 
 // MARK: - Mock -
@@ -53,5 +59,11 @@ extension ItemCustomAttribute {
     static var mockedPriceAttribute: ItemCustomAttribute = .init(
         layout: "price", 
         payload: ["title": "Bought for", "currencyCode":"EUR", "price":"20.00"]
+    )
+    
+    /// Mocked `ItemCustomAttribute` representing a date
+    static var mockedDateAttribute: ItemCustomAttribute = .init(
+        layout: "date",
+        payload: ["title": "Bought at", "date": Date.now.formatted(.dateTime)]
     )
 }

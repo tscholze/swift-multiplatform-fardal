@@ -82,6 +82,12 @@ struct ItemCrudView: View {
                                     store: .init(attribute: attribute)
                                 )
                                 
+                            case "date":
+                                DateCustomAttributeView(
+                                    mode: viewMode,
+                                    store: .init(attribute: attribute)
+                                )
+                                
                                 // Fallback
                             default: Text("Unsupported layout: \(attribute.layout)")
                             }
@@ -140,6 +146,11 @@ struct ItemCrudView: View {
                 selectedColor = Color(hex: item.hexColor)
             }
             .alert("Add attribute", isPresented: $showAddCustomAttributeSheet) {
+                // Date
+                Button("Add date information") {
+                    onAddDateCustomAttributeTapped()
+                }
+                // Price
                 Button("Add price information") {
                    onAddPriceCustomAttributeTapped()
                 }
@@ -152,10 +163,12 @@ struct ItemCrudView: View {
     }
     
     private func onAddPriceCustomAttributeTapped() {
-        item.customAttributes.append(
-            .emptyPriceAttribute
-        )
-        
+        item.customAttributes.append(.emptyPriceAttribute)
+        showAddCustomAttributeSheet.toggle()
+    }
+    
+    private func onAddDateCustomAttributeTapped() {
+        item.customAttributes.append(.emptyDateAttribute)
         showAddCustomAttributeSheet.toggle()
     }
     

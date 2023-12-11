@@ -21,7 +21,7 @@ struct PriceCustomAttributeView: View {
     
     @State private var title: String = ""
     @State private var price: Decimal = 0
-    @State private var currencyCode = "EUR"
+    @State private var selectedCurrencyCode = "EUR"
     
     // MARK: - UI -
     
@@ -47,7 +47,7 @@ struct PriceCustomAttributeView: View {
                 // Price and Currency chooser
                 HStack {
                     // Value
-                    TextField("Price", value: $price, format: .currency(code: currencyCode))
+                    TextField("Price", value: $price, format: .currency(code: selectedCurrencyCode))
                         .keyboardType(.decimalPad)
                         .onChange(
                             of: price,
@@ -56,15 +56,20 @@ struct PriceCustomAttributeView: View {
                     
                     Spacer()
                     
-                    Picker("", selection: $currencyCode) {
+                    Picker("", selection: $selectedCurrencyCode) {
                         Text("Euro").tag("EUR")
                         Text("Dollar").tag("USD")
                     }
                     .onChange(
-                        of: currencyCode,
+                        of: selectedCurrencyCode,
                         onCurrencyCodeChanged(oldValue:newValue:)
                     )
                 }
+            }
+            .onAppear {
+                title = store.title
+                price = store.price
+                selectedCurrencyCode = store.currencyCode
             }
         }
     }
