@@ -78,6 +78,15 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		4A04AD152B26F7DB00CA9053 /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				4A848A372B24F2700090FC73 /* Item.swift */,
+				4A04AD132B26F6B700CA9053 /* ItemCustomAttribute.swift */,
+			);
+			path = Item;
+			sourceTree = "<group>";
+		};
 		4A848A272B24F2700090FC73 = {
 			isa = PBXGroup;
 			children = (
@@ -119,9 +128,8 @@
 		4A848A442B24F3820090FC73 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4A04AD152B26F7DB00CA9053 /* Item */,
 				4A04AD0A2B25B9D700CA9053 /* Extensions */,
-				4A848A372B24F2700090FC73 /* Item.swift */,
-				4A04AD132B26F6B700CA9053 /* ItemCustomAttribute.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
