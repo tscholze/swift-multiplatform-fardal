@@ -11,7 +11,7 @@ struct PriceCustomAttributeView: View {
     
     // MARK: - Properties -
     
-    let mode: CustomAttributeViewMode
+    let mode: ViewMode
     let store: PriceCustomAttributeStore
     
     // MARK: - States -
@@ -22,7 +22,9 @@ struct PriceCustomAttributeView: View {
     // MARK: - UI -
     
     var body: some View {
-        if mode == .edit {
+        if mode == .read {
+            Text(store.price, format: .currency(code: store.currencyCode))
+        } else {
             HStack {
                 // Currency
                 Picker("Currency", selection: $currencyCode) {
@@ -33,10 +35,16 @@ struct PriceCustomAttributeView: View {
                 
                 // Value
                 TextField("Price", value: $price, format: .currency(code: currencyCode))
+                    .keyboardType(.decimalPad)
                     .onChange(of: price, onPriceChanged(oldValue:newValue:))
+                
+                // Spacer
+                Spacer()
+                
+                Button(action: { onDeleteButtonTapped() }) {
+                    Image(systemName: "minus.circle")
+                }
             }
-        } else {
-            Text(store.price, format: .currency(code: store.currencyCode))
         }
     }
     
@@ -51,12 +59,16 @@ struct PriceCustomAttributeView: View {
         // if valide -> store it
         store.price = newValue
     }
+    
+    private func onDeleteButtonTapped() {
+        
+    }
 }
 
 #Preview {
     PriceCustomAttributeView(
         mode: .edit,
-        store: .init(payload: ["currencyCode":"EUR", "value":"20.00"])
+        store: .init(payload: ["currencyCode":"EUR", "price":"20.00"])
     )
 }
 

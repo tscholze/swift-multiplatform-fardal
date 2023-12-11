@@ -7,14 +7,20 @@
 
 import SwiftUI
 
+/// Represents a [View] that enables the user to perform
+/// CRUD operations on an [Item].
 struct ItemCrudView: View {
     // MARK: - Properties -
     
+    /// Underlying item that shall be target of CRUD operations
     let item: Item
-    let mode: Mode
+    
+    /// Initials view mode
+    let initialViewModel: ViewMode
     
     // MARK: - Private properties -
     
+    @State private var viewMode: ViewMode = .edit
     @State private var selectedColor: Color = .clear
     @State private var name = ""
     @State private var summary = ""
@@ -28,29 +34,39 @@ struct ItemCrudView: View {
                 // Section: Required
                 Section("Required") {
                     // Name
-                    TextField("Name", text: $name)
-                        .onChange(of: name) { oldValue, newValue in
-                            item.title = name
-                        }
                     
-                    // Summary
-                    TextField("Summary", text: $summary)
+                    if viewMode == .read {
+                        Text($name.wrappedValue)
+                        Text($summary.wrappedValue)
+                    } else {
+                        TextField("Name", text: $name)
+                            .onChange(of: name) { oldValue, newValue in
+                                item.title = name
+                            }
+                        
+                        // Summary
+                        TextField("Summary", text: $summary)
+                    }
                 }
                 
                 // Section: Tagging
                 Section("Tagging") {
                     // Color
                     HStack {
+                        Text("Flag")
+                        
                         // Identicator
                         Circle()
                             .frame(width: 16, height: 16)
                             .foregroundStyle(Color(hex: item.hexColor))
                         
-                        // Picker
-                        ColorPicker("Flag", selection: $selectedColor)
-                            .onChange(of: selectedColor) { oldValue, newValue in
-                                item.hexColor = newValue.hexValue
-                            }
+                        if viewMode != .read {
+                            // Picker
+                            ColorPicker("", selection: $selectedColor)
+                                .onChange(of: selectedColor) { oldValue, newValue in
+                                    item.hexColor = newValue.hexValue
+                                }
+                        }
                     }
                 }
                 
@@ -58,14 +74,18 @@ struct ItemCrudView: View {
                 Section {
                     VStack {
                         ForEach(item.customAttributes) { attribute in
-                            switch attribute.identifier {
+                            switch attribute.layout {
+                                // Price
                             case "price": PriceCustomAttributeView(
-                                mode: .read,
+                                mode: viewMode,
                                 store: .init(payload: attribute.payload))
                                 
-                                
-                            default: Text("Unsupported attribute: \(attribute.identifier)")
+                                // Fallback
+                            default: Text("Unsupported layout: \(attribute.layout)")
                             }
+                        }
+                        .onDelete{ indexSet in
+                            print(indexSet)
                         }
                     }
                         
@@ -85,7 +105,7 @@ struct ItemCrudView: View {
             
             // Actions
             VStack {
-                if mode == .update {
+                if initialViewModel != .create {
                     Button("Delete item", role: .destructive) {
                         print("Delete")
                     }
@@ -96,8 +116,20 @@ struct ItemCrudView: View {
             .navigationTitle(item.title.isEmpty == true ? "New item" : item.title)
             .toolbar {
                 // Save
-                ToolbarItem(placement: .primaryAction) {
-                    Image(systemName: "checkmark.circle")
+                if viewMode != .read {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button(action: { onSaveButtonTapped() }) {
+                            Image(systemName: "checkmark.circle")
+                        }
+                    }
+                }
+                
+                if viewMode == .read {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button(action: { onEditButtonTapped() }) {
+                            Image(systemName: "pencil.circle")
+                        }
+                    }
                 }
             }
             .onAppear {
@@ -105,23 +137,20 @@ struct ItemCrudView: View {
                 summary = item.summary
                 selectedColor = Color(hex: item.hexColor)
             }
-            .sheet(isPresented: $showAddCustomAttributeSheet) {
-                VStack {
-                    Button("Add price information") {
-                        item.customAttributes.append(
-                            .init(
-                                identifier: "price",
-                                payload: [
-                                    "currencyCode": "EUR",
-                                    "price": "0.00"
-                                ]
-                            )
+            .alert("Add attribute", isPresented: $showAddCustomAttributeSheet) {
+                Button("Add price information") {
+                    item.customAttributes.append(
+                        .init(
+                            layout: "price",
+                            payload: [
+                                "currencyCode": "EUR",
+                                "price": "0.00"
+                            ]
                         )
-                        
-                        showAddCustomAttributeSheet.toggle()
-                    }
+                    )
+                    
+                    showAddCustomAttributeSheet.toggle()
                 }
-                .presentationDetents([.height(200)])
             }
         }
     }
@@ -129,12 +158,17 @@ struct ItemCrudView: View {
     private func onAddCustomTapped() {
         showAddCustomAttributeSheet.toggle()
     }
-}
-
-extension ItemCrudView {
-    enum Mode {
-        case create
-        case update
+    
+    private func onDeleteCustomTapped(withIndexSet indexSet: IndexSet) {
+        print(indexSet)
+    }
+    
+    private func onSaveButtonTapped() {
+        viewMode = .read
+    }
+    
+    private func onEditButtonTapped() {
+        viewMode = .edit
     }
 }
 
@@ -144,8 +178,9 @@ extension ItemCrudView {
     NavigationView {
         ItemCrudView(
             item: .mocked,
-            mode: .create
+            initialViewModel: .create
         )
+        .modelContainer(for: Item.self, inMemory: true)
     }
 }
 
