@@ -35,3 +35,23 @@ class ItemCustomAttribute {
         self.payload = payload
     }
 }
+
+// MARK: - Empty / Init states -
+
+extension ItemCustomAttribute {
+    /// Gets an empty (initial) empty price attribute.
+    static var emptyPriceAttribute: ItemCustomAttribute = .init(
+        layout: "price",
+        payload: ["title": "Price", "currencyCode":"EUR", "price":"00.00"]
+    )
+}
+
+// MARK: - Mock -
+
+extension ItemCustomAttribute {
+    /// Mocked `ItemCustomAttribute` representing a price
+    static var mockedPriceAttribute: ItemCustomAttribute = .init(
+        layout: "price", 
+        payload: ["title": "Bought for", "currencyCode":"EUR", "price":"20.00"]
+    )
+}

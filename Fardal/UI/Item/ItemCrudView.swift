@@ -30,7 +30,7 @@ struct ItemCrudView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            List {
+            Form {
                 // Section: Required
                 Section("Required") {
                     // Name
@@ -72,13 +72,15 @@ struct ItemCrudView: View {
                 
                 // Section: Custom
                 Section {
-                    VStack {
+                    List {
                         ForEach(item.customAttributes) { attribute in
                             switch attribute.layout {
                                 // Price
-                            case "price": PriceCustomAttributeView(
-                                mode: viewMode,
-                                store: .init(payload: attribute.payload))
+                            case "price": 
+                                PriceCustomAttributeView(
+                                    mode: viewMode,
+                                    store: .init(attribute: attribute)
+                                )
                                 
                                 // Fallback
                             default: Text("Unsupported layout: \(attribute.layout)")
@@ -100,7 +102,6 @@ struct ItemCrudView: View {
                         )
                     }
                 }
-
             }
             
             // Actions
@@ -124,6 +125,7 @@ struct ItemCrudView: View {
                     }
                 }
                 
+                // Edit
                 if viewMode == .read {
                     ToolbarItem(placement: .primaryAction) {
                         Button(action: { onEditButtonTapped() }) {
@@ -139,23 +141,21 @@ struct ItemCrudView: View {
             }
             .alert("Add attribute", isPresented: $showAddCustomAttributeSheet) {
                 Button("Add price information") {
-                    item.customAttributes.append(
-                        .init(
-                            layout: "price",
-                            payload: [
-                                "currencyCode": "EUR",
-                                "price": "0.00"
-                            ]
-                        )
-                    )
-                    
-                    showAddCustomAttributeSheet.toggle()
+                   onAddPriceCustomAttributeTapped()
                 }
             }
         }
     }
     
     private func onAddCustomTapped() {
+        showAddCustomAttributeSheet.toggle()
+    }
+    
+    private func onAddPriceCustomAttributeTapped() {
+        item.customAttributes.append(
+            .emptyPriceAttribute
+        )
+        
         showAddCustomAttributeSheet.toggle()
     }
     
@@ -182,19 +182,4 @@ struct ItemCrudView: View {
         )
         .modelContainer(for: Item.self, inMemory: true)
     }
-}
-
-
-protocol ItemAttribute {
-    var type: ItemAttributeType { get set }
-    var payload: [String:String] {get set }
-}
-
-enum ItemAttributeType {
-    case currency
-}
-
-class CurrencyItemAttribute: ItemAttribute {
-    var type: ItemAttributeType = ItemAttributeType.currency
-    var payload: [String : String] = [:]
 }

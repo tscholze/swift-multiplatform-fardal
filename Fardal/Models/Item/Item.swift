@@ -64,7 +64,7 @@ extension Item {
         title: "Mocked",
         summary: "My Mocked Foo",
         color: .orange,
-        customAttributes: [.init(layout: "price", payload: ["currencyCode":"EUR", "price": "20.00"])],
+        customAttributes: [.mockedPriceAttribute],
         updatedAt: .now
     )
 }
