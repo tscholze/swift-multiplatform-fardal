@@ -47,12 +47,15 @@ struct PriceCustomAttributeView: View {
                 // Price and Currency chooser
                 HStack {
                     // Value
-                    TextField("Price", value: $price, format: .currency(code: selectedCurrencyCode))
-                        .keyboardType(.decimalPad)
-                        .onChange(
-                            of: price,
-                            onPriceChanged(oldValue:newValue:)
-                        )
+                    TextField(
+                        "Price",
+                        value: $price, format: .currency(code: selectedCurrencyCode)
+                    )
+                    .keyboardType(.decimalPad)
+                    .onChange(
+                        of: price,
+                        onPriceChanged(oldValue:newValue:)
+                    )
                     
                     Spacer()
                     

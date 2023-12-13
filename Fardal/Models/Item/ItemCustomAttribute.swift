@@ -7,6 +7,27 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
+
+enum ItemCustomAttributeTypes: String {
+    
+    case date
+    case price
+    case url
+    
+    func makeView(for attribute: ItemCustomAttribute, with mode: ViewMode) -> some View {
+        Group {
+            switch self {
+            case .date:
+                DateCustomAttributeView(mode: mode, store: .init(attribute: attribute))
+            case .price:
+                PriceCustomAttributeView(mode: mode, store: .init(attribute: attribute))
+            case .url:
+                UrlCustomAttributeView(mode: mode, store: .init(attribute: attribute))
+            }
+        }
+    }
+}
 
 @Model
 class ItemCustomAttribute {
@@ -50,20 +71,31 @@ extension ItemCustomAttribute {
         layout: "date",
         payload: ["title": "Date", "date": Date.now.formatted(.dateTime)]
     )
+    
+    static var emptyLinkAttribute: ItemCustomAttribute = .init(
+        layout: "url",
+        payload: ["title" : "Homepage", "url": ""]
+    )
 }
 
 // MARK: - Mock -
 
 extension ItemCustomAttribute {
-    /// Mocked `ItemCustomAttribute` representing a price
+    /// Mocked `ItemCustomAttribute` representing a price and currency
     static var mockedPriceAttribute: ItemCustomAttribute = .init(
         layout: "price", 
-        payload: ["title": "Bought for", "currencyCode":"EUR", "price":"20.00"]
+        payload: ["title": "Bought for", "currencyCode": "EUR", "price":"20.00"]
     )
     
-    /// Mocked `ItemCustomAttribute` representing a date
+    /// Mocked `ItemCustomAttribute` representing a `Date`
     static var mockedDateAttribute: ItemCustomAttribute = .init(
         layout: "date",
         payload: ["title": "Bought at", "date": Date.now.formatted(.dateTime)]
+    )
+    
+    /// Mocked `ItemCustomAttribute` representing an `URL`.
+    static var mockedLinkAttribute: ItemCustomAttribute = .init(
+        layout: "url",
+        payload: ["title" : "Homepage", "url": "https://tscholze.github.io"]
     )
 }

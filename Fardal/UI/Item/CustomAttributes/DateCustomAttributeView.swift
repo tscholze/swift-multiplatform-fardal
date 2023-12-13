@@ -13,6 +13,7 @@ struct DateCustomAttributeView: View {
     /// View mode for the view
     let mode: ViewMode
     
+    /// Underlying data source
     let store: DateCustomAttributeStore
     
     // MARK: - States -
@@ -60,6 +61,7 @@ struct DateCustomAttributeView: View {
     }
     
     // MARK: - Helpers -
+    
     private func onTitleChanged(oldValue: String, newValue: String) {
         store.title = newValue
     }

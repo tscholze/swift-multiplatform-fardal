@@ -64,7 +64,7 @@ extension Item {
         title: "Mocked",
         summary: "My Mocked Foo",
         color: .orange,
-        customAttributes: [.mockedPriceAttribute],
+        customAttributes: [.mockedDateAttribute, .mockedPriceAttribute, .mockedLinkAttribute],
         updatedAt: .now
     )
 }

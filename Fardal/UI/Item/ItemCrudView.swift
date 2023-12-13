@@ -34,7 +34,6 @@ struct ItemCrudView: View {
                 // Section: Required
                 Section("Required") {
                     // Name
-                    
                     if viewMode == .read {
                         Text($name.wrappedValue)
                         Text($summary.wrappedValue)
@@ -52,12 +51,11 @@ struct ItemCrudView: View {
                 // Section: Tagging
                 Section("Tagging") {
                     // Color
-                    HStack {
+                    HStack(alignment: .center) {
                         Text("Flag")
                         
                         // Identicator
-                        Circle()
-                            .frame(width: 16, height: 16)
+                        Image(systemName: "flag.fill")
                             .foregroundStyle(Color(hex: item.hexColor))
                         
                         if viewMode != .read {
@@ -70,42 +68,34 @@ struct ItemCrudView: View {
                     }
                 }
                 
+                // Section: Image(s)
+                Section("Photo") {
+                    
+                }
+                
                 // Section: Custom
                 Section {
                     List {
                         ForEach(item.customAttributes) { attribute in
-                            switch attribute.layout {
-                                // Price
-                            case "price": 
-                                PriceCustomAttributeView(
-                                    mode: viewMode,
-                                    store: .init(attribute: attribute)
-                                )
-                                
-                            case "date":
-                                DateCustomAttributeView(
-                                    mode: viewMode,
-                                    store: .init(attribute: attribute)
-                                )
-                                
-                                // Fallback
-                            default: Text("Unsupported layout: \(attribute.layout)")
-                            }
+                            ItemCustomAttributeTypes(rawValue: attribute.layout)?
+                                .makeView(for: attribute, with: viewMode)
                         }
                         .onDelete{ indexSet in
                             print(indexSet)
                         }
+                        .deleteDisabled(viewMode == .read)
                     }
-                        
                 } header: {
                     HStack {
                         Text("Custom")
-                        Button(
-                            action: { onAddCustomTapped() },
-                            label: {
-                                Image(systemName: "plus.circle")
-                            }
-                        )
+                        if viewMode != .read {
+                            Button(
+                                action: { onAddCustomTapped() },
+                                label: {
+                                    Image(systemName: "plus.circle")
+                                }
+                            )
+                        }
                     }
                 }
             }
@@ -150,9 +140,15 @@ struct ItemCrudView: View {
                 Button("Add date information") {
                     onAddDateCustomAttributeTapped()
                 }
+                
                 // Price
                 Button("Add price information") {
                    onAddPriceCustomAttributeTapped()
+                }
+                
+                // Cancel
+                Button("Cancel", role: .cancel) {
+                    // nothing
                 }
             }
         }
@@ -193,6 +189,5 @@ struct ItemCrudView: View {
             item: .mocked,
             initialViewModel: .create
         )
-        .modelContainer(for: Item.self, inMemory: true)
     }
 }
