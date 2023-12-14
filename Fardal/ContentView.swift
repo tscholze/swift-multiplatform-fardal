@@ -9,9 +9,14 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    
+    // MARK: - Properties -
+    
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
 
+    // MARK: - UI -
+    
     var body: some View {
         NavigationSplitView {
             List {

@@ -25,6 +25,8 @@ struct ItemCrudView: View {
     @State private var viewMode: ViewMode = .edit
     @State private var selectedColor: Color = .clear
     @State private var showAddCustomAttributeSheet = false
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     
     // MARK: - UI -
     
@@ -112,7 +114,7 @@ struct ItemCrudView: View {
                         .makeView(for: attribute, with: viewMode)
                 }
                 .onDelete{ indexSet in
-                    print(indexSet)
+                    onDeleteCustomTapped(withIndexSet: indexSet)
                 }
                 .deleteDisabled(viewMode == .read)
             }
@@ -136,7 +138,8 @@ struct ItemCrudView: View {
         VStack {
             if initialViewModel != .create {
                 Button("Delete item", role: .destructive) {
-                    print("Delete")
+                    modelContext.delete(item)
+                    dismiss()
                 }
             }
         }
@@ -200,7 +203,9 @@ struct ItemCrudView: View {
     }
     
     private func onDeleteCustomTapped(withIndexSet indexSet: IndexSet) {
-        print(indexSet)
+        guard let index = indexSet.first else { return }
+        let itemToDelete = item.customAttributes[index]
+        modelContext.delete(itemToDelete)
     }
     
     private func onSaveButtonTapped() {
