@@ -9,13 +9,27 @@ import Foundation
 import SwiftData
 import SwiftUI
 
+/// Defines the type of an `ItemCustomAttribute`.|
 enum ItemCustomAttributeTypes: String {
+    
+    // MARK: - Cases -
     
     case date
     case price
     case url
     
-    func makeView(for attribute: ItemCustomAttribute, with mode: ViewMode) -> some View {
+    // MARK: - Generators -
+    
+    /// Makes a vierw for self with given content and mode.
+    ///
+    /// - Parameters:
+    ///   - attribute: Generic content of the type
+    ///   - mode: Initial view mode in which the view shall be rendered
+    /// - Returns: Created view for self.
+    func makeView(
+        for attribute: ItemCustomAttribute,
+        with mode: ViewMode
+    ) -> some View {
         Group {
             switch self {
             case .date:
@@ -29,8 +43,9 @@ enum ItemCustomAttributeTypes: String {
     }
 }
 
-@Model
-class ItemCustomAttribute {
+
+/// Model data class of an `Item` custom attribute.
+@Model class ItemCustomAttribute {
     // MARK: - Properties -
     
     /// Unique id of the attribute

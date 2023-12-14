@@ -20,139 +20,170 @@ struct ItemCrudView: View {
     
     // MARK: - Private properties -
     
-    @State private var viewMode: ViewMode = .edit
-    @State private var selectedColor: Color = .clear
     @State private var name = ""
     @State private var summary = ""
+    @State private var viewMode: ViewMode = .edit
+    @State private var selectedColor: Color = .clear
     @State private var showAddCustomAttributeSheet = false
     
     // MARK: - UI -
     
     var body: some View {
         VStack(spacing: 0) {
+            // User inpute
             Form {
-                // Section: Required
-                Section("Required") {
-                    // Name
-                    if viewMode == .read {
-                        Text($name.wrappedValue)
-                        Text($summary.wrappedValue)
-                    } else {
-                        TextField("Name", text: $name)
-                            .onChange(of: name) { oldValue, newValue in
-                                item.title = name
-                            }
-                        
-                        // Summary
-                        TextField("Summary", text: $summary)
-                    }
-                }
-                
-                // Section: Tagging
-                Section("Tagging") {
-                    // Color
-                    HStack(alignment: .center) {
-                        Text("Flag")
-                        
-                        // Identicator
-                        Image(systemName: "flag.fill")
-                            .foregroundStyle(Color(hex: item.hexColor))
-                        
-                        if viewMode != .read {
-                            // Picker
-                            ColorPicker("", selection: $selectedColor)
-                                .onChange(of: selectedColor) { oldValue, newValue in
-                                    item.hexColor = newValue.hexValue
-                                }
-                        }
-                    }
-                }
-                
-                // Section: Image(s)
-                Section("Photo") {
-                    
-                }
-                
-                // Section: Custom
-                Section {
-                    List {
-                        ForEach(item.customAttributes) { attribute in
-                            ItemCustomAttributeTypes(rawValue: attribute.layout)?
-                                .makeView(for: attribute, with: viewMode)
-                        }
-                        .onDelete{ indexSet in
-                            print(indexSet)
-                        }
-                        .deleteDisabled(viewMode == .read)
-                    }
-                } header: {
-                    HStack {
-                        Text("Custom")
-                        if viewMode != .read {
-                            Button(
-                                action: { onAddCustomTapped() },
-                                label: {
-                                    Image(systemName: "plus.circle")
-                                }
-                            )
-                        }
-                    }
-                }
+                makeRequiredSection()
+                makePhotosSection()
+                makeTaggingSection()
+                makeCustomAttributesSection()
             }
             
             // Actions
-            VStack {
-                if initialViewModel != .create {
-                    Button("Delete item", role: .destructive) {
-                        print("Delete")
+            makeActions()
+        }
+        .navigationTitle(item.title.isEmpty == true ? "New item" : item.title)
+        .toolbar { makeToolbar() }
+        .alert("Add attribute", isPresented: $showAddCustomAttributeSheet) {
+          makeAddCustomAttributeAlertContent()
+        }
+        .onAppear {
+            name = item.title
+            summary = item.summary
+            selectedColor = Color(hex: item.hexColor)
+        }
+    }
+    
+    // MARK: - View builders -
+    
+    @ViewBuilder
+    private func makeRequiredSection() -> some View {
+        Section("Required") {
+            // Name
+            if viewMode == .read {
+                Text($name.wrappedValue)
+                Text($summary.wrappedValue)
+            } else {
+                TextField("Name", text: $name)
+                    .onChange(of: name) { oldValue, newValue in
+                        item.title = name
                     }
-                }
+                
+                // Summary
+                TextField("Summary", text: $summary)
             }
-            .frame(maxWidth: .infinity)
-            .background(Color(uiColor: UIColor.systemGroupedBackground))
-            .navigationTitle(item.title.isEmpty == true ? "New item" : item.title)
-            .toolbar {
-                // Save
+        }
+    }
+    
+    @ViewBuilder
+    private func makeTaggingSection() -> some View {
+        Section("Tagging") {
+            // Color
+            HStack(alignment: .center) {
+                Text("Flag")
+                
+                // Identicator
+                Image(systemName: "flag.fill")
+                    .foregroundStyle(Color(hex: item.hexColor))
+                
                 if viewMode != .read {
-                    ToolbarItem(placement: .primaryAction) {
-                        Button(action: { onSaveButtonTapped() }) {
-                            Image(systemName: "checkmark.circle")
+                    // Picker
+                    ColorPicker("", selection: $selectedColor)
+                        .onChange(of: selectedColor) { oldValue, newValue in
+                            item.hexColor = newValue.hexValue
                         }
-                    }
-                }
-                
-                // Edit
-                if viewMode == .read {
-                    ToolbarItem(placement: .primaryAction) {
-                        Button(action: { onEditButtonTapped() }) {
-                            Image(systemName: "pencil.circle")
-                        }
-                    }
-                }
-            }
-            .onAppear {
-                name = item.title
-                summary = item.summary
-                selectedColor = Color(hex: item.hexColor)
-            }
-            .alert("Add attribute", isPresented: $showAddCustomAttributeSheet) {
-                // Date
-                Button("Add date information") {
-                    onAddDateCustomAttributeTapped()
-                }
-                
-                // Price
-                Button("Add price information") {
-                   onAddPriceCustomAttributeTapped()
-                }
-                
-                // Cancel
-                Button("Cancel", role: .cancel) {
-                    // nothing
                 }
             }
         }
     }
+    
+    @ViewBuilder
+    private func makePhotosSection() -> some View {
+        Section("Photo") {
+            
+        }
+    }
+    
+    @ViewBuilder
+    private func makeCustomAttributesSection() -> some View {
+        Section {
+            List {
+                ForEach(item.customAttributes) { attribute in
+                    ItemCustomAttributeTypes(rawValue: attribute.layout)?
+                        .makeView(for: attribute, with: viewMode)
+                }
+                .onDelete{ indexSet in
+                    print(indexSet)
+                }
+                .deleteDisabled(viewMode == .read)
+            }
+        } header: {
+            HStack {
+                Text("Custom")
+                if viewMode != .read {
+                    Button(
+                        action: { onAddCustomTapped() },
+                        label: {
+                            Image(systemName: "plus.circle")
+                        }
+                    )
+                }
+            }
+        }
+    }
+        
+    @ViewBuilder
+    private func makeActions() -> some View {
+        VStack {
+            if initialViewModel != .create {
+                Button("Delete item", role: .destructive) {
+                    print("Delete")
+                }
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .background(Color(uiColor: UIColor.systemGroupedBackground))
+    }
+    
+    @ViewBuilder
+    private func makeAddCustomAttributeAlertContent() -> some View {
+        // Date
+        Button("Add date information") {
+            onAddDateCustomAttributeTapped()
+        }
+        
+        // Price
+        Button("Add price information") {
+           onAddPriceCustomAttributeTapped()
+        }
+        
+        // Cancel
+        Button("Cancel", role: .cancel) {
+            // nothing
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private func makeToolbar() -> some ToolbarContent {
+        // Save
+        if viewMode != .read {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: { onSaveButtonTapped() }) {
+                    Image(systemName: "checkmark.circle")
+                }
+            }
+        }
+        
+        // Edit
+        if viewMode == .read {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: { onEditButtonTapped() }) {
+                    Image(systemName: "pencil.circle")
+                }
+            }
+        }
+    }
+    
+    // MARK: - Actions -
     
     private func onAddCustomTapped() {
         showAddCustomAttributeSheet.toggle()

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PriceCustomAttributeView: View {
-    
     // MARK: - Properties -
     
     /// View mode for the view
@@ -26,58 +25,72 @@ struct PriceCustomAttributeView: View {
     // MARK: - UI -
     
     var body: some View {
-        if mode == .read {
-            VStack(alignment: .leading) {
-                Text(store.title)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+        switch mode {
+        case .read:
+            makeReadView()
+        case .create, .edit:
+            makeWriteableView()
+        }
+    }
+    
+    // MARK: - View builders -
+    
+    @ViewBuilder
+    private func makeReadView() -> some View {
+        VStack(alignment: .leading) {
+            Text(store.title)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            
+            Text(store.price, format: .currency(code: store.currencyCode))
+        }
+    }
+    
+    @ViewBuilder
+    private func makeWriteableView() -> some View {
+        VStack(spacing: 0) {
+            // Title
+            TextField("Title", text: $title)
+                .font(.caption)
+                .onChange(
+                    of: title,
+                    onTitleChanged(oldValue:newValue:)
+                )
+    
+            // Price and Currency chooser
+            HStack {
+                // Value
+                TextField(
+                    "Price",
+                    value: $price, format: .currency(code: selectedCurrencyCode)
+                )
+                .keyboardType(.decimalPad)
+                .onChange(
+                    of: price,
+                    onPriceChanged(oldValue:newValue:)
+                )
                 
-                Text(store.price, format: .currency(code: store.currencyCode))
-            }
-        } else {
-            VStack(spacing: 0) {
-                // Title
-                TextField("Title", text: $title)
-                    .font(.caption)
-                    .onChange(
-                        of: title,
-                        onTitleChanged(oldValue:newValue:)
-                    )
-        
-                // Price and Currency chooser
-                HStack {
-                    // Value
-                    TextField(
-                        "Price",
-                        value: $price, format: .currency(code: selectedCurrencyCode)
-                    )
-                    .keyboardType(.decimalPad)
-                    .onChange(
-                        of: price,
-                        onPriceChanged(oldValue:newValue:)
-                    )
-                    
-                    Spacer()
-                    
-                    Picker("", selection: $selectedCurrencyCode) {
-                        Text("Euro").tag("EUR")
-                        Text("Dollar").tag("USD")
-                    }
-                    .onChange(
-                        of: selectedCurrencyCode,
-                        onCurrencyCodeChanged(oldValue:newValue:)
-                    )
+                Spacer()
+                
+                Picker("", selection: $selectedCurrencyCode) {
+                    Text("Euro").tag("EUR")
+                    Text("Dollar").tag("USD")
                 }
+                .onChange(
+                    of: selectedCurrencyCode,
+                    onCurrencyCodeChanged(oldValue:newValue:)
+                )
             }
-            .onAppear {
-                title = store.title
-                price = store.price
-                selectedCurrencyCode = store.currencyCode
-            }
+        }
+        .onAppear {
+            title = store.title
+            price = store.price
+            selectedCurrencyCode = store.currencyCode
         }
     }
     
     // MARK: - Helpers -
+    
     private func onTitleChanged(oldValue: String, newValue: String) {
         store.title = newValue
     }
