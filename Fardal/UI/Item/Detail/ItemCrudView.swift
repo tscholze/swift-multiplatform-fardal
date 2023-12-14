@@ -32,7 +32,7 @@ struct ItemCrudView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            // User inpute
+            // User input
             Form {
                 makeRequiredSection()
                 makePhotosSection()
@@ -45,14 +45,20 @@ struct ItemCrudView: View {
         }
         .navigationTitle(item.title.isEmpty == true ? "New item" : item.title)
         .toolbar { makeToolbar() }
+        .onAppear(perform: onDidAppear)
         .alert("Add attribute", isPresented: $showAddCustomAttributeSheet) {
             makeAddCustomAttributeAlertContent()
         }
-        .onAppear {
-            name = item.title
-            summary = item.summary
-            selectedColor = Color(hex: item.hexColor)
-        }
+    }
+}
+
+// MARK: - Life cyle -
+
+extension ItemCrudView {
+    private func onDidAppear() {
+        name = item.title
+        summary = item.summary
+        selectedColor = Color(hex: item.hexColor)
     }
 }
 
