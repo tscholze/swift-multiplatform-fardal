@@ -14,6 +14,7 @@
 		4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD132B26F6B700CA9053 /* ItemCustomAttribute.swift */; };
 		4A06F84E2B2A2D7C00F93E37 /* LinkCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A06F84D2B2A2D7C00F93E37 /* LinkCustomAttributeView.swift */; };
 		4A06F8512B2A369D00F93E37 /* FavIconAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A06F8502B2A369D00F93E37 /* FavIconAsyncImage.swift */; };
+		4A06F8552B2B3BBD00F93E37 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A06F8542B2B3BBD00F93E37 /* ItemList.swift */; };
 		4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */; };
 		4A848A342B24F2700090FC73 /* FardalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A332B24F2700090FC73 /* FardalApp.swift */; };
 		4A848A362B24F2700090FC73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A352B24F2700090FC73 /* ContentView.swift */; };
@@ -30,6 +31,7 @@
 		4A04AD132B26F6B700CA9053 /* ItemCustomAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCustomAttribute.swift; sourceTree = "<group>"; };
 		4A06F84D2B2A2D7C00F93E37 /* LinkCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCustomAttributeView.swift; sourceTree = "<group>"; };
 		4A06F8502B2A369D00F93E37 /* FavIconAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavIconAsyncImage.swift; sourceTree = "<group>"; };
+		4A06F8542B2B3BBD00F93E37 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCustomAttributeView.swift; sourceTree = "<group>"; };
 		4A848A302B24F2700090FC73 /* Fardal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fardal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A848A332B24F2700090FC73 /* FardalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FardalApp.swift; sourceTree = "<group>"; };
@@ -54,8 +56,8 @@
 		4A04AD072B25B86800CA9053 /* Item */ = {
 			isa = PBXGroup;
 			children = (
-				4A04AD0D2B25CEA700CA9053 /* CustomAttributes */,
-				4A04AD082B25B87500CA9053 /* ItemCrudView.swift */,
+				4A06F8532B2B3BB200F93E37 /* List */,
+				4A06F8522B2B3BA700F93E37 /* Detail */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -101,6 +103,23 @@
 				4A06F8502B2A369D00F93E37 /* FavIconAsyncImage.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		4A06F8522B2B3BA700F93E37 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				4A04AD0D2B25CEA700CA9053 /* CustomAttributes */,
+				4A04AD082B25B87500CA9053 /* ItemCrudView.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		4A06F8532B2B3BB200F93E37 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				4A06F8542B2B3BBD00F93E37 /* ItemList.swift */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 		4A848A272B24F2700090FC73 = {
@@ -234,6 +253,7 @@
 				4A04AD0C2B25B9E300CA9053 /* Color+Data.swift in Sources */,
 				4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */,
 				4A848A362B24F2700090FC73 /* ContentView.swift in Sources */,
+				4A06F8552B2B3BBD00F93E37 /* ItemList.swift in Sources */,
 				4A06F8512B2A369D00F93E37 /* FavIconAsyncImage.swift in Sources */,
 				4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */,
 				4A04AD092B25B87500CA9053 /* ItemCrudView.swift in Sources */,

@@ -46,7 +46,7 @@ struct ItemCrudView: View {
         .navigationTitle(item.title.isEmpty == true ? "New item" : item.title)
         .toolbar { makeToolbar() }
         .alert("Add attribute", isPresented: $showAddCustomAttributeSheet) {
-          makeAddCustomAttributeAlertContent()
+            makeAddCustomAttributeAlertContent()
         }
         .onAppear {
             name = item.title
@@ -54,9 +54,11 @@ struct ItemCrudView: View {
             selectedColor = Color(hex: item.hexColor)
         }
     }
-    
-    // MARK: - View builders -
-    
+}
+
+// MARK: - View builders -
+
+extension ItemCrudView {
     @ViewBuilder
     private func makeRequiredSection() -> some View {
         Section("Required") {
@@ -113,9 +115,7 @@ struct ItemCrudView: View {
                     ItemCustomAttributeTypes(rawValue: attribute.layout)?
                         .makeView(for: attribute, with: viewMode)
                 }
-                .onDelete{ indexSet in
-                    onDeleteCustomTapped(withIndexSet: indexSet)
-                }
+                .onDelete(perform: onDeleteCustomTapped)
                 .deleteDisabled(viewMode == .read)
             }
         } header: {
@@ -132,7 +132,7 @@ struct ItemCrudView: View {
             }
         }
     }
-        
+    
     @ViewBuilder
     private func makeActions() -> some View {
         VStack {
@@ -156,7 +156,7 @@ struct ItemCrudView: View {
         
         // Price
         Button("Add price information") {
-           onAddPriceCustomAttributeTapped()
+            onAddPriceCustomAttributeTapped()
         }
         
         // Cancel
@@ -185,8 +185,11 @@ struct ItemCrudView: View {
             }
         }
     }
-    
-    // MARK: - Actions -
+}
+
+// MARK: - Actions -
+
+extension ItemCrudView {
     
     private func onAddCustomTapped() {
         showAddCustomAttributeSheet.toggle()
@@ -204,8 +207,9 @@ struct ItemCrudView: View {
     
     private func onDeleteCustomTapped(withIndexSet indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
-        let itemToDelete = item.customAttributes[index]
-        modelContext.delete(itemToDelete)
+        let attributeToDelete = item.customAttributes[index]
+        item.customAttributes.removeAll(where: { $0.id == attributeToDelete.id  })
+        modelContext.delete(attributeToDelete)
     }
     
     private func onSaveButtonTapped() {
