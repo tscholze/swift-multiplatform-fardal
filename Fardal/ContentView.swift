@@ -9,15 +9,20 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    
+    // MARK: - Properties -
+    
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
 
+    // MARK: - UI -
+    
     var body: some View {
         NavigationSplitView {
             List {
                 ForEach(items) { item in
                     NavigationLink {
-                        ItemCrudView(item: item, mode: .update)
+                        ItemCrudView(item: item, initialViewModel: .edit)
                     } label: {
                         Text(item.title)
                     }
@@ -41,8 +46,7 @@ struct ContentView: View {
 
     private func addItem() {
         withAnimation {
-            let newItem = Item(title: "Mocked", summary: "Mocked summary", color: .orange, updatedAt: .now)
-            modelContext.insert(newItem)
+            modelContext.insert(Item.mocked)
         }
     }
 

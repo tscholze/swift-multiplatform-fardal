@@ -59,30 +59,12 @@ final class Item {
 // MARK: - Mocked -
 
 extension Item {
+    /// Gets a static mocked item entry to be used on Previews
     static let mocked: Item = .init(
         title: "Mocked",
         summary: "My Mocked Foo",
         color: .orange,
-        customAttributes: [.init(identifier: "price", payload: ["value": "20.00"])],
+        customAttributes: [.mockedDateAttribute, .mockedPriceAttribute, .mockedLinkAttribute],
         updatedAt: .now
     )
-}
-
-@Model
-class ItemCustomAttribute {
-    // MARK: - Properties -
-    
-    /// Unique id of the attribute
-    @Attribute(.unique)
-    var id = UUID()
-    
-    var identifier: String
-    var payload: [String: String]
-    
-    // MARK: - Init -
-    
-    internal init(identifier: String, payload: [String : String]) {
-        self.identifier = identifier
-        self.payload = payload
-    }
 }
