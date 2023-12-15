@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 /// Represents a [View] that enables the user to perform
 /// CRUD operations on an [Item].
@@ -27,6 +28,9 @@ struct ItemCrudView: View {
     @State private var showAddCustomAttributeSheet = false
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    
+    @State var imageSelection: PhotosPickerItem? = nil
+    @State var coverImage: Image?
     
     // MARK: - UI -
     
@@ -90,14 +94,15 @@ extension ItemCrudView {
         Section("Item.Detail.Section.Tagging.Title") {
             // Color
             HStack(alignment: .center) {
+                // Title
                 Text("Item.Detail.Section.Tagging.Flag")
                 
                 // Identicator
                 Image(systemName: "flag.fill")
                     .foregroundStyle(Color(hex: item.hexColor))
                 
+                // Picker
                 if viewMode != .read {
-                    // Picker
                     ColorPicker("", selection: $selectedColor)
                         .onChange(of: selectedColor) { oldValue, newValue in
                             item.hexColor = newValue.hexValue
@@ -109,8 +114,51 @@ extension ItemCrudView {
     
     @ViewBuilder
     private func makePhotosSection() -> some View {
-        Section("Item.Detail.Section.Photos.Title") {
-            
+        Section {
+            HStack {
+                if let coverImage {
+                    coverImage
+                        .resizable()
+                        .frame(width: 80, height: 80)
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                        .overlay(alignment: .topTrailing) {
+                            Button {
+                                //
+                            } label: {
+                                Image(systemName: "x.circle.fill")
+                                    .foregroundStyle(.white)
+                                    .shadow(radius: 2)
+                                    .padding(4)
+                            }
+
+                        }
+                }
+            }
+        } header: {
+            HStack {
+                Text("Item.Detail.Section.Photos.Title")
+                Button {
+                    //
+                } label: {
+                    PhotosPicker(
+                        selection: $imageSelection,
+                        matching: .images,
+                        photoLibrary: .shared()
+                    ) {
+                        Image(systemName: "plus.circle")
+                    }
+                }
+                .onChange(of: imageSelection) { oldValue, newValue in
+                    if let imageSelection {
+                        imageSelection.loadTransferable(type: TransformableImage.self) { result in
+                            switch result {
+                            case .success(.some(let transformableImage)): coverImage = transformableImage.image
+                            default: print("Failed")
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -196,6 +244,10 @@ extension ItemCrudView {
                 }
             }
         }
+    }
+    
+    private func makeSymbolImage() -> some View {
+        Text("FOO")
     }
 }
 
