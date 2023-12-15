@@ -1,15 +1,15 @@
 //
-//  ContentView.swift
+//  ItemList.swift
 //  Fardal
 //
-//  Created by Tobias Scholze on 09.12.23.
+//  Created by Tobias Scholze on 14.12.23.
 //
 
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
-    
+/// Renders a list of stored items
+struct ItemListView: View {
     // MARK: - Properties -
     
     @Environment(\.modelContext) private var modelContext
@@ -27,14 +27,14 @@ struct ContentView: View {
                         Text(item.title)
                     }
                 }
-                .onDelete(perform: deleteItems)
+                .onDelete(perform: onDeleteItems)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
+                    Button(action: onAddItemTapped) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
@@ -42,15 +42,23 @@ struct ContentView: View {
         } detail: {
             Text("Select an item")
         }
+        .tabItem {
+            Image(systemName: "list.bullet.rectangle")
+            Text("Items")
+        }
     }
+}
 
-    private func addItem() {
+// MARK: - Actions -
+
+extension ItemListView {
+    private func onAddItemTapped() {
         withAnimation {
             modelContext.insert(Item.mocked)
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    private func onDeleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
                 modelContext.delete(items[index])
@@ -59,7 +67,9 @@ struct ContentView: View {
     }
 }
 
+// MARK: - Preview -
+
 #Preview {
-    ContentView()
+    ItemListView()
         .modelContainer(for: Item.self, inMemory: true)
 }
