@@ -128,11 +128,22 @@
       }
     },
     "Item.Detail.Section.Photos.Title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Photos"
+            "value" : "Photos %lld"
+          }
+        }
+      }
+    },
+    "Item.Detail.Section.Photos.Title %lld / 3" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photos %lld / 3"
           }
         }
       }

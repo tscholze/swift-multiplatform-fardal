@@ -30,7 +30,7 @@ struct ItemCrudView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State var imageSelection: PhotosPickerItem? = nil
-    @State var coverImage: Image?
+    @State var images: [ImageData] = [ImageData]()
     
     // MARK: - UI -
     
@@ -115,47 +115,58 @@ extension ItemCrudView {
     @ViewBuilder
     private func makePhotosSection() -> some View {
         Section {
-            HStack {
-                if let coverImage {
-                    coverImage
-                        .resizable()
-                        .frame(width: 80, height: 80)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                        .overlay(alignment: .topTrailing) {
-                            Button {
-                                //
-                            } label: {
-                                Image(systemName: "x.circle.fill")
-                                    .foregroundStyle(.white)
-                                    .shadow(radius: 2)
-                                    .padding(4)
+            ScrollView(.horizontal) {
+                HStack {
+                    // List of images
+                    ForEach(images, id: \.id) { imageData in
+                        Image(uiImage: imageData.uiImage)
+                            .resizable()
+                            .aspectRatio(1, contentMode: .fill)
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                            .overlay(alignment: .topTrailing) {
+                                if viewMode != .read {
+                                Button {
+                                    withAnimation {
+                                        images.removeAll(where: { $0.id == imageData.id })
+                                    }
+                                } label: {
+                                        Image(systemName: "x.circle.fill")
+                                            .foregroundStyle(.white)
+                                            .shadow(radius: 2)
+                                            .padding(4)
+                                    }
+                                }
                             }
-
-                        }
+                    }
                 }
+                .frame(height: 80)
             }
         } header: {
             HStack {
-                Text("Item.Detail.Section.Photos.Title")
-                Button {
-                    //
-                } label: {
-                    PhotosPicker(
-                        selection: $imageSelection,
-                        matching: .images,
-                        photoLibrary: .shared()
-                    ) {
-                        Image(systemName: "plus.circle")
+                Text("Item.Detail.Section.Photos.Title \(item.images.count) / 3")
+                if viewMode != .read {
+                    Button {
+                        //
+                    } label: {
+                        PhotosPicker(
+                            selection: $imageSelection,
+                            matching: .images ,
+                            photoLibrary: .shared()
+                        ) {
+                            Image(systemName: "plus.circle")
+                        }
                     }
                 }
-                .onChange(of: imageSelection) { oldValue, newValue in
-                    if let imageSelection {
-                        imageSelection.loadTransferable(type: TransformableImage.self) { result in
-                            switch result {
-                            case .success(.some(let transformableImage)): coverImage = transformableImage.image
-                            default: print("Failed")
-                            }
-                        }
+            }
+        }
+        .onChange(of: imageSelection) { oldValue, newValue in
+            if let imageSelection {
+                imageSelection.loadTransferable(type: Data.self) { result in
+                    switch result {
+                    case .success(.some(let data)):
+                        let newImage = ImageData(data: data)
+                        withAnimation { images.append(newImage) }
+                    default: print("Failed")
                     }
                 }
             }
