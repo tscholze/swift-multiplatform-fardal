@@ -27,6 +27,9 @@
 		4AED2B6A2B2C650D00E348A0 /* SupportedCurrencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED2B692B2C650D00E348A0 /* SupportedCurrencies.swift */; };
 		4AED2B6C2B2C707C00E348A0 /* TransformableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED2B6B2B2C707C00E348A0 /* TransformableImage.swift */; };
 		4AED2B6E2B2CC6B900E348A0 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED2B6D2B2CC6B900E348A0 /* ImageData.swift */; };
+		4AED2B742B2CD40F00E348A0 /* .swift-version in Resources */ = {isa = PBXBuildFile; fileRef = 4AED2B712B2CD40F00E348A0 /* .swift-version */; };
+		4AED2B7A2B2CD48300E348A0 /* .swiftformat in Resources */ = {isa = PBXBuildFile; fileRef = 4AED2B782B2CD48300E348A0 /* .swiftformat */; };
+		4AED2B7B2B2CD48300E348A0 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4AED2B792B2CD48300E348A0 /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +55,9 @@
 		4AED2B692B2C650D00E348A0 /* SupportedCurrencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCurrencies.swift; sourceTree = "<group>"; };
 		4AED2B6B2B2C707C00E348A0 /* TransformableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformableImage.swift; sourceTree = "<group>"; };
 		4AED2B6D2B2CC6B900E348A0 /* ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
+		4AED2B712B2CD40F00E348A0 /* .swift-version */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ".swift-version"; sourceTree = "<group>"; };
+		4AED2B782B2CD48300E348A0 /* .swiftformat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
+		4AED2B792B2CD48300E348A0 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +147,9 @@
 		4A848A272B24F2700090FC73 = {
 			isa = PBXGroup;
 			children = (
+				4AED2B712B2CD40F00E348A0 /* .swift-version */,
+				4AED2B782B2CD48300E348A0 /* .swiftformat */,
+				4AED2B792B2CD48300E348A0 /* .swiftlint.yml */,
 				4A848A322B24F2700090FC73 /* Fardal */,
 				4A848A312B24F2700090FC73 /* Products */,
 			);
@@ -231,6 +240,7 @@
 				4A848A2C2B24F2700090FC73 /* Sources */,
 				4A848A2D2B24F2700090FC73 /* Frameworks */,
 				4A848A2E2B24F2700090FC73 /* Resources */,
+				4AED2B772B2CD43100E348A0 /* Run Mint */,
 			);
 			buildRules = (
 			);
@@ -279,13 +289,38 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AED2B7B2B2CD48300E348A0 /* .swiftlint.yml in Resources */,
+				4AED2B7A2B2CD48300E348A0 /* .swiftformat in Resources */,
 				4A848A3E2B24F2710090FC73 /* Preview Assets.xcassets in Resources */,
 				4A848A3A2B24F2710090FC73 /* Assets.xcassets in Resources */,
+				4AED2B742B2CD40F00E348A0 /* .swift-version in Resources */,
 				4AED2B682B2C625600E348A0 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4AED2B772B2CD43100E348A0 /* Run Mint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Mint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which mint >/dev/null; then\n  xcrun --sdk macosx mint run swiftformat \"$SRCROOT\" --config \"$SRCROOT\"/.swiftformat\n  xcrun --sdk macosx mint run swiftlint lint \"$SRCROOT\" --config \"$SRCROOT\"/.swiftlint.yml\nelse\n  echo \"warning: Mint not installed, download from https://github.com/yonaskolb/Mint, run \\\"mint bootstrap\\\"\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4A848A2C2B24F2700090FC73 /* Sources */ = {
@@ -442,6 +477,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Fardal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -479,6 +515,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Fardal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;

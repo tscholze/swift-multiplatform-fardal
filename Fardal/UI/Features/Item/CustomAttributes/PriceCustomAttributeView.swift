@@ -9,21 +9,21 @@ import SwiftUI
 
 struct PriceCustomAttributeView: View {
     // MARK: - Properties -
-    
+
     /// View mode for the view
     let mode: ViewMode
-    
+
     /// Data store whichs information shall be rendered
     let store: PriceCustomAttributeStore
-    
+
     // MARK: - States -
-    
+
     @State private var title: String = ""
     @State private var price: Decimal = 0
     @State private var selectedCurrencyCode = "EUR"
-    
+
     // MARK: - UI -
-    
+
     var body: some View {
         switch mode {
         case .read:
@@ -32,20 +32,20 @@ struct PriceCustomAttributeView: View {
             makeWriteableView()
         }
     }
-    
+
     // MARK: - View builders -
-    
+
     @ViewBuilder
     private func makeReadView() -> some View {
         VStack(alignment: .leading) {
             Text(store.title)
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            
+
             Text(store.price, format: .currency(code: store.currencyCode))
         }
     }
-    
+
     @ViewBuilder
     private func makeWriteableView() -> some View {
         VStack(spacing: 0) {
@@ -56,7 +56,7 @@ struct PriceCustomAttributeView: View {
                     of: title,
                     onTitleChanged(oldValue:newValue:)
                 )
-    
+
             // Price and Currency chooser
             HStack {
                 // Value
@@ -69,9 +69,9 @@ struct PriceCustomAttributeView: View {
                     of: price,
                     onPriceChanged(oldValue:newValue:)
                 )
-                
+
                 Spacer()
-                
+
                 Picker("", selection: $selectedCurrencyCode) {
                     Text("Euro").tag("EUR")
                     Text("Dollar").tag("USD")
@@ -88,18 +88,18 @@ struct PriceCustomAttributeView: View {
             selectedCurrencyCode = store.currencyCode
         }
     }
-    
+
     // MARK: - Helpers -
-    
-    private func onTitleChanged(oldValue: String, newValue: String) {
+
+    private func onTitleChanged(oldValue _: String, newValue: String) {
         store.title = newValue
     }
-    
-    private func onCurrencyCodeChanged(oldValue: String, newValue: String) {
+
+    private func onCurrencyCodeChanged(oldValue _: String, newValue: String) {
         store.currencyCode = newValue
     }
-    
-    private func onPriceChanged(oldValue: Decimal, newValue: Decimal) {
+
+    private func onPriceChanged(oldValue _: Decimal, newValue: Decimal) {
         // Validate
         // if valide -> store it
         store.price = newValue
@@ -109,47 +109,44 @@ struct PriceCustomAttributeView: View {
 // MARK: - Store -
 
 class PriceCustomAttributeStore {
-    
     // MARK: - Properties -
-    
+
     /// Raw data source of the attribute
     private(set) var attribute: ItemCustomAttribute
-    
+
     /// Title of the price attribute.
     /// E.g. "price" or "UVP".
     var title: String {
         didSet { attribute.payload["title"] = title }
     }
-    
+
     /// Currency code of the price
     /// E.g.: "USD", "EUR"
     var currencyCode: String {
         didSet { attribute.payload["currencyCode"] = currencyCode }
     }
-    
+
     /// Price value in decimal format.
     var price: Decimal {
         didSet { attribute.payload["price"] = "\(price)" }
     }
-    
+
     // MARK: - Init -
-    
+
     init(attribute: ItemCustomAttribute) {
-        
         // Validate payload
-        guard let title =  attribute.payload["title"],
+        guard let title = attribute.payload["title"],
               let code = attribute.payload["currencyCode"],
               let rawPrice = attribute.payload["price"],
-              let doublePrice = Double(rawPrice)
-        else {
+              let doublePrice = Double(rawPrice) else {
             fatalError("Invalid payload")
         }
-        
+
         // Set properties
         self.attribute = attribute
         self.title = title
-        self.currencyCode = code
-        self.price =  Decimal(doublePrice)
+        currencyCode = code
+        price = Decimal(doublePrice)
     }
 }
 

@@ -12,15 +12,15 @@ import PhotosUI
 /// CRUD operations on an [Item].
 struct ItemCrudView: View {
     // MARK: - Properties -
-    
+
     /// Underlying item that shall be target of CRUD operations
     let item: Item
-    
+
     /// Initials view mode
     let initialViewModel: ViewMode
-    
+
     // MARK: - Private properties -
-    
+
     @State private var name = ""
     @State private var summary = ""
     @State private var viewMode: ViewMode = .edit
@@ -28,12 +28,12 @@ struct ItemCrudView: View {
     @State private var showAddCustomAttributeSheet = false
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
+
     @State var imageSelection: PhotosPickerItem? = nil
-    @State var images: [ImageData] = [ImageData]()
-    
+    @State var images: [ImageData] = .init()
+
     // MARK: - UI -
-    
+
     var body: some View {
         VStack(spacing: 0) {
             // User input
@@ -43,7 +43,7 @@ struct ItemCrudView: View {
                 makeTaggingSection()
                 makeCustomAttributesSection()
             }
-            
+
             // Actions
             makeActions()
         }
@@ -77,18 +77,19 @@ extension ItemCrudView {
             if viewMode == .read {
                 Text($name.wrappedValue)
                 Text($summary.wrappedValue)
-            } else {
+            }
+            else {
                 TextField("Item.Detail.Section.Required.Name", text: $name)
-                    .onChange(of: name) { oldValue, newValue in
+                    .onChange(of: name) { _, _ in
                         item.title = name
                     }
-                
+
                 // Summary
                 TextField("Item.Detail.Section.Required.Summary", text: $summary)
             }
         }
     }
-    
+
     @ViewBuilder
     private func makeTaggingSection() -> some View {
         Section("Item.Detail.Section.Tagging.Title") {
@@ -96,22 +97,22 @@ extension ItemCrudView {
             HStack(alignment: .center) {
                 // Title
                 Text("Item.Detail.Section.Tagging.Flag")
-                
+
                 // Identicator
                 Image(systemName: "flag.fill")
                     .foregroundStyle(Color(hex: item.hexColor))
-                
+
                 // Picker
                 if viewMode != .read {
                     ColorPicker("", selection: $selectedColor)
-                        .onChange(of: selectedColor) { oldValue, newValue in
+                        .onChange(of: selectedColor) { _, newValue in
                             item.hexColor = newValue.hexValue
                         }
                 }
             }
         }
     }
-    
+
     @ViewBuilder
     private func makePhotosSection() -> some View {
         Section {
@@ -125,11 +126,11 @@ extension ItemCrudView {
                             .clipShape(RoundedRectangle(cornerRadius: 4))
                             .overlay(alignment: .topTrailing) {
                                 if viewMode != .read {
-                                Button {
-                                    withAnimation {
-                                        images.removeAll(where: { $0.id == imageData.id })
-                                    }
-                                } label: {
+                                    Button {
+                                        withAnimation {
+                                            images.removeAll(where: { $0.id == imageData.id })
+                                        }
+                                    } label: {
                                         Image(systemName: "x.circle.fill")
                                             .foregroundStyle(.white)
                                             .shadow(radius: 2)
@@ -150,7 +151,7 @@ extension ItemCrudView {
                     } label: {
                         PhotosPicker(
                             selection: $imageSelection,
-                            matching: .images ,
+                            matching: .images,
                             photoLibrary: .shared()
                         ) {
                             Image(systemName: "plus.circle")
@@ -159,11 +160,11 @@ extension ItemCrudView {
                 }
             }
         }
-        .onChange(of: imageSelection) { oldValue, newValue in
+        .onChange(of: imageSelection) { _, _ in
             if let imageSelection {
                 imageSelection.loadTransferable(type: Data.self) { result in
                     switch result {
-                    case .success(.some(let data)):
+                    case let .success(.some(data)):
                         let newImage = ImageData(data: data)
                         withAnimation { images.append(newImage) }
                     default: print("Failed")
@@ -172,7 +173,7 @@ extension ItemCrudView {
             }
         }
     }
-    
+
     @ViewBuilder
     private func makeCustomAttributesSection() -> some View {
         Section {
@@ -198,7 +199,7 @@ extension ItemCrudView {
             }
         }
     }
-    
+
     @ViewBuilder
     private func makeActions() -> some View {
         VStack {
@@ -212,30 +213,30 @@ extension ItemCrudView {
         .frame(maxWidth: .infinity)
         .background(Color(uiColor: UIColor.systemGroupedBackground))
     }
-    
+
     @ViewBuilder
     private func makeAddCustomAttributeAlertContent() -> some View {
         // Date
         Button("Item.Detail.Action.AddDateAttribute") {
             onAddDateCustomAttributeTapped()
         }
-        
+
         // Price
         Button("Item.Detail.Action.AddPriceAttribute") {
             onAddPriceCustomAttributeTapped()
         }
-        
+
         // Url
         Button("Item.Detail.Action.AddUrlAttribute") {
             onAddUrlCustomAttributeTapped()
         }
-        
+
         // Cancel
         Button("Misc.Cancel", role: .cancel) {
             // nothing
         }
     }
-    
+
     @ToolbarContentBuilder
     private func makeToolbar() -> some ToolbarContent {
         // Save
@@ -246,7 +247,7 @@ extension ItemCrudView {
                 }
             }
         }
-        
+
         // Edit
         if viewMode == .read {
             ToolbarItem(placement: .primaryAction) {
@@ -256,7 +257,7 @@ extension ItemCrudView {
             }
         }
     }
-    
+
     private func makeSymbolImage() -> some View {
         Text("FOO")
     }
@@ -265,37 +266,36 @@ extension ItemCrudView {
 // MARK: - Actions -
 
 extension ItemCrudView {
-    
     private func onAddCustomTapped() {
         showAddCustomAttributeSheet.toggle()
     }
-    
+
     private func onAddPriceCustomAttributeTapped() {
         item.customAttributes.append(.emptyPriceAttribute)
         showAddCustomAttributeSheet.toggle()
     }
-    
+
     private func onAddDateCustomAttributeTapped() {
         item.customAttributes.append(.emptyDateAttribute)
         showAddCustomAttributeSheet.toggle()
     }
-    
+
     private func onAddUrlCustomAttributeTapped() {
         item.customAttributes.append(.emptyUrlAttribute)
         showAddCustomAttributeSheet.toggle()
     }
-    
+
     private func onDeleteCustomTapped(withIndexSet indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
         let attributeToDelete = item.customAttributes[index]
-        item.customAttributes.removeAll(where: { $0.id == attributeToDelete.id  })
+        item.customAttributes.removeAll(where: { $0.id == attributeToDelete.id })
         modelContext.delete(attributeToDelete)
     }
-    
+
     private func onSaveButtonTapped() {
         viewMode = .read
     }
-    
+
     private func onEditButtonTapped() {
         viewMode = .edit
     }
