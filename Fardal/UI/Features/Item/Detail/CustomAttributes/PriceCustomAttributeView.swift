@@ -50,18 +50,18 @@ struct PriceCustomAttributeView: View {
     private func makeWriteableView() -> some View {
         VStack(spacing: 0) {
             // Title
-            TextField("Title", text: $title)
+            TextField( "Item.Detail.Attribute.Price.Title", text: $title)
                 .font(.caption)
                 .onChange(
                     of: title,
                     onTitleChanged(oldValue:newValue:)
                 )
-    
+            
             // Price and Currency chooser
             HStack {
                 // Value
                 TextField(
-                    "Price",
+                    "Item.Detail.Attribute.Price.Value.Placeholder",
                     value: $price, format: .currency(code: selectedCurrencyCode)
                 )
                 .keyboardType(.decimalPad)
@@ -73,8 +73,13 @@ struct PriceCustomAttributeView: View {
                 Spacer()
                 
                 Picker("", selection: $selectedCurrencyCode) {
-                    Text("Euro").tag("EUR")
-                    Text("Dollar").tag("USD")
+                    ForEach(SupportedCurrencies.allCases) { currency in
+                        if let name = Locale.current.localizedString(forCurrencyCode: currency.code) {
+                            Text(name).tag(currency.code)
+                        } else {
+                            EmptyView()
+                        }
+                    }
                 }
                 .onChange(
                     of: selectedCurrencyCode,
@@ -88,8 +93,18 @@ struct PriceCustomAttributeView: View {
             selectedCurrencyCode = store.currencyCode
         }
     }
+}
+
+// MARK: - View Builders -
+
+extension PriceCustomAttributeView {
     
-    // MARK: - Helpers -
+
+}
+
+// MARK: - Actions -
+
+extension PriceCustomAttributeView {
     
     private func onTitleChanged(oldValue: String, newValue: String) {
         store.title = newValue

@@ -40,7 +40,7 @@ struct DateCustomAttributeView: View {
         } else {
             VStack(spacing: 0) {
                 // Title
-                TextField("Title", text: $title)
+                TextField("Item.Detail.Attribute.Date.Title.Placeholder", text: $title)
                     .font(.caption)
                     .onChange(
                         of: title,

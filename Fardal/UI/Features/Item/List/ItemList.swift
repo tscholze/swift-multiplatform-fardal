@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 /// Renders a list of stored items
+/// in context of a tab item "list".
 struct ItemListView: View {
     // MARK: - Properties -
     
@@ -29,22 +30,23 @@ struct ItemListView: View {
                 }
                 .onDelete(perform: onDeleteItems)
             }
+            .navigationTitle("Item.List.Title")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
                 ToolbarItem {
                     Button(action: onAddItemTapped) {
-                        Label("Add Item", systemImage: "plus")
+                        Label("Item.List.Action.Add", systemImage: "plus")
                     }
                 }
             }
         } detail: {
-            Text("Select an item")
+            Text("Item.List.Detail.Empty")
         }
         .tabItem {
             Image(systemName: "list.bullet.rectangle")
-            Text("Items")
+            Text("Item.List.Title")
         }
     }
 }

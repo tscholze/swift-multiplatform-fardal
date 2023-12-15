@@ -87,7 +87,8 @@ extension ItemCustomAttribute {
         payload: ["title": "Date", "date": Date.now.formatted(.dateTime)]
     )
     
-    static var emptyLinkAttribute: ItemCustomAttribute = .init(
+    /// Gets an empty (initial) empty url attribute.
+    static var emptyUrlAttribute: ItemCustomAttribute = .init(
         layout: "url",
         payload: ["title" : "Homepage", "url": ""]
     )
