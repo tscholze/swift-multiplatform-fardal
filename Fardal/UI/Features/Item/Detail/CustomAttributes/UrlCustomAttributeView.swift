@@ -1,5 +1,5 @@
 //
-//  LinkCustomAttributeView.swift
+//  UrlCustomAttributeView.swift.swift
 //  Fardal
 //
 //  Created by Tobias Scholze on 13.12.23.
@@ -49,7 +49,7 @@ struct UrlCustomAttributeView: View {
         } else {
             VStack(spacing: 0) {
                 // Title
-                TextField("Title", text: $title)
+                TextField("Item.Detail.Attribute.Url.Title.Placeholder", text: $title)
                     .font(.caption)
                     .onChange(
                         of: title,
@@ -57,8 +57,10 @@ struct UrlCustomAttributeView: View {
                     )
                 
                 HStack {
-                    TextField("URL", text: $rawUrl)
+                    TextField("Item.Detail.Attribute.Url.Value.Placeholder", text: $rawUrl)
                         .keyboardType(.URL)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
                         .onChange(
                             of: rawUrl,
                             onRawUrlChanged(oldValue:newValue:)

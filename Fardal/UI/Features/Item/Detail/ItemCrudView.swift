@@ -46,7 +46,7 @@ struct ItemCrudView: View {
         .navigationTitle(item.title.isEmpty == true ? "New item" : item.title)
         .toolbar { makeToolbar() }
         .onAppear(perform: onDidAppear)
-        .alert("Add attribute", isPresented: $showAddCustomAttributeSheet) {
+        .alert("Item.Detail.Action.AddAttribute", isPresented: $showAddCustomAttributeSheet) {
             makeAddCustomAttributeAlertContent()
         }
     }
@@ -68,29 +68,29 @@ extension ItemCrudView {
 extension ItemCrudView {
     @ViewBuilder
     private func makeRequiredSection() -> some View {
-        Section("Required") {
+        Section("Item.Detail.Section.Required.Title") {
             // Name
             if viewMode == .read {
                 Text($name.wrappedValue)
                 Text($summary.wrappedValue)
             } else {
-                TextField("Name", text: $name)
+                TextField("Item.Detail.Section.Required.Name", text: $name)
                     .onChange(of: name) { oldValue, newValue in
                         item.title = name
                     }
                 
                 // Summary
-                TextField("Summary", text: $summary)
+                TextField("Item.Detail.Section.Required.Summary", text: $summary)
             }
         }
     }
     
     @ViewBuilder
     private func makeTaggingSection() -> some View {
-        Section("Tagging") {
+        Section("Item.Detail.Section.Tagging.Title") {
             // Color
             HStack(alignment: .center) {
-                Text("Flag")
+                Text("Item.Detail.Section.Tagging.Flag")
                 
                 // Identicator
                 Image(systemName: "flag.fill")
@@ -109,7 +109,7 @@ extension ItemCrudView {
     
     @ViewBuilder
     private func makePhotosSection() -> some View {
-        Section("Photo") {
+        Section("Item.Detail.Section.Photos.Title") {
             
         }
     }
@@ -127,7 +127,7 @@ extension ItemCrudView {
             }
         } header: {
             HStack {
-                Text("Custom")
+                Text("Item.Detail.Section.Attributes.Title")
                 if viewMode != .read {
                     Button(
                         action: { onAddCustomTapped() },
@@ -144,7 +144,7 @@ extension ItemCrudView {
     private func makeActions() -> some View {
         VStack {
             if initialViewModel != .create {
-                Button("Delete item", role: .destructive) {
+                Button("Item.Detail.Actions.DeleteItem", role: .destructive) {
                     modelContext.delete(item)
                     dismiss()
                 }
@@ -157,17 +157,22 @@ extension ItemCrudView {
     @ViewBuilder
     private func makeAddCustomAttributeAlertContent() -> some View {
         // Date
-        Button("Add date information") {
+        Button("Item.Detail.Action.AddDateAttribute") {
             onAddDateCustomAttributeTapped()
         }
         
         // Price
-        Button("Add price information") {
+        Button("Item.Detail.Action.AddPriceAttribute") {
             onAddPriceCustomAttributeTapped()
         }
         
+        // Url
+        Button("Item.Detail.Action.AddUrlAttribute") {
+            onAddUrlCustomAttributeTapped()
+        }
+        
         // Cancel
-        Button("Cancel", role: .cancel) {
+        Button("Misc.Cancel", role: .cancel) {
             // nothing
         }
     }
@@ -209,6 +214,11 @@ extension ItemCrudView {
     
     private func onAddDateCustomAttributeTapped() {
         item.customAttributes.append(.emptyDateAttribute)
+        showAddCustomAttributeSheet.toggle()
+    }
+    
+    private func onAddUrlCustomAttributeTapped() {
+        item.customAttributes.append(.emptyUrlAttribute)
         showAddCustomAttributeSheet.toggle()
     }
     

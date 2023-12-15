@@ -10,12 +10,18 @@ import SwiftData
 
 @main
 struct FardalApp: App {
+    
+    // MARK: - Properties -
+    
+    @AppStorage("appereance")
+    private var currentAppearance: Appereance = .system
 
     // MARK: - UI -
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(currentAppearance.scheme)
         }
         .modelContainer(sharedModelContainer)
     }
