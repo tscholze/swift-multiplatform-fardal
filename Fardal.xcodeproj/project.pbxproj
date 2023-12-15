@@ -240,7 +240,6 @@
 				4A848A2C2B24F2700090FC73 /* Sources */,
 				4A848A2D2B24F2700090FC73 /* Frameworks */,
 				4A848A2E2B24F2700090FC73 /* Resources */,
-				4AED2B772B2CD43100E348A0 /* Run Mint */,
 			);
 			buildRules = (
 			);
@@ -299,28 +298,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		4AED2B772B2CD43100E348A0 /* Run Mint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Mint";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which mint >/dev/null; then\n  xcrun --sdk macosx mint run swiftformat \"$SRCROOT\" --config \"$SRCROOT\"/.swiftformat\n  xcrun --sdk macosx mint run swiftlint lint \"$SRCROOT\" --config \"$SRCROOT\"/.swiftlint.yml\nelse\n  echo \"warning: Mint not installed, download from https://github.com/yonaskolb/Mint, run \\\"mint bootstrap\\\"\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4A848A2C2B24F2700090FC73 /* Sources */ = {
