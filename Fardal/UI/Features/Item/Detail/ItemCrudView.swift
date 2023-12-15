@@ -56,6 +56,7 @@ struct ItemCrudView: View {
 
 extension ItemCrudView {
     private func onDidAppear() {
+        viewMode = initialViewModel
         name = item.title
         summary = item.summary
         selectedColor = Color(hex: item.hexColor)

@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 
+/// Renders a list of stored items
 struct ItemListView: View {
     // MARK: - Properties -
     
@@ -40,6 +41,10 @@ struct ItemListView: View {
             }
         } detail: {
             Text("Select an item")
+        }
+        .tabItem {
+            Image(systemName: "list.bullet.rectangle")
+            Text("Items")
         }
     }
 }
