@@ -14,59 +14,6 @@
         }
       }
     },
-    "FOO" : {
-
-    },
-    "Item.Detail.Action.AddAttribute" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add  attribute"
-          }
-        }
-      }
-    },
-    "Item.Detail.Action.AddDateAttribute" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add date attribute"
-          }
-        }
-      }
-    },
-    "Item.Detail.Action.AddPriceAttribute" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add price attribute"
-          }
-        }
-      }
-    },
-    "Item.Detail.Action.AddUrlAttribute" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add link attribute"
-          }
-        }
-      }
-    },
-    "Item.Detail.Actions.DeleteItem" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete item"
-          }
-        }
-      }
-    },
     "Item.Detail.Attribute.Date.Title.Placeholder" : {
       "localizations" : {
         "en" : {
@@ -117,7 +64,87 @@
         }
       }
     },
-    "Item.Detail.Section.Attributes.Title" : {
+    "Item.Draft.Action.Cancel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Item.Draft.Action.Edit" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
+    },
+    "Item.Draft.Action.Save" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Action.AddAttribute" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add new attribute"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Action.AddDateAttribute" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a date"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Action.AddPriceAttribute" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add pricing information"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Action.AddUrlAttribute" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add an URL"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Actions.DeleteItem" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete item"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.Attributes.Title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -127,18 +154,7 @@
         }
       }
     },
-    "Item.Detail.Section.Photos.Title" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Photos %lld"
-          }
-        }
-      }
-    },
-    "Item.Detail.Section.Photos.Title %lld / 3" : {
+    "Item.Draft.Detail.Section.Photos.Title %lld / 3" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -148,7 +164,7 @@
         }
       }
     },
-    "Item.Detail.Section.Required.Name" : {
+    "Item.Draft.Detail.Section.Required.Name" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -158,7 +174,7 @@
         }
       }
     },
-    "Item.Detail.Section.Required.Summary" : {
+    "Item.Draft.Detail.Section.Required.Summary" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -168,7 +184,7 @@
         }
       }
     },
-    "Item.Detail.Section.Required.Title" : {
+    "Item.Draft.Detail.Section.Required.Title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -178,7 +194,7 @@
         }
       }
     },
-    "Item.Detail.Section.Tagging.Flag" : {
+    "Item.Draft.Detail.Section.Tagging.Flag" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -188,7 +204,7 @@
         }
       }
     },
-    "Item.Detail.Section.Tagging.Title" : {
+    "Item.Draft.Detail.Section.Tagging.Title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {

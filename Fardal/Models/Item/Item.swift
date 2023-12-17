@@ -23,10 +23,9 @@ final class Item {
 
     /// Short summary
     var summary: String
-
-    /// Image assets
-    var images: [ImageData]
-
+    
+    var imageDatas: [ImageData]
+    
     /// List of custom attributes
     var customAttributes: [ItemCustomAttribute]
 
@@ -51,11 +50,11 @@ final class Item {
         self.id = id
         self.title = title
         self.summary = summary
-        images = imagesData
+        self.imageDatas = imagesData
         self.customAttributes = customAttributes
         self.updatedAt = updatedAt
         self.createdAt = createdAt
-        hexColor = color.hexValue
+        self.hexColor = color.hexValue
     }
 }
 
@@ -67,7 +66,7 @@ extension Item {
         title: "Mocked",
         summary: "My Mocked Foo",
         color: .orange,
-        customAttributes: [.mockedDateAttribute, .mockedPriceAttribute, .mockedLinkAttribute],
+        customAttributes: [],
         updatedAt: .now
     )
 }
