@@ -10,14 +10,13 @@ import SwiftData
 
 @main
 struct FardalApp: App {
-    
     // MARK: - Properties -
-    
+
     @AppStorage("appereance")
     private var currentAppearance: Appereance = .system
 
     // MARK: - UI -
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -25,14 +24,14 @@ struct FardalApp: App {
         }
         .modelContainer(sharedModelContainer)
     }
-    
+
     // MARK: - Swift Data setup -
-    
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
         ])
-        
+
         let configuration = ModelConfiguration(
             schema: schema,
             isStoredInMemoryOnly: false
@@ -43,14 +42,11 @@ struct FardalApp: App {
                 for: schema,
                 configurations: [configuration]
             )
-        } catch {
+        }
+        catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
 }
 
-
-
-extension FardalApp {
-    
-}
+extension FardalApp {}

@@ -17,6 +17,9 @@
 		4A06F8552B2B3BBD00F93E37 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A06F8542B2B3BBD00F93E37 /* ItemList.swift */; };
 		4A1EA7F52B2EF4CB0053E5AF /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EA7F42B2EF4CB0053E5AF /* ImageData.swift */; };
 		4A1EA7F72B2EF6760053E5AF /* ItemDatabaseOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EA7F62B2EF6760053E5AF /* ItemDatabaseOperations.swift */; };
+		4A1EA7FB2B2F548E0053E5AF /* SymbolWizardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EA7FA2B2F548E0053E5AF /* SymbolWizardView.swift */; };
+		4A1EA7FE2B2F55A20053E5AF /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 4A1EA7FD2B2F55A20053E5AF /* SFSafeSymbols */; };
+		4A1EA8012B2F57DC0053E5AF /* SymbolPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EA8002B2F57DC0053E5AF /* SymbolPickerView.swift */; };
 		4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */; };
 		4A848A342B24F2700090FC73 /* FardalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A332B24F2700090FC73 /* FardalApp.swift */; };
 		4A848A362B24F2700090FC73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A352B24F2700090FC73 /* ContentView.swift */; };
@@ -41,6 +44,8 @@
 		4A06F8542B2B3BBD00F93E37 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		4A1EA7F42B2EF4CB0053E5AF /* ImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
 		4A1EA7F62B2EF6760053E5AF /* ItemDatabaseOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDatabaseOperations.swift; sourceTree = "<group>"; };
+		4A1EA7FA2B2F548E0053E5AF /* SymbolWizardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolWizardView.swift; sourceTree = "<group>"; };
+		4A1EA8002B2F57DC0053E5AF /* SymbolPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolPickerView.swift; sourceTree = "<group>"; };
 		4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCustomAttributeView.swift; sourceTree = "<group>"; };
 		4A848A302B24F2700090FC73 /* Fardal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fardal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A848A332B24F2700090FC73 /* FardalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FardalApp.swift; sourceTree = "<group>"; };
@@ -61,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A1EA7FE2B2F55A20053E5AF /* SFSafeSymbols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +125,7 @@
 		4A06F84F2B2A368A00F93E37 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4A1EA7FF2B2F57C40053E5AF /* IconWizard */,
 				4A06F8502B2A369D00F93E37 /* FavIconAsyncImage.swift */,
 			);
 			path = Components;
@@ -139,6 +146,15 @@
 				4A06F8542B2B3BBD00F93E37 /* ItemList.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		4A1EA7FF2B2F57C40053E5AF /* IconWizard */ = {
+			isa = PBXGroup;
+			children = (
+				4A1EA7FA2B2F548E0053E5AF /* SymbolWizardView.swift */,
+				4A1EA8002B2F57DC0053E5AF /* SymbolPickerView.swift */,
+			);
+			path = IconWizard;
 			sourceTree = "<group>";
 		};
 		4A848A272B24F2700090FC73 = {
@@ -240,6 +256,9 @@
 			dependencies = (
 			);
 			name = Fardal;
+			packageProductDependencies = (
+				4A1EA7FD2B2F55A20053E5AF /* SFSafeSymbols */,
+			);
 			productName = Fardal;
 			productReference = 4A848A302B24F2700090FC73 /* Fardal.app */;
 			productType = "com.apple.product-type.application";
@@ -268,6 +287,9 @@
 				Base,
 			);
 			mainGroup = 4A848A272B24F2700090FC73;
+			packageReferences = (
+				4A1EA7FC2B2F55A20053E5AF /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+			);
 			productRefGroup = 4A848A312B24F2700090FC73 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -297,6 +319,8 @@
 			files = (
 				4AED2B6A2B2C650D00E348A0 /* SupportedCurrencies.swift in Sources */,
 				4A04AD0F2B25CEBF00CA9053 /* PriceCustomAttributeView.swift in Sources */,
+				4A1EA8012B2F57DC0053E5AF /* SymbolPickerView.swift in Sources */,
+				4A1EA7FB2B2F548E0053E5AF /* SymbolWizardView.swift in Sources */,
 				4A8561C42B2EEF18002193E2 /* ItemDraft.swift in Sources */,
 				4A1EA7F52B2EF4CB0053E5AF /* ImageData.swift in Sources */,
 				4A04AD0C2B25B9E300CA9053 /* Color+Data.swift in Sources */,
@@ -532,6 +556,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4A1EA7FC2B2F55A20053E5AF /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SFSafeSymbols/SFSafeSymbols.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4A1EA7FD2B2F55A20053E5AF /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4A1EA7FC2B2F55A20053E5AF /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4A848A282B24F2700090FC73 /* Project object */;
 }

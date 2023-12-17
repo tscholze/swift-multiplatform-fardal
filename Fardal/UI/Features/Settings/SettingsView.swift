@@ -11,21 +11,20 @@ import SwiftData
 /// Responsible for rendering the stack behind the
 /// "Settings" tab bar item.
 struct SettingsView: View {
-    
     // MARK: - Properties -
-    
+
     @AppStorage("appereance") private var currentAppereance: Appereance = .system
     @Query private var items: [Item]
-    
+
     // MARK: - UI -
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                    Form {
-                        makeSectionAppereance()
-                        makeSectionDataInformation()
-                    }
+                Form {
+                    makeSectionAppereance()
+                    makeSectionDataInformation()
+                }
                 makeFooterInformation()
             }
             .navigationTitle("Settings.Title")
@@ -40,7 +39,6 @@ struct SettingsView: View {
 // MARK: - View builder -
 
 extension SettingsView {
-    
     @ViewBuilder
     private func makeSectionAppereance() -> some View {
         Section {
@@ -56,21 +54,21 @@ extension SettingsView {
             .pickerStyle(.segmented)
         }
     }
-    
+
     @ViewBuilder
     private func makeSectionDataInformation() -> some View {
         Section("Settings.DataInformation") {
             LabeledContent("Settings.DataInformation.NumberOfItems", value: "\(items.count) / ∞")
         }
     }
-    
+
     @ViewBuilder
     private func makeFooterInformation() -> some View {
         VStack {
             Divider()
                 .opacity(0.5)
                 .padding([.horizontal], 40)
-            
+
             Text("Settings.Footer.Version")
                 .font(.caption)
                 .foregroundStyle(.secondary)

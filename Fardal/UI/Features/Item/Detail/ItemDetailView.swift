@@ -24,12 +24,13 @@ struct ItemDetailView: View {
     @State private var draft: ItemDraft
     @State private var viewMode: ViewMode = .edit
     @State private var showAddCustomAttributeSheet = false
+    @State private var showIconWizard = false
     @State private var selectedColor: Color = Color.clear
+    @State private var imagesData = [ImageData]()
     @State private var imageSelection: PhotosPickerItem? = nil
-
+    @State private var iconData: Data? = nil
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
     
     // MARK: - Init -
     
@@ -65,6 +66,7 @@ extension ItemDetailView {
     private func onDidAppear() {
         viewMode = initialViewModel
         selectedColor = Color(hex: draft.hexColor)
+        imagesData = draft.imagesData
     }
 }
 
@@ -112,62 +114,101 @@ extension ItemDetailView {
     @ViewBuilder
     private func makePhotosSection() -> some View {
         Section {
-            ScrollView(.horizontal) {
-                HStack {
-                    // List of images
-                    ForEach(draft.imagesData, id: \.id) { imageData in
-                        Image(uiImage: imageData.uiImage)
-                            .resizable()
-                            .aspectRatio(1, contentMode: .fill)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                            .overlay(alignment: .topTrailing) {
-                                if viewMode != .read {
-                                    Button {
-                                        withAnimation {
-                                            draft.imagesData.removeAll(where: { $0.id == imageData.id })
-                                        }
-                                    } label: {
-                                        Image(systemName: "x.circle.fill")
-                                            .foregroundStyle(.white)
-                                            .shadow(radius: 2)
-                                            .padding(4)
-                                    }
-                                }
-                            }
+            Group {
+                if imagesData.isEmpty {
+                    HStack(alignment: .center) {
+                        VStack {
+                            Image(systemName: "rectangle.center.inset.filled.badge.plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                            
+                            Text("Item.Draft.Detail.Section.Photo.Empty.Icon.Hint")
+                                .font(.caption)
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(width: 150)
+                        
+                        Divider()
+                        
+                        VStack {
+                            Image(systemName: "photo.badge.plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                            
+                            Text("Item.Draft.Detail.Section.Photo.Empty.Library.Hint")
+                                .font(.caption)
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(width: 150)
                     }
-                }
-                .frame(height: 80)
-            }
-        } header: {
-            HStack {
-                Text("Item.Draft.Detail.Section.Photos.Title \(draft.imagesData.count) / 3")
-                if viewMode != .read {
-                    Button {
-                        //
-                    } label: {
-                        PhotosPicker(
-                            selection: $imageSelection,
-                            matching: .images,
-                            photoLibrary: .shared()
-                        ) {
-                            Image(systemName: "plus.circle")
+                    .foregroundStyle(.secondary)
+                    .opacity(0.6)
+                    .frame(alignment: .center)
+                } else {
+                    ScrollView(.horizontal) {
+                        HStack {
+                            // List of images
+                            ForEach(imagesData, id: \.id) { imageData in
+                                Image(uiImage: imageData.uiImage)
+                                    .resizable()
+                                    .aspectRatio(1, contentMode: .fill)
+                                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                                    .overlay(alignment: .topTrailing) {
+                                        if viewMode != .read {
+                                            Button {
+                                                imagesData.removeAll(where: { $0.id == imageData.id })
+                                            } label: {
+                                                Image(systemName: "x.circle.fill")
+                                                    .foregroundStyle(.white)
+                                                    .opacity(0.6)
+                                                    .shadow(radius: 2)
+                                                    .padding(4)
+                                            }
+                                        }
+                                    }
+                            }
                         }
                     }
                 }
             }
-        }
-        .onChange(of: imageSelection) { _, newValue in
-            if let newValue {
-                newValue.loadTransferable(type: Data.self) { result in
-                    switch result {
-                    case let .success(.some(data)):
-                        let newImage = ImageData(data: data)
-                        withAnimation { draft.imagesData.append(newImage) }
-                    default: print("Failed")
+            .frame(height: 80)
+        } header: {
+            HStack {
+                Text("Item.Draft.Detail.Section.Photos.Title \(draft.imagesData.count) / 3")
+                if viewMode != .read {
+                    HStack {
+                        Button {
+                            //
+                        } label: {
+                            PhotosPicker(
+                                selection: $imageSelection,
+                                matching: .images,
+                                photoLibrary: .shared()
+                            ) {
+                                Image(systemName: "photo.badge.plus")
+                            }
+                        }
+                        
+                        Button {
+                            showIconWizard.toggle()
+                        } label: {
+                            Image(systemName: "rectangle.center.inset.filled.badge.plus")
+                        }
+
                     }
                 }
             }
+            .sheet(isPresented: $showIconWizard) {
+              SymbolWizardView(selectedData: $iconData)
+            }
         }
+        .onChange(of: iconData) { n, o in
+            onIconDataChanged(oldValue: n, newValue: o)
+        }
+        .onChange(of: imageSelection, onChangeImageSelection(oldValue:newValue:))
+        .onChange(of: imagesData) { draft.imagesData = $1 }
     }
     
     @ViewBuilder
@@ -240,7 +281,6 @@ extension ItemDetailView {
     
     @ToolbarContentBuilder
     private func makeToolbar() -> some ToolbarContent {
-        
         if viewMode == .read {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: { viewMode = .edit }) {
@@ -268,13 +308,33 @@ extension ItemDetailView {
 
 extension ItemDetailView {
     
-    private func onBackTapped() {
-        dismiss()
+    private func onChangeImageSelection(oldValue: PhotosPickerItem?, newValue: PhotosPickerItem?) {
+        guard let newValue else { return }
+        
+        newValue.loadTransferable(type: Data.self) { result in
+            switch result {
+            case let .success(.some(data)):
+                let newImage = ImageData(data: data)
+                imagesData.append(newImage)
+            default: print("Failed")
+            }
+        }
+    }
+    
+    private func onIconDataChanged(oldValue: Data?, newValue: Data?) {
+        guard let newValue else { return }
+        imagesData.insert(.init(data: newValue), at: 0)
     }
     
     private func onCancelTapped() {
         draft = .from(item: item)
+        selectedColor = Color(hex: draft.hexColor)
+        imagesData = draft.imagesData
         viewMode = .read
+    }
+    
+    private func onAddIconTapped() {
+        showIconWizard.toggle()
     }
     
     private func onAddCustomTapped() {
