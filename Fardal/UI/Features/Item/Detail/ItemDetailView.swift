@@ -26,6 +26,7 @@ struct ItemDetailView: View {
     @State private var showAddCustomAttributeSheet = false
     @State private var selectedColor: Color = Color.clear
     @State private var imageSelection: PhotosPickerItem? = nil
+    @State private var imagesData = [ImageData]()
 
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
@@ -115,7 +116,7 @@ extension ItemDetailView {
             ScrollView(.horizontal) {
                 HStack {
                     // List of images
-                    ForEach(draft.imagesData, id: \.id) { imageData in
+                    ForEach(imagesData, id: \.id) { imageData in
                         Image(uiImage: imageData.uiImage)
                             .resizable()
                             .aspectRatio(1, contentMode: .fill)
@@ -123,12 +124,11 @@ extension ItemDetailView {
                             .overlay(alignment: .topTrailing) {
                                 if viewMode != .read {
                                     Button {
-                                        withAnimation {
-                                            draft.imagesData.removeAll(where: { $0.id == imageData.id })
-                                        }
+                                        imagesData.removeAll(where: { $0.id == imageData.id })
                                     } label: {
                                         Image(systemName: "x.circle.fill")
                                             .foregroundStyle(.white)
+                                            .opacity(0.6)
                                             .shadow(radius: 2)
                                             .padding(4)
                                     }
@@ -156,18 +156,8 @@ extension ItemDetailView {
                 }
             }
         }
-        .onChange(of: imageSelection) { _, newValue in
-            if let newValue {
-                newValue.loadTransferable(type: Data.self) { result in
-                    switch result {
-                    case let .success(.some(data)):
-                        let newImage = ImageData(data: data)
-                        withAnimation { draft.imagesData.append(newImage) }
-                    default: print("Failed")
-                    }
-                }
-            }
-        }
+        .onChange(of: imageSelection, onChangeImageSelection(oldValue:newValue:))
+        .onChange(of: imagesData) { draft.imagesData = $1 }
     }
     
     @ViewBuilder
@@ -240,7 +230,6 @@ extension ItemDetailView {
     
     @ToolbarContentBuilder
     private func makeToolbar() -> some ToolbarContent {
-        
         if viewMode == .read {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: { viewMode = .edit }) {
@@ -268,12 +257,23 @@ extension ItemDetailView {
 
 extension ItemDetailView {
     
-    private func onBackTapped() {
-        dismiss()
+    private func onChangeImageSelection(oldValue: PhotosPickerItem?, newValue: PhotosPickerItem?) {
+        guard let newValue else { return }
+        
+        newValue.loadTransferable(type: Data.self) { result in
+            switch result {
+            case let .success(.some(data)):
+                let newImage = ImageData(data: data)
+                imagesData.append(newImage)
+            default: print("Failed")
+            }
+        }
     }
     
     private func onCancelTapped() {
         draft = .from(item: item)
+        selectedColor = Color(hex: draft.hexColor)
+        imagesData = draft.imagesData
         viewMode = .read
     }
     
