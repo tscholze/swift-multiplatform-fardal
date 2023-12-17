@@ -54,7 +54,7 @@ struct SymbolPickerView: View {
             }
         }
         .onAppear { filteredSymbols = allSymbols }
-        .navigationTitle("Select an icon")
+        .navigationTitle("SymbolPicker.Title")
     }
 }
 

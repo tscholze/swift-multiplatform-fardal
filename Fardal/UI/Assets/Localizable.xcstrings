@@ -154,6 +154,26 @@
         }
       }
     },
+    "Item.Draft.Detail.Section.Photo.Empty.Icon.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create an icon. It will be always the first one."
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.Photo.Empty.Library.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a photo from your phone. It should be square."
+          }
+        }
+      }
+    },
     "Item.Draft.Detail.Section.Photos.Title %lld / 3" : {
       "localizations" : {
         "en" : {
@@ -254,9 +274,6 @@
         }
       }
     },
-    "Select an icon" : {
-
-    },
     "Settings.Appereance.Mode" : {
       "localizations" : {
         "en" : {
@@ -353,6 +370,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Search a symbol by its name"
+          }
+        }
+      }
+    },
+    "SymbolPicker.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select an icon"
           }
         }
       }

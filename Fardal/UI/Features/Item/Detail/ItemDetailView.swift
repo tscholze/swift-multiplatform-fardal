@@ -114,31 +114,66 @@ extension ItemDetailView {
     @ViewBuilder
     private func makePhotosSection() -> some View {
         Section {
-            ScrollView(.horizontal) {
-                HStack {
-                    // List of images
-                    ForEach(imagesData, id: \.id) { imageData in
-                        Image(uiImage: imageData.uiImage)
-                            .resizable()
-                            .aspectRatio(1, contentMode: .fill)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                            .overlay(alignment: .topTrailing) {
-                                if viewMode != .read {
-                                    Button {
-                                        imagesData.removeAll(where: { $0.id == imageData.id })
-                                    } label: {
-                                        Image(systemName: "x.circle.fill")
-                                            .foregroundStyle(.white)
-                                            .opacity(0.6)
-                                            .shadow(radius: 2)
-                                            .padding(4)
+            Group {
+                if imagesData.isEmpty {
+                    HStack(alignment: .center) {
+                        VStack {
+                            Image(systemName: "rectangle.center.inset.filled.badge.plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                            
+                            Text("Item.Draft.Detail.Section.Photo.Empty.Icon.Hint")
+                                .font(.caption)
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(width: 150)
+                        
+                        Divider()
+                        
+                        VStack {
+                            Image(systemName: "photo.badge.plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                            
+                            Text("Item.Draft.Detail.Section.Photo.Empty.Library.Hint")
+                                .font(.caption)
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(width: 150)
+                    }
+                    .foregroundStyle(.secondary)
+                    .opacity(0.6)
+                    .frame(alignment: .center)
+                } else {
+                    ScrollView(.horizontal) {
+                        HStack {
+                            // List of images
+                            ForEach(imagesData, id: \.id) { imageData in
+                                Image(uiImage: imageData.uiImage)
+                                    .resizable()
+                                    .aspectRatio(1, contentMode: .fill)
+                                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                                    .overlay(alignment: .topTrailing) {
+                                        if viewMode != .read {
+                                            Button {
+                                                imagesData.removeAll(where: { $0.id == imageData.id })
+                                            } label: {
+                                                Image(systemName: "x.circle.fill")
+                                                    .foregroundStyle(.white)
+                                                    .opacity(0.6)
+                                                    .shadow(radius: 2)
+                                                    .padding(4)
+                                            }
+                                        }
                                     }
-                                }
                             }
+                        }
                     }
                 }
-                .frame(height: 80)
             }
+            .frame(height: 80)
         } header: {
             HStack {
                 Text("Item.Draft.Detail.Section.Photos.Title \(draft.imagesData.count) / 3")
