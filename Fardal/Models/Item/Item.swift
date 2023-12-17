@@ -24,6 +24,8 @@ final class Item {
     /// Short summary
     var summary: String
     
+    var imageDatas: [ImageData]
+    
     /// List of custom attributes
     var customAttributes: [ItemCustomAttribute]
     
@@ -40,6 +42,7 @@ final class Item {
         title: String,
         summary: String,
         color: Color = Color.clear,
+        imagesData: [ImageData] = [],
         customAttributes: [ItemCustomAttribute] = [],
         updatedAt: Date,
         createdAt: Date = Date.now
@@ -47,12 +50,11 @@ final class Item {
         self.id = id
         self.title = title
         self.summary = summary
+        self.imageDatas = imagesData
+        self.customAttributes = customAttributes
         self.updatedAt = updatedAt
         self.createdAt = createdAt
         self.hexColor = color.hexValue
-        self.customAttributes = customAttributes
-        
-        print(self.hexColor)
     }
 }
 

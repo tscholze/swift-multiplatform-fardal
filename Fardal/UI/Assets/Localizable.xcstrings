@@ -114,6 +114,16 @@
         }
       }
     },
+    "Item.Detail.Default.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New item"
+          }
+        }
+      }
+    },
     "Item.Detail.Section.Attributes.Title" : {
       "localizations" : {
         "en" : {
@@ -124,12 +134,12 @@
         }
       }
     },
-    "Item.Detail.Section.Photos.Title" : {
+    "Item.Detail.Section.Photos.Title %lld / 3" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Photos"
+            "value" : "Photos %lld / 3"
           }
         }
       }

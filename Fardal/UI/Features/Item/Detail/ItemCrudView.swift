@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 /// Represents a [View] that enables the user to perform
 /// CRUD operations on an [Item].
@@ -23,11 +24,14 @@ struct ItemCrudView: View {
     @State private var name = ""
     @State private var summary = ""
     @State private var viewMode: ViewMode = .edit
+    @State private var images: [ImageData] = .init()
     @State private var selectedColor: Color = .clear
     @State private var showAddCustomAttributeSheet = false
+    @State private var imageSelection: PhotosPickerItem? = nil
+
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
+
     // MARK: - UI -
     
     var body: some View {
@@ -43,7 +47,11 @@ struct ItemCrudView: View {
             // Actions
             makeActions()
         }
-        .navigationTitle(item.title.isEmpty == true ? "New item" : item.title)
+        .navigationTitle(
+            item.title.isEmpty == true
+            ? NSLocalizedString("Item.Detail.Default.Title", comment: "")
+            : item.title
+        )
         .toolbar { makeToolbar() }
         .onAppear(perform: onDidAppear)
         .alert("Item.Detail.Action.AddAttribute", isPresented: $showAddCustomAttributeSheet) {
@@ -109,8 +117,62 @@ extension ItemCrudView {
     
     @ViewBuilder
     private func makePhotosSection() -> some View {
-        Section("Item.Detail.Section.Photos.Title") {
-            
+        Section {
+            ScrollView(.horizontal) {
+                HStack {
+                    // List of images
+                    ForEach(images, id: \.id) { imageData in
+                        Image(uiImage: imageData.uiImage)
+                            .resizable()
+                            .aspectRatio(1, contentMode: .fill)
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                            .overlay(alignment: .topTrailing) {
+                                if viewMode != .read {
+                                    Button {
+                                        withAnimation {
+                                            images.removeAll(where: { $0.id == imageData.id })
+                                        }
+                                    } label: {
+                                        Image(systemName: "x.circle.fill")
+                                            .foregroundStyle(.white)
+                                            .shadow(radius: 2)
+                                            .padding(4)
+                                    }
+                                }
+                            }
+                    }
+                }
+                .frame(height: 80)
+            }
+        } header: {
+            HStack {
+                Text("Item.Detail.Section.Photos.Title \(images.count) / 3")
+                if viewMode != .read {
+                    Button {
+                        //
+                    } label: {
+                        PhotosPicker(
+                            selection: $imageSelection,
+                            matching: .images,
+                            photoLibrary: .shared()
+                        ) {
+                            Image(systemName: "plus.circle")
+                        }
+                    }
+                }
+            }
+        }
+        .onChange(of: imageSelection) { _, newValue in
+            if let newValue {
+                newValue.loadTransferable(type: Data.self) { result in
+                    switch result {
+                    case let .success(.some(data)):
+                        let newImage = ImageData(data: data)
+                        withAnimation { images.append(newImage) }
+                    default: print("Failed")
+                    }
+                }
+            }
         }
     }
     
