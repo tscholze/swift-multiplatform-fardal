@@ -66,6 +66,7 @@ extension ItemDetailView {
     private func onDidAppear() {
         viewMode = initialViewModel
         selectedColor = Color(hex: draft.hexColor)
+        imagesData = draft.imagesData
     }
 }
 
