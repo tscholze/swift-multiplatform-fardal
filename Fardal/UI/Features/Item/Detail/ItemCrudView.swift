@@ -43,21 +43,15 @@ struct ItemCrudView: View {
     // MARK: - UI -
     
     var body: some View {
-        VStack(spacing: 0) {
-            
-            makeToolbar()
-            
-            // User input
-            Form {
-                makeRequiredSection()
-                makePhotosSection()
-                makeTaggingSection()
-                makeCustomAttributesSection()
-            }
-            
-            // Actions
-            makeActions()
+        Form {
+            makeRequiredSection()
+            makePhotosSection()
+            makeTaggingSection()
+            makeCustomAttributesSection()
+            makeActionsSection()
         }
+        .navigationBarBackButtonHidden(viewMode != .read)
+        .toolbar { makeToolbar() }
         .onAppear(perform: onDidAppear)
         .alert("Item.Draft.Detail.Action.AddAttribute", isPresented: $showAddCustomAttributeSheet) {
             makeAddCustomAttributeAlertContent()
@@ -203,17 +197,22 @@ extension ItemCrudView {
     }
     
     @ViewBuilder
-    private func makeActions() -> some View {
-        VStack {
+    private func makeActionsSection() -> some View {
+        Section {
+            EmptyView()
+        } header: {
+            EmptyView()
+        } footer: {
             if let modelId = draft.existingId {
-                Button("Item.Draft.Detail.Actions.DeleteItem", role: .destructive) {
-                    ItemDatabaseOperations.shared.delete(withId: modelId)
-                    dismiss()
+                HStack {
+                    Spacer()
+                    Button("Item.Draft.Detail.Actions.DeleteItem", role: .destructive) {
+                        ItemDatabaseOperations.shared.delete(withId: modelId)
+                        dismiss()
+                    }
                 }
             }
         }
-        .frame(maxWidth: .infinity)
-        .background(Color(uiColor: UIColor.systemGroupedBackground))
     }
     
     @ViewBuilder
@@ -239,47 +238,29 @@ extension ItemCrudView {
         }
     }
     
-    @ViewBuilder
-    private func makeToolbar() -> some View {
-        Group {
-            if viewMode == .read {
-                HStack(alignment: .center) {
-                    // Back button
-                    Button(action: { onBackTapped() }) {                      
-                        Text("Item.Draft.Action.Back")
-                    }
-                    .buttonStyle(.bordered)
-                    
-                    // Stretch it
-                    Spacer()
-                    
-                    // Edit button
-                    Button(action: { viewMode = .edit }) {
-                        Text("Item.Draft.Action.Edit")
-                    }
-                    .buttonStyle(.bordered)
+    @ToolbarContentBuilder
+    private func makeToolbar() -> some ToolbarContent {
+        
+        if viewMode == .read {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: { viewMode = .edit }) {
+                    Text("Item.Draft.Action.Edit")
                 }
-            } else {
-                HStack(alignment: .center) {
-                    // Back button
-                    Button(action: { onCancelTapped() }) {
-                        Text("Item.Draft.Action.Cancel")
-                    }
-                    .buttonStyle(.bordered)
-                    
-                    // Stretch it
-                    Spacer()
-                    
-                    // Save button
-                    Button(action: { onSaveButtonTapped() }) {
-                        Text("Item.Draft.Action.Save")
-                    }
-                    .buttonStyle(.bordered)
+            }
+        } else {
+            
+            ToolbarItem(placement: .cancellationAction) {
+                Button(action: { onCancelTapped() }) {
+                    Text("Item.Draft.Action.Cancel")
+                }
+            }
+            
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: { onSaveButtonTapped() }) {
+                    Text("Item.Draft.Action.Save")
                 }
             }
         }
-        .padding(.horizontal)
-        .background(Color(uiColor: UIColor.systemGroupedBackground))
     }
 }
 

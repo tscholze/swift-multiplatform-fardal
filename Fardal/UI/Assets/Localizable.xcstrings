@@ -64,16 +64,6 @@
         }
       }
     },
-    "Item.Draft.Action.Back" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Back"
-          }
-        }
-      }
-    },
     "Item.Draft.Action.Cancel" : {
       "localizations" : {
         "en" : {
@@ -150,17 +140,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete item"
-          }
-        }
-      }
-    },
-    "Item.Draft.Detail.Default.Title" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "New Item"
           }
         }
       }
