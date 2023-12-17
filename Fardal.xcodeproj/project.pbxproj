@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A04AD092B25B87500CA9053 /* ItemCrudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD082B25B87500CA9053 /* ItemCrudView.swift */; };
+		4A04AD092B25B87500CA9053 /* ItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD082B25B87500CA9053 /* ItemDetailView.swift */; };
 		4A04AD0C2B25B9E300CA9053 /* Color+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD0B2B25B9E300CA9053 /* Color+Data.swift */; };
 		4A04AD0F2B25CEBF00CA9053 /* PriceCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD0E2B25CEBF00CA9053 /* PriceCustomAttributeView.swift */; };
 		4A04AD112B25CFFE00CA9053 /* ViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04AD102B25CFFE00CA9053 /* ViewMode.swift */; };
@@ -31,7 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4A04AD082B25B87500CA9053 /* ItemCrudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCrudView.swift; sourceTree = "<group>"; };
+		4A04AD082B25B87500CA9053 /* ItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailView.swift; sourceTree = "<group>"; };
 		4A04AD0B2B25B9E300CA9053 /* Color+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Data.swift"; sourceTree = "<group>"; };
 		4A04AD0E2B25CEBF00CA9053 /* PriceCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCustomAttributeView.swift; sourceTree = "<group>"; };
 		4A04AD102B25CFFE00CA9053 /* ViewMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMode.swift; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				4A04AD0D2B25CEA700CA9053 /* CustomAttributes */,
-				4A04AD082B25B87500CA9053 /* ItemCrudView.swift */,
+				4A04AD082B25B87500CA9053 /* ItemDetailView.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -308,7 +308,7 @@
 				4A06F8552B2B3BBD00F93E37 /* ItemList.swift in Sources */,
 				4A06F8512B2A369D00F93E37 /* FavIconAsyncImage.swift in Sources */,
 				4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */,
-				4A04AD092B25B87500CA9053 /* ItemCrudView.swift in Sources */,
+				4A04AD092B25B87500CA9053 /* ItemDetailView.swift in Sources */,
 				4AED2B612B2C5F7700E348A0 /* SettingsView.swift in Sources */,
 				4A06F84E2B2A2D7C00F93E37 /* UrlCustomAttributeView.swift in Sources */,
 				4A06F84E2B2A2D7C00F93E37 /* UrlCustomAttributeView.swift in Sources */,

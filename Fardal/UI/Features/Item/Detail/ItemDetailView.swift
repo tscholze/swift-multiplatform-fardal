@@ -8,9 +8,9 @@
 import SwiftUI
 import PhotosUI
 
-/// Represents a [View] that enables the user to perform
-/// CRUD operations on an [Item].
-struct ItemCrudView: View {
+/// Represents a [View] that shows the detail of the model
+/// and enables the user to perform CRUD operations on the [Item].
+struct ItemDetailView: View {
     // MARK: - Properties -
     
     /// Underlying item that shall be target of CRUD operations
@@ -61,7 +61,7 @@ struct ItemCrudView: View {
 
 // MARK: - Life cyle -
 
-extension ItemCrudView {
+extension ItemDetailView {
     private func onDidAppear() {
         viewMode = initialViewModel
         selectedColor = Color(hex: draft.hexColor)
@@ -70,7 +70,7 @@ extension ItemCrudView {
 
 // MARK: - View builders -
 
-extension ItemCrudView {
+extension ItemDetailView {
     @ViewBuilder
     private func makeRequiredSection() -> some View {
         Section("Item.Draft.Detail.Section.Required.Title") {
@@ -266,7 +266,7 @@ extension ItemCrudView {
 
 // MARK: - Actions -
 
-extension ItemCrudView {
+extension ItemDetailView {
     
     private func onBackTapped() {
         dismiss()
@@ -323,6 +323,6 @@ extension ItemCrudView {
 
 #Preview {
     NavigationView {
-        ItemCrudView(item: .mocked, initialViewMode: .read)
+        ItemDetailView(item: .mocked, initialViewMode: .read)
     }
 }
