@@ -140,6 +140,7 @@ extension SymbolWizardView {
                 .aspectRatio(contentMode: .fit)
                 .foregroundStyle(selectedColor)
                 .padding()
+                .frame(width: size * 0.90)
         }
         .frame(width: size, height: size)
     }
