@@ -24,13 +24,13 @@ struct ItemDetailView: View {
     @State private var draft: ItemDraft
     @State private var viewMode: ViewMode = .edit
     @State private var showAddCustomAttributeSheet = false
+    @State private var showIconWizard = false
     @State private var selectedColor: Color = Color.clear
-    @State private var imageSelection: PhotosPickerItem? = nil
     @State private var imagesData = [ImageData]()
-
+    @State private var imageSelection: PhotosPickerItem? = nil
+    @State private var iconData: Data? = nil
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
     
     // MARK: - Init -
     
@@ -143,19 +143,34 @@ extension ItemDetailView {
             HStack {
                 Text("Item.Draft.Detail.Section.Photos.Title \(draft.imagesData.count) / 3")
                 if viewMode != .read {
-                    Button {
-                        //
-                    } label: {
-                        PhotosPicker(
-                            selection: $imageSelection,
-                            matching: .images,
-                            photoLibrary: .shared()
-                        ) {
-                            Image(systemName: "plus.circle")
+                    HStack {
+                        Button {
+                            //
+                        } label: {
+                            PhotosPicker(
+                                selection: $imageSelection,
+                                matching: .images,
+                                photoLibrary: .shared()
+                            ) {
+                                Image(systemName: "photo.badge.plus")
+                            }
                         }
+                        
+                        Button {
+                            showIconWizard.toggle()
+                        } label: {
+                            Image(systemName: "rectangle.center.inset.filled.badge.plus")
+                        }
+
                     }
                 }
             }
+            .sheet(isPresented: $showIconWizard) {
+              SymbolWizardView(selectedData: $iconData)
+            }
+        }
+        .onChange(of: iconData) { n, o in
+            onIconDataChanged(oldValue: n, newValue: o)
         }
         .onChange(of: imageSelection, onChangeImageSelection(oldValue:newValue:))
         .onChange(of: imagesData) { draft.imagesData = $1 }
@@ -271,11 +286,20 @@ extension ItemDetailView {
         }
     }
     
+    private func onIconDataChanged(oldValue: Data?, newValue: Data?) {
+        guard let newValue else { return }
+        imagesData.insert(.init(data: newValue), at: 0)
+    }
+    
     private func onCancelTapped() {
         draft = .from(item: item)
         selectedColor = Color(hex: draft.hexColor)
         imagesData = draft.imagesData
         viewMode = .read
+    }
+    
+    private func onAddIconTapped() {
+        showIconWizard.toggle()
     }
     
     private func onAddCustomTapped() {
