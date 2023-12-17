@@ -16,6 +16,7 @@
 		4A06F8512B2A369D00F93E37 /* FavIconAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A06F8502B2A369D00F93E37 /* FavIconAsyncImage.swift */; };
 		4A06F8552B2B3BBD00F93E37 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A06F8542B2B3BBD00F93E37 /* ItemList.swift */; };
 		4A1EA7F52B2EF4CB0053E5AF /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EA7F42B2EF4CB0053E5AF /* ImageData.swift */; };
+		4A1EA7F72B2EF6760053E5AF /* ItemDatabaseOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EA7F62B2EF6760053E5AF /* ItemDatabaseOperations.swift */; };
 		4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */; };
 		4A848A342B24F2700090FC73 /* FardalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A332B24F2700090FC73 /* FardalApp.swift */; };
 		4A848A362B24F2700090FC73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A352B24F2700090FC73 /* ContentView.swift */; };
@@ -39,6 +40,7 @@
 		4A06F8502B2A369D00F93E37 /* FavIconAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavIconAsyncImage.swift; sourceTree = "<group>"; };
 		4A06F8542B2B3BBD00F93E37 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		4A1EA7F42B2EF4CB0053E5AF /* ImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
+		4A1EA7F62B2EF6760053E5AF /* ItemDatabaseOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDatabaseOperations.swift; sourceTree = "<group>"; };
 		4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCustomAttributeView.swift; sourceTree = "<group>"; };
 		4A848A302B24F2700090FC73 /* Fardal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fardal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A848A332B24F2700090FC73 /* FardalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FardalApp.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				4A848A372B24F2700090FC73 /* Item.swift */,
 				4A04AD132B26F6B700CA9053 /* ItemCustomAttribute.swift */,
 				4A8561C32B2EEF18002193E2 /* ItemDraft.swift */,
+				4A1EA7F62B2EF6760053E5AF /* ItemDatabaseOperations.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				4A8561C42B2EEF18002193E2 /* ItemDraft.swift in Sources */,
 				4A1EA7F52B2EF4CB0053E5AF /* ImageData.swift in Sources */,
 				4A04AD0C2B25B9E300CA9053 /* Color+Data.swift in Sources */,
+				4A1EA7F72B2EF6760053E5AF /* ItemDatabaseOperations.swift in Sources */,
 				4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */,
 				4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */,
 				4A848A362B24F2700090FC73 /* ContentView.swift in Sources */,

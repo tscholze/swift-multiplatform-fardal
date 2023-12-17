@@ -15,6 +15,7 @@ struct ItemListView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    @State private var selectedItem: Item?
 
     // MARK: - UI -
     
@@ -22,8 +23,8 @@ struct ItemListView: View {
         NavigationSplitView {
             List {
                 ForEach(items) { item in
-                    NavigationLink {
-                        ItemCrudView(item: item, initialViewModel: .read)
+                    Button {
+                        selectedItem = item
                     } label: {
                         Text(item.title)
                     }
@@ -48,6 +49,10 @@ struct ItemListView: View {
             Image(systemName: "list.bullet.rectangle")
             Text("Item.List.Title")
         }
+        .fullScreenCover(
+            item: $selectedItem,
+            content: { ItemCrudView(item: $0, initialViewMode: .read) }
+        )
     }
 }
 

@@ -12,12 +12,13 @@ import SwiftUI
 /// an `Item`.
 ///
 /// Use static helper to create an empty or prefilled draft.
-final class ItemDraft {
+final class ItemDraft: ObservableObject {
     // MARK: - Properties -
     
     /// Unique id of the drafting item
     let existingId: UUID?
 
+    
     /// Human read-able title
     var title: String
 
