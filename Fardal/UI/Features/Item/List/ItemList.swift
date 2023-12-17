@@ -23,7 +23,7 @@ struct ItemListView: View {
             List {
                 ForEach(items) { item in
                     NavigationLink {
-                        ItemCrudView(item: item, initialViewModel: .read)
+                        ItemDetailView(item: item, initialViewMode: .read)
                     } label: {
                         Text(item.title)
                     }
