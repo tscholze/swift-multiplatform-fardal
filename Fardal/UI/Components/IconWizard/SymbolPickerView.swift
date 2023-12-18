@@ -77,6 +77,8 @@ extension SymbolPickerView {
     }
 }
 
+// MARK: - Preview -
+
 #Preview {
     @State var name: String = ""
     

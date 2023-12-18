@@ -29,6 +29,7 @@ struct ItemDetailView: View {
     @State private var imagesData = [ImageData]()
     @State private var imageSelection: PhotosPickerItem? = nil
     @State private var iconData: Data? = nil
+    @State private var cameraModel = CameraModel()
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     
@@ -56,6 +57,13 @@ struct ItemDetailView: View {
         .onAppear(perform: onDidAppear)
         .alert("Item.Draft.Detail.Action.AddAttribute", isPresented: $showAddCustomAttributeSheet) {
             makeAddCustomAttributeAlertContent()
+        }
+        .task {
+            do {
+                try await cameraModel.initialize()
+            } catch {
+                print("Camera init failed: \(error.localizedDescription)")
+            }
         }
     }
 }
@@ -114,7 +122,11 @@ extension ItemDetailView {
     @ViewBuilder
     private func makePhotosSection() -> some View {
         Section {
-            Group {
+            ScrollView(.horizontal) {
+                HStack(alignment: .center) {
+                    CameraPreview(cameraModel: cameraModel)
+                        .frame(width: 60, height: 60)
+                    
                 if imagesData.isEmpty {
                     HStack(alignment: .center) {
                         VStack {
@@ -124,7 +136,7 @@ extension ItemDetailView {
                                 .frame(height: 30)
                             
                             Text("Item.Draft.Detail.Section.Photo.Empty.Icon.Hint")
-                                .font(.caption)
+                                .font(.caption2)
                                 .multilineTextAlignment(.center)
                         }
                         .frame(width: 150)
@@ -138,7 +150,7 @@ extension ItemDetailView {
                                 .frame(height: 30)
                             
                             Text("Item.Draft.Detail.Section.Photo.Empty.Library.Hint")
-                                .font(.caption)
+                                .font(.caption2)
                                 .multilineTextAlignment(.center)
                         }
                         .frame(width: 150)
@@ -147,29 +159,26 @@ extension ItemDetailView {
                     .opacity(0.6)
                     .frame(alignment: .center)
                 } else {
-                    ScrollView(.horizontal) {
-                        HStack {
                             // List of images
-                            ForEach(imagesData, id: \.id) { imageData in
-                                Image(uiImage: imageData.uiImage)
-                                    .resizable()
-                                    .aspectRatio(1, contentMode: .fill)
-                                    .clipShape(RoundedRectangle(cornerRadius: 4))
-                                    .overlay(alignment: .topTrailing) {
-                                        if viewMode != .read {
-                                            Button {
-                                                imagesData.removeAll(where: { $0.id == imageData.id })
-                                            } label: {
-                                                Image(systemName: "x.circle.fill")
-                                                    .foregroundStyle(.white)
-                                                    .opacity(0.6)
-                                                    .shadow(radius: 2)
-                                                    .padding(4)
-                                            }
-                                        }
+                    ForEach(imagesData, id: \.id) { imageData in
+                        Image(uiImage: imageData.uiImage)
+                            .resizable()
+                            .aspectRatio(1, contentMode: .fill)
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                            .overlay(alignment: .topTrailing) {
+                                if viewMode != .read {
+                                    Button {
+                                        imagesData.removeAll(where: { $0.id == imageData.id })
+                                    } label: {
+                                        Image(systemName: "x.circle.fill")
+                                            .foregroundStyle(.white)
+                                            .opacity(0.6)
+                                            .shadow(radius: 2)
+                                            .padding(4)
                                     }
+                                }
                             }
-                        }
+                    }
                     }
                 }
             }

@@ -20,6 +20,11 @@
 		4A1EA7FB2B2F548E0053E5AF /* SymbolWizardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EA7FA2B2F548E0053E5AF /* SymbolWizardView.swift */; };
 		4A1EA7FE2B2F55A20053E5AF /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 4A1EA7FD2B2F55A20053E5AF /* SFSafeSymbols */; };
 		4A1EA8012B2F57DC0053E5AF /* SymbolPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EA8002B2F57DC0053E5AF /* SymbolPickerView.swift */; };
+		4A31E21D2B30217C005CD1A1 /* CameraPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E21C2B30217C005CD1A1 /* CameraPicker.swift */; };
+		4A31E21F2B3023B3005CD1A1 /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E21E2B3023B3005CD1A1 /* CameraModel.swift */; };
+		4A31E2212B3023F5005CD1A1 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E2202B3023F5005CD1A1 /* CameraPreviewView.swift */; };
+		4A31E2242B302459005CD1A1 /* UIDevice+System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E2232B302459005CD1A1 /* UIDevice+System.swift */; };
+		4A31E2262B3026C6005CD1A1 /* MockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E2252B3026C6005CD1A1 /* MockGenerator.swift */; };
 		4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */; };
 		4A848A342B24F2700090FC73 /* FardalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A332B24F2700090FC73 /* FardalApp.swift */; };
 		4A848A362B24F2700090FC73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A352B24F2700090FC73 /* ContentView.swift */; };
@@ -46,6 +51,11 @@
 		4A1EA7F62B2EF6760053E5AF /* ItemDatabaseOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDatabaseOperations.swift; sourceTree = "<group>"; };
 		4A1EA7FA2B2F548E0053E5AF /* SymbolWizardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolWizardView.swift; sourceTree = "<group>"; };
 		4A1EA8002B2F57DC0053E5AF /* SymbolPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolPickerView.swift; sourceTree = "<group>"; };
+		4A31E21C2B30217C005CD1A1 /* CameraPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPicker.swift; sourceTree = "<group>"; };
+		4A31E21E2B3023B3005CD1A1 /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
+		4A31E2202B3023F5005CD1A1 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		4A31E2232B302459005CD1A1 /* UIDevice+System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+System.swift"; sourceTree = "<group>"; };
+		4A31E2252B3026C6005CD1A1 /* MockGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGenerator.swift; sourceTree = "<group>"; };
 		4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCustomAttributeView.swift; sourceTree = "<group>"; };
 		4A848A302B24F2700090FC73 /* Fardal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fardal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A848A332B24F2700090FC73 /* FardalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FardalApp.swift; sourceTree = "<group>"; };
@@ -103,9 +113,11 @@
 		4A04AD122B26EF1500CA9053 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4A31E2222B302446005CD1A1 /* Extensions */,
 				4A04AD102B25CFFE00CA9053 /* ViewMode.swift */,
 				4AED2B622B2C604700E348A0 /* Appereance.swift */,
 				4AED2B692B2C650D00E348A0 /* SupportedCurrencies.swift */,
+				4A31E2252B3026C6005CD1A1 /* MockGenerator.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -125,6 +137,7 @@
 		4A06F84F2B2A368A00F93E37 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4A31E21B2B302113005CD1A1 /* Camera */,
 				4A1EA7FF2B2F57C40053E5AF /* IconWizard */,
 				4A06F8502B2A369D00F93E37 /* FavIconAsyncImage.swift */,
 			);
@@ -155,6 +168,24 @@
 				4A1EA8002B2F57DC0053E5AF /* SymbolPickerView.swift */,
 			);
 			path = IconWizard;
+			sourceTree = "<group>";
+		};
+		4A31E21B2B302113005CD1A1 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				4A31E21C2B30217C005CD1A1 /* CameraPicker.swift */,
+				4A31E21E2B3023B3005CD1A1 /* CameraModel.swift */,
+				4A31E2202B3023F5005CD1A1 /* CameraPreviewView.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		4A31E2222B302446005CD1A1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4A31E2232B302459005CD1A1 /* UIDevice+System.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		4A848A272B24F2700090FC73 = {
@@ -319,12 +350,15 @@
 			files = (
 				4AED2B6A2B2C650D00E348A0 /* SupportedCurrencies.swift in Sources */,
 				4A04AD0F2B25CEBF00CA9053 /* PriceCustomAttributeView.swift in Sources */,
+				4A31E21F2B3023B3005CD1A1 /* CameraModel.swift in Sources */,
 				4A1EA8012B2F57DC0053E5AF /* SymbolPickerView.swift in Sources */,
 				4A1EA7FB2B2F548E0053E5AF /* SymbolWizardView.swift in Sources */,
+				4A31E21D2B30217C005CD1A1 /* CameraPicker.swift in Sources */,
 				4A8561C42B2EEF18002193E2 /* ItemDraft.swift in Sources */,
 				4A1EA7F52B2EF4CB0053E5AF /* ImageData.swift in Sources */,
 				4A04AD0C2B25B9E300CA9053 /* Color+Data.swift in Sources */,
 				4A1EA7F72B2EF6760053E5AF /* ItemDatabaseOperations.swift in Sources */,
+				4A31E2212B3023F5005CD1A1 /* CameraPreviewView.swift in Sources */,
 				4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */,
 				4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */,
 				4A848A362B24F2700090FC73 /* ContentView.swift in Sources */,
@@ -336,6 +370,8 @@
 				4AED2B612B2C5F7700E348A0 /* SettingsView.swift in Sources */,
 				4A06F84E2B2A2D7C00F93E37 /* UrlCustomAttributeView.swift in Sources */,
 				4A06F84E2B2A2D7C00F93E37 /* UrlCustomAttributeView.swift in Sources */,
+				4A31E2242B302459005CD1A1 /* UIDevice+System.swift in Sources */,
+				4A31E2262B3026C6005CD1A1 /* MockGenerator.swift in Sources */,
 				4A848A382B24F2700090FC73 /* Item.swift in Sources */,
 				4A04AD112B25CFFE00CA9053 /* ViewMode.swift in Sources */,
 				4A04AD112B25CFFE00CA9053 /* ViewMode.swift in Sources */,
