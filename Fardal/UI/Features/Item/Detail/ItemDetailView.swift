@@ -14,7 +14,7 @@ struct ItemDetailView: View {
     // MARK: - Properties -
     
     /// Underlying item that shall be target of CRUD operations
-    let item: Item
+    let item: Item?
     
     /// Initials view mode
     let initialViewModel: ViewMode
@@ -52,7 +52,8 @@ struct ItemDetailView: View {
             makeCustomAttributesSection()
             makeActionsSection()
         }
-        .navigationBarBackButtonHidden(viewMode != .read)
+        .navigationBarBackButtonHidden(viewMode == .edit)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar { makeToolbar() }
         .onAppear(perform: onDidAppear)
         .alert("Item.Draft.Detail.Action.AddAttribute", isPresented: $showAddCustomAttributeSheet) {
@@ -123,66 +124,42 @@ extension ItemDetailView {
     private func makePhotosSection() -> some View {
         Section {
             ScrollView(.horizontal) {
-                HStack(alignment: .center) {
-                    CameraPreview(cameraModel: cameraModel)
-                        .frame(width: 60, height: 60)
-                    
-                if imagesData.isEmpty {
-                    HStack(alignment: .center) {
-                        VStack {
-                            Image(systemName: "rectangle.center.inset.filled.badge.plus")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
-                            
-                            Text("Item.Draft.Detail.Section.Photo.Empty.Icon.Hint")
-                                .font(.caption2)
-                                .multilineTextAlignment(.center)
-                        }
-                        .frame(width: 150)
+                HStack {
+                    // Show how to add images hint if list is empty
+                    if imagesData.isEmpty {
+                        makeEmptyImagesHint()
+                    } else {
+                        // Live camera feed
+                        CameraPreview(cameraModel: cameraModel)
+                            .frame(width: 60, height: 60)
                         
-                        Divider()
-                        
-                        VStack {
-                            Image(systemName: "photo.badge.plus")
+                        // List of images
+                        ForEach(imagesData, id: \.id) { imageData in
+                            // Render image
+                            Image(uiImage: imageData.uiImage)
                                 .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
-                            
-                            Text("Item.Draft.Detail.Section.Photo.Empty.Library.Hint")
-                                .font(.caption2)
-                                .multilineTextAlignment(.center)
-                        }
-                        .frame(width: 150)
-                    }
-                    .foregroundStyle(.secondary)
-                    .opacity(0.6)
-                    .frame(alignment: .center)
-                } else {
-                            // List of images
-                    ForEach(imagesData, id: \.id) { imageData in
-                        Image(uiImage: imageData.uiImage)
-                            .resizable()
-                            .aspectRatio(1, contentMode: .fill)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                            .overlay(alignment: .topTrailing) {
-                                if viewMode != .read {
-                                    Button {
-                                        imagesData.removeAll(where: { $0.id == imageData.id })
-                                    } label: {
-                                        Image(systemName: "x.circle.fill")
-                                            .foregroundStyle(.white)
-                                            .opacity(0.6)
-                                            .shadow(radius: 2)
-                                            .padding(4)
+                                .aspectRatio(1, contentMode: .fill)
+                                .clipShape(RoundedRectangle(cornerRadius: 4))
+                                .overlay(alignment: .topTrailing) {
+                                    // Show delete button in case of edit / create
+                                    // is enabled
+                                    if viewMode != .read {
+                                        Button {
+                                            imagesData.removeAll(where: { $0.id == imageData.id })
+                                        } label: {
+                                            Image(systemName: "x.circle.fill")
+                                                .foregroundStyle(.white)
+                                                .opacity(0.6)
+                                                .shadow(radius: 2)
+                                                .padding(4)
+                                        }
                                     }
                                 }
-                            }
-                    }
+                        }
                     }
                 }
             }
-            .frame(height: 80)
+            .frame(height: 60)
         } header: {
             HStack {
                 Text("Item.Draft.Detail.Section.Photos.Title \(draft.imagesData.count) / 3")
@@ -221,16 +198,66 @@ extension ItemDetailView {
     }
     
     @ViewBuilder
+    private func makeEmptyImagesHint() -> some View {
+        HStack(alignment: .center) {
+            VStack {
+                Image(systemName: "camera.viewfinder")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 20)
+                
+                Text("Item.Draft.Detail.Section.Photo.Empty.Camera.Hint")
+                    .font(.caption2)
+                    .multilineTextAlignment(.center)
+            }
+            
+            Divider()
+            
+            VStack {
+                Image(systemName: "rectangle.center.inset.filled.badge.plus")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 20)
+                
+                Text("Item.Draft.Detail.Section.Photo.Empty.Icon.Hint")
+                    .font(.caption2)
+                    .multilineTextAlignment(.center)
+            }
+            
+            VStack {
+                Image(systemName: "photo.badge.plus")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 20)
+                
+                Text("Item.Draft.Detail.Section.Photo.Empty.Library.Hint")
+                    .font(.caption2)
+                    .multilineTextAlignment(.center)
+            }
+        }
+        .foregroundStyle(.secondary)
+        .opacity(0.6)
+        .frame(maxWidth: .infinity, alignment: .center)
+    }
+    
+    @ViewBuilder
     private func makeCustomAttributesSection() -> some View {
         Section {
-            List {
-                ForEach(draft.customAttributes) { attribute in
-                    ItemCustomAttributeTypes(rawValue: attribute.layout)?
-                        .makeView(for: attribute, with: viewMode)
+            Group {
+                if draft.customAttributes.isEmpty {
+                    makeEmptyCustomAttributeHint()
+                } else {
+                    List {
+                        ForEach(draft.customAttributes) { attribute in
+                            ItemCustomAttributeTypes(rawValue: attribute.layout)?
+                                .makeView(for: attribute, with: viewMode)
+                        }
+                        .onDelete(perform: onDeleteCustomTapped)
+                        .deleteDisabled(viewMode == .read)
+                    }
                 }
-                .onDelete(perform: onDeleteCustomTapped)
-                .deleteDisabled(viewMode == .read)
             }
+            .frame(height: 60)
         } header: {
             HStack {
                 Text("Item.Draft.Detail.Section.Attributes.Title")
@@ -244,6 +271,52 @@ extension ItemDetailView {
                 }
             }
         }
+    }
+    
+    @ViewBuilder
+    private func makeEmptyCustomAttributeHint() -> some View {
+        VStack(spacing: 4) {
+            HStack {
+                VStack {
+                    Image(systemSymbol: .eurosign)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 20)
+                        .padding(.horizontal)
+                    
+                    Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Pricing.Hint")
+                }
+
+                
+                Divider()
+                
+                VStack {
+                    Image(systemSymbol: .calendar)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 20)
+                        .padding(.horizontal)
+                    
+                    Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Dates.Hint")
+                }
+                
+                Divider()
+                
+                VStack {
+                    Image(systemSymbol: .safari)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 20)
+                        .padding(.horizontal)
+                    
+                    Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Url.Hint")
+                }
+            }
+        }
+        .font(.caption2)
+        .foregroundStyle(.secondary)
+        .opacity(0.6)
+        .frame(maxWidth: .infinity, alignment: .center)
     }
     
     @ViewBuilder
@@ -297,10 +370,11 @@ extension ItemDetailView {
                 }
             }
         } else {
-            
-            ToolbarItem(placement: .cancellationAction) {
-                Button(action: { onCancelTapped() }) {
-                    Text("Item.Draft.Action.Cancel")
+            if viewMode != .create {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: { onCancelTapped() }) {
+                        Text("Item.Draft.Action.Cancel")
+                    }
                 }
             }
             
@@ -336,10 +410,14 @@ extension ItemDetailView {
     }
     
     private func onCancelTapped() {
-        draft = .from(item: item)
-        selectedColor = Color(hex: draft.hexColor)
-        imagesData = draft.imagesData
-        viewMode = .read
+        if let item {
+            draft = .from(item: item)
+            selectedColor = Color(hex: draft.hexColor)
+            imagesData = draft.imagesData
+            viewMode = .read
+        } else {
+            dismiss()
+        }
     }
     
     private func onAddIconTapped() {
@@ -373,14 +451,27 @@ extension ItemDetailView {
     }
     
     private func onSaveButtonTapped() {
-        item.title = draft.title
-        item.summary = draft.summary
-        item.customAttributes = draft.customAttributes
-        item.hexColor = draft.hexColor
-        item.imageDatas = draft.imagesData
-        item.updatedAt = .now
         
-        viewMode = .read
+        if let item {
+            item.title = draft.title
+            item.summary = draft.summary
+            item.customAttributes = draft.customAttributes
+            item.hexColor = draft.hexColor
+            item.imageDatas = draft.imagesData
+            item.updatedAt = .now
+            viewMode = .read
+        } else {
+            let newItem = Item(
+                title: draft.title,
+                summary: draft.summary,
+                hexColor: draft.hexColor,
+                imagesData: draft.imagesData,
+                updatedAt: .now
+            )
+            
+            modelContext.insert(newItem)
+            dismiss()
+        }
     }
     
     private func onEditButtonTapped() {

@@ -64,6 +64,15 @@
         }
       }
     },
+    "Dashboard.Title" : {
+
+    },
+    "Fardal" : {
+
+    },
+    "Hello, World!" : {
+
+    },
     "Item.Detail.Attribute.Date.Title.Placeholder" : {
       "localizations" : {
         "en" : {
@@ -204,12 +213,52 @@
         }
       }
     },
+    "Item.Draft.Detail.Section.CustomAttributes.Empty.Dates.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add dates"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.CustomAttributes.Empty.Pricing.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add pricing"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.CustomAttributes.Empty.Url.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add links"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.Photo.Empty.Camera.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take a photo"
+          }
+        }
+      }
+    },
     "Item.Draft.Detail.Section.Photo.Empty.Icon.Hint" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create an icon\n It will be always the \nfirst one."
+            "value" : "Create an icon"
           }
         }
       }
@@ -219,7 +268,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Select a photo\nfrom your phone.\nIt should be square."
+            "value" : "Select a photo"
           }
         }
       }
@@ -323,6 +372,9 @@
           }
         }
       }
+    },
+    "New" : {
+
     },
     "Settings.Appereance.Mode" : {
       "localizations" : {
@@ -513,6 +565,12 @@
           }
         }
       }
+    },
+    "Your collections" : {
+
+    },
+    "Your latest items" : {
+
     }
   },
   "version" : "1.0"

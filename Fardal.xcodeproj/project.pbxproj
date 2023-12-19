@@ -26,6 +26,7 @@
 		4A31E2242B302459005CD1A1 /* UIDevice+System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E2232B302459005CD1A1 /* UIDevice+System.swift */; };
 		4A31E2262B3026C6005CD1A1 /* MockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E2252B3026C6005CD1A1 /* MockGenerator.swift */; };
 		4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */; };
+		4A723D002B31EEF200A3ED67 /* ActionButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A723CFF2B31EEF200A3ED67 /* ActionButtons.swift */; };
 		4A848A342B24F2700090FC73 /* FardalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A332B24F2700090FC73 /* FardalApp.swift */; };
 		4A848A362B24F2700090FC73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A352B24F2700090FC73 /* ContentView.swift */; };
 		4A848A382B24F2700090FC73 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A372B24F2700090FC73 /* Item.swift */; };
@@ -36,6 +37,8 @@
 		4AED2B632B2C604700E348A0 /* Appereance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED2B622B2C604700E348A0 /* Appereance.swift */; };
 		4AED2B682B2C625600E348A0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4AED2B672B2C625600E348A0 /* Localizable.xcstrings */; };
 		4AED2B6A2B2C650D00E348A0 /* SupportedCurrencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED2B692B2C650D00E348A0 /* SupportedCurrencies.swift */; };
+		4AF864252B30C2E900F567EB /* CollectionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF864242B30C2E900F567EB /* CollectionListView.swift */; };
+		4AF864282B30C3DA00F567EB /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF864272B30C3DA00F567EB /* DashboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +60,7 @@
 		4A31E2232B302459005CD1A1 /* UIDevice+System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+System.swift"; sourceTree = "<group>"; };
 		4A31E2252B3026C6005CD1A1 /* MockGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGenerator.swift; sourceTree = "<group>"; };
 		4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCustomAttributeView.swift; sourceTree = "<group>"; };
+		4A723CFF2B31EEF200A3ED67 /* ActionButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtons.swift; sourceTree = "<group>"; };
 		4A848A302B24F2700090FC73 /* Fardal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fardal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A848A332B24F2700090FC73 /* FardalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FardalApp.swift; sourceTree = "<group>"; };
 		4A848A352B24F2700090FC73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 		4AED2B622B2C604700E348A0 /* Appereance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appereance.swift; sourceTree = "<group>"; };
 		4AED2B672B2C625600E348A0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		4AED2B692B2C650D00E348A0 /* SupportedCurrencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCurrencies.swift; sourceTree = "<group>"; };
+		4AF864242B30C2E900F567EB /* CollectionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListView.swift; sourceTree = "<group>"; };
+		4AF864272B30C3DA00F567EB /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +143,7 @@
 		4A06F84F2B2A368A00F93E37 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4A723CFE2B31EEDA00A3ED67 /* Buttons */,
 				4A31E21B2B302113005CD1A1 /* Camera */,
 				4A1EA7FF2B2F57C40053E5AF /* IconWizard */,
 				4A06F8502B2A369D00F93E37 /* FavIconAsyncImage.swift */,
@@ -186,6 +193,14 @@
 				4A31E2232B302459005CD1A1 /* UIDevice+System.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4A723CFE2B31EEDA00A3ED67 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				4A723CFF2B31EEF200A3ED67 /* ActionButtons.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		4A848A272B24F2700090FC73 = {
@@ -249,6 +264,8 @@
 		4AED2B5E2B2C5F6600E348A0 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4AF864262B30C3CE00F567EB /* Dashboard */,
+				4AF864232B30C2DD00F567EB /* Collection */,
 				4AED2B5F2B2C5F6D00E348A0 /* Settings */,
 				4A04AD072B25B86800CA9053 /* Item */,
 			);
@@ -269,6 +286,22 @@
 				4AED2B672B2C625600E348A0 /* Localizable.xcstrings */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		4AF864232B30C2DD00F567EB /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				4AF864242B30C2E900F567EB /* CollectionListView.swift */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		4AF864262B30C3CE00F567EB /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				4AF864272B30C3DA00F567EB /* DashboardView.swift */,
+			);
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,6 +388,7 @@
 				4A1EA7FB2B2F548E0053E5AF /* SymbolWizardView.swift in Sources */,
 				4A31E21D2B30217C005CD1A1 /* CameraPicker.swift in Sources */,
 				4A8561C42B2EEF18002193E2 /* ItemDraft.swift in Sources */,
+				4AF864282B30C3DA00F567EB /* DashboardView.swift in Sources */,
 				4A1EA7F52B2EF4CB0053E5AF /* ImageData.swift in Sources */,
 				4A04AD0C2B25B9E300CA9053 /* Color+Data.swift in Sources */,
 				4A1EA7F72B2EF6760053E5AF /* ItemDatabaseOperations.swift in Sources */,
@@ -363,8 +397,10 @@
 				4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */,
 				4A848A362B24F2700090FC73 /* ContentView.swift in Sources */,
 				4AED2B632B2C604700E348A0 /* Appereance.swift in Sources */,
+				4A723D002B31EEF200A3ED67 /* ActionButtons.swift in Sources */,
 				4A06F8552B2B3BBD00F93E37 /* ItemList.swift in Sources */,
 				4A06F8512B2A369D00F93E37 /* FavIconAsyncImage.swift in Sources */,
+				4AF864252B30C2E900F567EB /* CollectionListView.swift in Sources */,
 				4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */,
 				4A04AD092B25B87500CA9053 /* ItemDetailView.swift in Sources */,
 				4AED2B612B2C5F7700E348A0 /* SettingsView.swift in Sources */,
@@ -507,6 +543,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Fardal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Used to take photos of your item";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -544,6 +581,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Fardal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Used to take photos of your item";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

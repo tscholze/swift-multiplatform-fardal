@@ -38,23 +38,21 @@ final class Item {
     // MARK: - Init -
 
     init(
-        id: UUID = UUID(),
         title: String,
         summary: String,
-        color: Color = Color.clear,
+        hexColor: UInt = Color.clear.hexValue,
         imagesData: [ImageData] = [],
         customAttributes: [ItemCustomAttribute] = [],
         updatedAt: Date,
         createdAt: Date = Date.now
     ) {
-        self.id = id
         self.title = title
         self.summary = summary
         self.imageDatas = imagesData
         self.customAttributes = customAttributes
         self.updatedAt = updatedAt
         self.createdAt = createdAt
-        self.hexColor = color.hexValue
+        self.hexColor = hexColor
     }
 }
 
@@ -65,8 +63,14 @@ extension Item {
     static let mocked: Item = .init(
         title: "Mocked",
         summary: "My Mocked Foo",
-        color: .orange,
+        hexColor: Color.orange.hexValue,
         customAttributes: [],
         updatedAt: .now
     )
+}
+
+// MARK: - Mocked -
+
+extension Item {
+    static let empty: Item = .init(title: "", summary: "", updatedAt: .now)
 }

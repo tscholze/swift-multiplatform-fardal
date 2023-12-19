@@ -48,6 +48,7 @@ struct ItemListView: View {
             Image(systemName: "list.bullet.rectangle")
             Text("Item.List.Title")
         }
+        .navigationSplitViewStyle(.automatic)
     }
 }
 
