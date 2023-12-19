@@ -26,6 +26,7 @@ struct ItemDetailView: View {
     @State private var showAddCustomAttributeSheet = false
     @State private var showAddMediaSheet = false
     @State private var showIconWizard = false
+    @State private var showPhotoPicker = false
     @State private var selectedColor: Color = Color.clear
     @State private var imagesData = [ImageData]()
     @State private var imageSelection: PhotosPickerItem? = nil
@@ -56,6 +57,11 @@ struct ItemDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { makeToolbar() }
         .onAppear(perform: onDidAppear)
+        .photosPicker(
+            isPresented: $showPhotoPicker,
+            selection: $imageSelection,
+            photoLibrary: .shared()
+        )
         .alert("Item.Draft.Detail.Action.AddAttribute", isPresented: $showAddCustomAttributeSheet) {
             makeAddCustomAttributeAlertContent()
         }
@@ -177,7 +183,7 @@ extension ItemDetailView {
                         Button {
                             showAddMediaSheet.toggle()
                         } label: {
-                            Image(systemSymbol: .plus)
+                            Image(systemName: "plus.circle")
                         }
                     }
                 }
@@ -259,6 +265,8 @@ extension ItemDetailView {
             HStack {
                 Text("Item.Draft.Detail.Section.Attributes.Title")
                 if viewMode != .read {
+                    Spacer()
+                    
                     Button(
                         action: { onAddCustomTapped() },
                         label: {
@@ -354,20 +362,24 @@ extension ItemDetailView {
     
     @ViewBuilder
     private func makeAddMediaAlertContent() -> some View {
-        PhotosPicker(
-            selection: $imageSelection,
-            matching: .images,
-            photoLibrary: .shared()
-        ) {
-            Text("Item.Draft.Action.SelectPhoto")
+        // Photo picker
+        Button("Item.Draft.Action.SelectPhoto") {
+            showPhotoPicker.toggle()
         }
         
+        // Camera
         Button("Item.Draft.Action.TakePhoto") {
             print("Take Photo")
         }
         
+        // Icon wizard
         Button("Item.Draft.Action.AddCustomIcon") {
             showIconWizard.toggle()
+        }
+        
+        // Cancel
+        Button("Misc.Cancel", role: .cancel) {
+            // nothing
         }
     }
 
