@@ -123,6 +123,16 @@
         }
       }
     },
+    "Item.Draft.Action.AddCustomIcon" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add custom icon"
+          }
+        }
+      }
+    },
     "Item.Draft.Action.Cancel" : {
       "localizations" : {
         "en" : {
@@ -153,6 +163,26 @@
         }
       }
     },
+    "Item.Draft.Action.SelectPhoto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select photo"
+          }
+        }
+      }
+    },
+    "Item.Draft.Action.TakePhoto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take photo"
+          }
+        }
+      }
+    },
     "Item.Draft.Detail.Action.AddAttribute" : {
       "localizations" : {
         "en" : {
@@ -169,6 +199,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add a date"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Action.AddMedia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add images"
           }
         }
       }

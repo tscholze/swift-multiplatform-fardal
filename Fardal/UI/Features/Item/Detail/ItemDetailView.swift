@@ -24,6 +24,7 @@ struct ItemDetailView: View {
     @State private var draft: ItemDraft
     @State private var viewMode: ViewMode = .edit
     @State private var showAddCustomAttributeSheet = false
+    @State private var showAddMediaSheet = false
     @State private var showIconWizard = false
     @State private var selectedColor: Color = Color.clear
     @State private var imagesData = [ImageData]()
@@ -57,6 +58,9 @@ struct ItemDetailView: View {
         .onAppear(perform: onDidAppear)
         .alert("Item.Draft.Detail.Action.AddAttribute", isPresented: $showAddCustomAttributeSheet) {
             makeAddCustomAttributeAlertContent()
+        }
+        .alert("Item.Draft.Detail.Action.AddMedia", isPresented: $showAddMediaSheet) {
+            makeAddMediaAlertContent()
         }
         .task {
             do {
@@ -163,30 +167,17 @@ extension ItemDetailView {
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 60)
-                .background(Color.blue)
             }
-            // .background(Color.red)
         } header: {
             HStack {
                 Text("Item.Draft.Detail.Section.Photos.Title \(draft.imagesData.count) / 3")
                 if viewMode != .read {
                     HStack {
+                        Spacer()
                         Button {
-                            //
+                            showAddMediaSheet.toggle()
                         } label: {
-                            PhotosPicker(
-                                selection: $imageSelection,
-                                matching: .images,
-                                photoLibrary: .shared()
-                            ) {
-                                Image(systemName: "photo.badge.plus")
-                            }
-                        }
-
-                        Button {
-                            showIconWizard.toggle()
-                        } label: {
-                            Image(systemName: "rectangle.center.inset.filled.badge.plus")
+                            Image(systemSymbol: .plus)
                         }
                     }
                 }
@@ -358,6 +349,25 @@ extension ItemDetailView {
         // Cancel
         Button("Misc.Cancel", role: .cancel) {
             // nothing
+        }
+    }
+    
+    @ViewBuilder
+    private func makeAddMediaAlertContent() -> some View {
+        PhotosPicker(
+            selection: $imageSelection,
+            matching: .images,
+            photoLibrary: .shared()
+        ) {
+            Text("Item.Draft.Action.SelectPhoto")
+        }
+        
+        Button("Item.Draft.Action.TakePhoto") {
+            print("Take Photo")
+        }
+        
+        Button("Item.Draft.Action.AddCustomIcon") {
+            showIconWizard.toggle()
         }
     }
 
