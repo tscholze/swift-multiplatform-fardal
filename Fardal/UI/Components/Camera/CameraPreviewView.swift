@@ -5,8 +5,8 @@
 //  Created by Tobias Scholze on 18.12.23.
 //
 
-import Foundation
 import SwiftUI
+import Foundation
 import AVFoundation
 
 struct CameraPreview: UIViewRepresentable {
@@ -22,7 +22,6 @@ struct CameraPreview: UIViewRepresentable {
 
     func updateUIView(_: UIViewType, context _: Context) {}
 }
-
 
 // MARK: - PreviewLayerView -
 

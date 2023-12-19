@@ -13,15 +13,14 @@ import AVFoundation
 ///
 /// Listen to the `approvedTakenImagesData` for new image `Data`.
 struct CameraPicker: View {
-    
     // MARK: - Properties -
-    
+
     /// Contains user approved images that shall be consumed by
     /// caller.
     @Binding var approvedTakenImagesData: [Data]
-    
+
     // MARK: - Private properties -
-    
+
     @ObservedObject private var cameraModel = CameraModel()
     @State private var takenImagesData = [Data]()
     @State private var flashOpacity = 0.0
@@ -86,16 +85,17 @@ extension CameraPicker {
             Rectangle()
                 .foregroundColor(.gray)
                 .overlay { Text("CameraPicker.SimulatorNotSupported.Hint") }
-        } else {
+        }
+        else {
             CameraPreview(cameraModel: cameraModel)
-                .onChange(of: cameraModel.takenImageData) { oldValue, newValue in
+                .onChange(of: cameraModel.takenImageData) { _, newValue in
                     guard let newValue else { return }
                     takenImagesData.append(newValue)
                 }
                 .overlay { Color.white.opacity(flashOpacity) }
         }
     }
-    
+
     @ViewBuilder
     private func makeShutterButton() -> some View {
         Button("") {
@@ -109,7 +109,7 @@ extension CameraPicker {
         .disabled(UIDevice.isSimulator || flashOpacity != 0.0)
         .padding()
     }
-    
+
     @ViewBuilder
     private func makeTakenPhotosList() -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -161,4 +161,3 @@ extension CameraPicker {
     @State var imagesData = [Data]()
     return CameraPicker(approvedTakenImagesData: $imagesData)
 }
-

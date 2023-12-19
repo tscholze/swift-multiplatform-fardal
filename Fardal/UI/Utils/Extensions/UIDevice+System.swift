@@ -8,10 +8,8 @@
 import UIKit
 
 extension UIDevice {
-    
     /// `true` if it is a simulator (read only)
-    static var isSimulator: Bool
-    {
+    static var isSimulator: Bool {
         #if targetEnvironment(simulator)
 
         return true

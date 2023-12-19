@@ -23,9 +23,9 @@ final class Item {
 
     /// Short summary
     var summary: String
-    
+
     var imageDatas: [ImageData]
-    
+
     /// List of custom attributes
     var customAttributes: [ItemCustomAttribute]
 
@@ -48,7 +48,7 @@ final class Item {
     ) {
         self.title = title
         self.summary = summary
-        self.imageDatas = imagesData
+        imageDatas = imagesData
         self.customAttributes = customAttributes
         self.updatedAt = updatedAt
         self.createdAt = createdAt

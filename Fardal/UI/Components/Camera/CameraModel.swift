@@ -50,9 +50,9 @@ class CameraModel: NSObject, ObservableObject {
                 .builtInDualCamera,
                 for: .video, position: .back
             )
-            
+
             // Ensure a camera was found
-            guard let device = device else {
+            guard let device else {
                 throw CameraError.deviceNotfound
             }
 
@@ -62,20 +62,23 @@ class CameraModel: NSObject, ObservableObject {
             // Check if it possible to add input (reader aka camera) to session
             if session.canAddInput(input) {
                 session.addInput(input)
-            } else {
+            }
+            else {
                 throw CameraError.invalidSession
             }
 
             // Check if it possible to add outout to session
             if session.canAddOutput(output) {
                 session.addOutput(output)
-            } else {
+            }
+            else {
                 throw CameraError.invalidSession
             }
-            
+
             // Autostart running
             session.startRunning()
-        } catch {
+        }
+        catch {
             // Throw an error if operation failed setting up
             // the camera
             throw CameraError.deviceNotfound

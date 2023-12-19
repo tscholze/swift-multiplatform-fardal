@@ -9,14 +9,13 @@ import SwiftUI
 import SwiftData
 
 struct DashboardView: View {
-    
     // MARK: - Private properties -
-    
+
     @Query(sort: \Item.createdAt, order: .reverse)
     private var items: [Item]
-    
+
     // MARK: - UI -
-    
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
@@ -44,16 +43,14 @@ extension DashboardView {
     private func makeCollectionsSection() -> some View {
         Section("Your collections") {
             HStack {
-                Button("") {
-                    
-                }
-                .buttonStyle(LargeAddButton())
+                Button("") {}
+                    .buttonStyle(LargeAddButton())
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .frame(height: 60)
         }
     }
-    
+
     @ViewBuilder
     private func makeLatestCartons() -> some View {
         Section("Your latest items") {
@@ -65,19 +62,18 @@ extension DashboardView {
                         Text("New")
                     }
 
-                    
                     ForEach(items) { item in
                         ZStack(alignment: .center) {
                             if let uiImage = item.imageDatas.first?.uiImage {
                                 Image(uiImage: uiImage)
                                     .resizable()
                                     .scaledToFit()
-                            } else {
+                            }
+                            else {
                                 Image(systemSymbol: .questionmark)
                             }
                         }
                     }
-       
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -86,9 +82,7 @@ extension DashboardView {
     }
 }
 
-extension DashboardView {
-    
-}
+extension DashboardView {}
 
 #Preview {
     DashboardView()

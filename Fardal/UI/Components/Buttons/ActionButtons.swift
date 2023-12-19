@@ -18,22 +18,20 @@ struct BlueButton: ButtonStyle {
 }
 
 struct LargeAddButton: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
+    func makeBody(configuration _: Configuration) -> some View {
         ZStack(alignment: .center) {
             RoundedRectangle(cornerRadius: 12)
                 .foregroundStyle(.background)
                 .frame(width: 60, height: 60)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.accentColor,lineWidth: 2)
+                        .stroke(Color.accentColor, lineWidth: 2)
                 )
-            
+
             Image(systemSymbol: .plus)
         }
     }
 }
-
-
 
 #Preview {
     VStack {
@@ -41,9 +39,9 @@ struct LargeAddButton: ButtonStyle {
             //
         }
         .buttonStyle(LargeAddButton())
-        
+
         Divider()
-        
+
         Button("") {
             //
         }

@@ -14,11 +14,10 @@ import SwiftUI
 /// Use static helper to create an empty or prefilled draft.
 final class ItemDraft: ObservableObject {
     // MARK: - Properties -
-    
+
     /// Unique id of the drafting item
     let existingId: UUID?
 
-    
     /// Human read-able title
     var title: String
 
@@ -33,10 +32,10 @@ final class ItemDraft: ObservableObject {
 
     /// List of custom attributes
     var customAttributes: [ItemCustomAttribute]
-    
+
     // MARK: - Init -
 
-    internal init(
+    init(
         existingId: UUID?,
         title: String,
         summary: String,
@@ -70,7 +69,7 @@ extension ItemDraft {
             customAttributes: []
         )
     }
-    
+
     /// Creates a new draft from given item.
     ///
     /// - Parameter item: Underlying item. Used for edit an item but with cancel option

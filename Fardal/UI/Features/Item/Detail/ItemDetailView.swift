@@ -1,5 +1,5 @@
 //
-//  ItemCrudView.swift
+//  ItemDetailView.swift
 //  Fardal
 //
 //  Created by Tobias Scholze on 10.12.23.
@@ -12,15 +12,15 @@ import PhotosUI
 /// and enables the user to perform CRUD operations on the [Item].
 struct ItemDetailView: View {
     // MARK: - Properties -
-    
+
     /// Underlying item that shall be target of CRUD operations
     let item: Item?
-    
+
     /// Initials view mode
     let initialViewModel: ViewMode
-    
+
     // MARK: - Private properties -
-    
+
     @State private var draft: ItemDraft
     @State private var viewMode: ViewMode = .edit
     @State private var showAddCustomAttributeSheet = false
@@ -32,18 +32,17 @@ struct ItemDetailView: View {
     @State private var cameraModel = CameraModel()
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
+
     // MARK: - Init -
-    
+
     init(item: Item, initialViewMode: ViewMode) {
-        self.initialViewModel = initialViewMode
+        initialViewModel = initialViewMode
         self.item = item
-        self._draft = .init(initialValue: .from(item: item))
+        _draft = .init(initialValue: .from(item: item))
     }
-    
 
     // MARK: - UI -
-    
+
     var body: some View {
         Form {
             makeRequiredSection()
@@ -62,7 +61,8 @@ struct ItemDetailView: View {
         .task {
             do {
                 try await cameraModel.initialize()
-            } catch {
+            }
+            catch {
                 print("Camera init failed: \(error.localizedDescription)")
             }
         }
@@ -89,50 +89,53 @@ extension ItemDetailView {
             if viewMode == .read {
                 Text(draft.title)
                 Text(draft.summary)
-            } else {
+            }
+            else {
                 TextField("Item.Draft.Detail.Section.Required.Name", text: $draft.title)
-                
+
                 // Summary
                 TextField("Item.Draft.Detail.Section.Required.Summary", text: $draft.summary)
             }
         }
     }
-    
+
     @ViewBuilder
     private func makeTaggingSection() -> some View {
         Section("Item.Draft.Detail.Section.Tagging.Title") {
             // Color
             HStack(alignment: .center) {
                 Text("Item.Draft.Detail.Section.Tagging.Flag")
-                
+
                 // Identicator
                 Image(systemName: "flag.fill")
                     .foregroundStyle(Color(hex: draft.hexColor))
-                
+
                 if viewMode != .read {
                     // Picker
                     ColorPicker("", selection: $selectedColor)
-                        .onChange(of: selectedColor) { oldValue, newValue in
+                        .onChange(of: selectedColor) { _, newValue in
                             draft.hexColor = newValue.hexValue
                         }
                 }
             }
         }
     }
-    
+
     @ViewBuilder
     private func makePhotosSection() -> some View {
         Section {
-            ScrollView(.horizontal) {
-                HStack {
-                    // Show how to add images hint if list is empty
-                    if imagesData.isEmpty {
-                        makeEmptyImagesHint()
-                    } else {
+            // Show how to add images hint if list is empty
+            if imagesData.isEmpty {
+                makeEmptyImagesHint()
+                    .frame(height: 60)
+            }
+            else {
+                ScrollView(.horizontal) {
+                    HStack {
                         // Live camera feed
                         CameraPreview(cameraModel: cameraModel)
                             .frame(width: 60, height: 60)
-                        
+
                         // List of images
                         ForEach(imagesData, id: \.id) { imageData in
                             // Render image
@@ -158,8 +161,11 @@ extension ItemDetailView {
                         }
                     }
                 }
+                .frame(maxWidth: .infinity)
+                .frame(height: 60)
+                .background(Color.blue)
             }
-            .frame(height: 60)
+            // .background(Color.red)
         } header: {
             HStack {
                 Text("Item.Draft.Detail.Section.Photos.Title \(draft.imagesData.count) / 3")
@@ -176,18 +182,17 @@ extension ItemDetailView {
                                 Image(systemName: "photo.badge.plus")
                             }
                         }
-                        
+
                         Button {
                             showIconWizard.toggle()
                         } label: {
                             Image(systemName: "rectangle.center.inset.filled.badge.plus")
                         }
-
                     }
                 }
             }
             .sheet(isPresented: $showIconWizard) {
-              SymbolWizardView(selectedData: $iconData)
+                SymbolWizardView(selectedData: $iconData)
             }
         }
         .onChange(of: iconData) { n, o in
@@ -196,40 +201,40 @@ extension ItemDetailView {
         .onChange(of: imageSelection, onChangeImageSelection(oldValue:newValue:))
         .onChange(of: imagesData) { draft.imagesData = $1 }
     }
-    
+
     @ViewBuilder
     private func makeEmptyImagesHint() -> some View {
-        HStack(alignment: .center) {
-            VStack {
+        HStack(spacing: 24) {
+            VStack(spacing: 8) {
                 Image(systemName: "camera.viewfinder")
                     .resizable()
                     .scaledToFit()
                     .frame(height: 20)
-                
+
                 Text("Item.Draft.Detail.Section.Photo.Empty.Camera.Hint")
                     .font(.caption2)
                     .multilineTextAlignment(.center)
             }
-            
+
             Divider()
-            
-            VStack {
+
+            VStack(spacing: 8) {
                 Image(systemName: "rectangle.center.inset.filled.badge.plus")
                     .resizable()
                     .scaledToFit()
                     .frame(height: 20)
-                
+
                 Text("Item.Draft.Detail.Section.Photo.Empty.Icon.Hint")
                     .font(.caption2)
                     .multilineTextAlignment(.center)
             }
-            
-            VStack {
+
+            VStack(spacing: 8) {
                 Image(systemName: "photo.badge.plus")
                     .resizable()
                     .scaledToFit()
                     .frame(height: 20)
-                
+
                 Text("Item.Draft.Detail.Section.Photo.Empty.Library.Hint")
                     .font(.caption2)
                     .multilineTextAlignment(.center)
@@ -239,14 +244,15 @@ extension ItemDetailView {
         .opacity(0.6)
         .frame(maxWidth: .infinity, alignment: .center)
     }
-    
+
     @ViewBuilder
     private func makeCustomAttributesSection() -> some View {
         Section {
             Group {
                 if draft.customAttributes.isEmpty {
                     makeEmptyCustomAttributeHint()
-                } else {
+                }
+                else {
                     List {
                         ForEach(draft.customAttributes) { attribute in
                             ItemCustomAttributeTypes(rawValue: attribute.layout)?
@@ -272,45 +278,39 @@ extension ItemDetailView {
             }
         }
     }
-    
+
     @ViewBuilder
     private func makeEmptyCustomAttributeHint() -> some View {
-        VStack(spacing: 4) {
-            HStack {
-                VStack {
-                    Image(systemSymbol: .eurosign)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 20)
-                        .padding(.horizontal)
-                    
-                    Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Pricing.Hint")
-                }
+        HStack(spacing: 24) {
+            VStack(spacing: 8) {
+                Image(systemSymbol: .eurosignCircle)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 20)
 
-                
-                Divider()
-                
-                VStack {
-                    Image(systemSymbol: .calendar)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 20)
-                        .padding(.horizontal)
-                    
-                    Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Dates.Hint")
-                }
-                
-                Divider()
-                
-                VStack {
-                    Image(systemSymbol: .safari)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 20)
-                        .padding(.horizontal)
-                    
-                    Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Url.Hint")
-                }
+                Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Pricing.Hint")
+            }
+
+            Divider()
+
+            VStack(spacing: 8) {
+                Image(systemSymbol: .calendar)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 20)
+
+                Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Dates.Hint")
+            }
+
+            Divider()
+
+            VStack(spacing: 8) {
+                Image(systemSymbol: .safari)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 20)
+
+                Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Url.Hint")
             }
         }
         .font(.caption2)
@@ -318,7 +318,7 @@ extension ItemDetailView {
         .opacity(0.6)
         .frame(maxWidth: .infinity, alignment: .center)
     }
-    
+
     @ViewBuilder
     private func makeActionsSection() -> some View {
         Section {
@@ -337,30 +337,30 @@ extension ItemDetailView {
             }
         }
     }
-    
+
     @ViewBuilder
     private func makeAddCustomAttributeAlertContent() -> some View {
         // Date
         Button("Item.Draft.Detail.Action.AddDateAttribute") {
             onAddDateCustomAttributeTapped()
         }
-        
+
         // Price
         Button("Item.Draft.Detail.Action.AddPriceAttribute") {
             onAddPriceCustomAttributeTapped()
         }
-        
+
         // Url
         Button("Item.Draft.Detail.Action.AddUrlAttribute") {
             onAddUrlCustomAttributeTapped()
         }
-        
+
         // Cancel
         Button("Misc.Cancel", role: .cancel) {
             // nothing
         }
     }
-    
+
     @ToolbarContentBuilder
     private func makeToolbar() -> some ToolbarContent {
         if viewMode == .read {
@@ -369,7 +369,8 @@ extension ItemDetailView {
                     Text("Item.Draft.Action.Edit")
                 }
             }
-        } else {
+        }
+        else {
             if viewMode != .create {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: { onCancelTapped() }) {
@@ -377,7 +378,7 @@ extension ItemDetailView {
                     }
                 }
             }
-            
+
             ToolbarItem(placement: .primaryAction) {
                 Button(action: { onSaveButtonTapped() }) {
                     Text("Item.Draft.Action.Save")
@@ -390,10 +391,9 @@ extension ItemDetailView {
 // MARK: - Actions -
 
 extension ItemDetailView {
-    
-    private func onChangeImageSelection(oldValue: PhotosPickerItem?, newValue: PhotosPickerItem?) {
+    private func onChangeImageSelection(oldValue _: PhotosPickerItem?, newValue: PhotosPickerItem?) {
         guard let newValue else { return }
-        
+
         newValue.loadTransferable(type: Data.self) { result in
             switch result {
             case let .success(.some(data)):
@@ -403,55 +403,55 @@ extension ItemDetailView {
             }
         }
     }
-    
-    private func onIconDataChanged(oldValue: Data?, newValue: Data?) {
+
+    private func onIconDataChanged(oldValue _: Data?, newValue: Data?) {
         guard let newValue else { return }
         imagesData.insert(.init(data: newValue), at: 0)
     }
-    
+
     private func onCancelTapped() {
         if let item {
             draft = .from(item: item)
             selectedColor = Color(hex: draft.hexColor)
             imagesData = draft.imagesData
             viewMode = .read
-        } else {
+        }
+        else {
             dismiss()
         }
     }
-    
+
     private func onAddIconTapped() {
         showIconWizard.toggle()
     }
-    
+
     private func onAddCustomTapped() {
         showAddCustomAttributeSheet.toggle()
     }
-    
+
     private func onAddPriceCustomAttributeTapped() {
         draft.customAttributes.append(.emptyPriceAttribute)
         showAddCustomAttributeSheet.toggle()
     }
-    
+
     private func onAddDateCustomAttributeTapped() {
         draft.customAttributes.append(.emptyDateAttribute)
         showAddCustomAttributeSheet.toggle()
     }
-    
+
     private func onAddUrlCustomAttributeTapped() {
         draft.customAttributes.append(.emptyUrlAttribute)
         showAddCustomAttributeSheet.toggle()
     }
-    
+
     private func onDeleteCustomTapped(withIndexSet indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
         let attributeToDelete = draft.customAttributes[index]
-        draft.customAttributes.removeAll(where: { $0.id == attributeToDelete.id  })
+        draft.customAttributes.removeAll(where: { $0.id == attributeToDelete.id })
         modelContext.delete(attributeToDelete)
     }
-    
+
     private func onSaveButtonTapped() {
-        
         if let item {
             item.title = draft.title
             item.summary = draft.summary
@@ -460,7 +460,8 @@ extension ItemDetailView {
             item.imageDatas = draft.imagesData
             item.updatedAt = .now
             viewMode = .read
-        } else {
+        }
+        else {
             let newItem = Item(
                 title: draft.title,
                 summary: draft.summary,
@@ -468,12 +469,12 @@ extension ItemDetailView {
                 imagesData: draft.imagesData,
                 updatedAt: .now
             )
-            
+
             modelContext.insert(newItem)
             dismiss()
         }
     }
-    
+
     private func onEditButtonTapped() {
         viewMode = .edit
     }
