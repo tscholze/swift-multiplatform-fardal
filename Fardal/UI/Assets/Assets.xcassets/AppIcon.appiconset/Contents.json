@@ -1,56 +1,67 @@
 {
   "images" : [
     {
+      "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb.jpeg",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
     },
     {
+      "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb copy 6.jpeg",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "16x16"
     },
     {
+      "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb copy 8.jpeg",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "16x16"
     },
     {
+      "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb copy 7.jpeg",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "32x32"
     },
     {
+      "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb copy 5.jpeg",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "32x32"
     },
     {
+      "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb copy 4.jpeg",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "128x128"
     },
     {
+      "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb copy 3.jpeg",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "128x128"
     },
     {
+      "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb copy 2.jpeg",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "256x256"
     },
     {
+      "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb copy 1.jpeg",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
+      "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb copy.jpeg",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
     },
     {
+      "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb 1.jpeg",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "512x512"
