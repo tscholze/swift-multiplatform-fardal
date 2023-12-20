@@ -11,13 +11,13 @@ import AVFoundation
 /// Represents a modal camera live-feeded photo
 /// picker.
 ///
-/// Listen to the `approvedTakenImagesData` for new image `Data`.
+/// Listen to the `cameraImagesData` for new image `Data`.
 struct CameraPicker: View {
     // MARK: - Properties -
 
     /// Contains user approved images that shall be consumed by
     /// caller.
-    @Binding var approvedTakenImagesData: [Data]
+    @Binding var cameraImagesData: [Data]
 
     // MARK: - Private properties -
 
@@ -59,7 +59,7 @@ struct CameraPicker: View {
 
                     // Submit button
                     Button("CameraPicker.Action.Submit") {
-                        approvedTakenImagesData = takenImagesData
+                        cameraImagesData = takenImagesData
                         dismiss()
                     }
                 }
@@ -159,5 +159,5 @@ extension CameraPicker {
 
 #Preview {
     @State var imagesData = [Data]()
-    return CameraPicker(approvedTakenImagesData: $imagesData)
+    return CameraPicker(cameraImagesData: $imagesData)
 }

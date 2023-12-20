@@ -8,10 +8,15 @@
 import Foundation
 import AVFoundation
 
+/// Wraps an `AVFoundation` based `AVCaptureSession` as a
+/// configurable and observable model.
 class CameraModel: NSObject, ObservableObject {
     // MARK: - Internal properties -
 
+    /// Taken image data
     @Published private(set) var takenImageData: Data?
+    
+    /// Preview layer that can be used to show a live feed of the camera finder.
     lazy var previewLayer = AVCaptureVideoPreviewLayer(session: session)
 
     // MARK: - Private helper -
@@ -21,6 +26,8 @@ class CameraModel: NSObject, ObservableObject {
 
     // MARK: - Internal helper -
 
+    /// Initializes a new `CameraModel`
+    /// Must be called before usage.
     func initialize() async throws {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .denied, .restricted: throw CameraError.noPermissionGranted
@@ -30,6 +37,7 @@ class CameraModel: NSObject, ObservableObject {
         }
     }
 
+    /// Takes the actual picture.
     func takePicture() {
         Task { output.capturePhoto(with: .init(), delegate: self) }
     }
@@ -38,10 +46,6 @@ class CameraModel: NSObject, ObservableObject {
 
     private func setup() throws {
         do {
-            defer {
-                session.commitConfiguration()
-            }
-
             // Start configuration
             session.beginConfiguration()
 
@@ -69,13 +73,17 @@ class CameraModel: NSObject, ObservableObject {
 
             // Check if it possible to add outout to session
             if session.canAddOutput(output) {
+                session.sessionPreset = .medium
                 session.addOutput(output)
             }
             else {
                 throw CameraError.invalidSession
             }
+            
+            // Commit configiguration
+            session.commitConfiguration()
 
-            // Autostart running
+            // and start running
             session.startRunning()
         }
         catch {
@@ -105,6 +113,8 @@ class CameraModel: NSObject, ObservableObject {
 
     // MARK: - Camera error -
 
+    /// Describes all available error that can occure
+    /// during camera usage
     enum CameraError: Error {
         case noPermissionGranted
         case invalidSession

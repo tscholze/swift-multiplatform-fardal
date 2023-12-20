@@ -27,9 +27,11 @@ struct ItemDetailView: View {
     @State private var showAddMediaSheet = false
     @State private var showIconWizard = false
     @State private var showPhotoPicker = false
+    @State private var showCamera = false
     @State private var selectedColor: Color = Color.clear
     @State private var imagesData = [ImageData]()
     @State private var imageSelection: PhotosPickerItem? = nil
+    @State private var cameraImagesData = [Data]()
     @State private var iconData: Data? = nil
     @State private var cameraModel = CameraModel()
     @Environment(\.modelContext) private var modelContext
@@ -53,6 +55,7 @@ struct ItemDetailView: View {
             makeCustomAttributesSection()
             makeActionsSection()
         }
+        .onChange(of: cameraImagesData, onChangeOfCameraImagesData(oldValue:newValue:))
         .navigationBarBackButtonHidden(viewMode == .edit)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { makeToolbar() }
@@ -62,6 +65,9 @@ struct ItemDetailView: View {
             selection: $imageSelection,
             photoLibrary: .shared()
         )
+        .fullScreenCover(isPresented: $showCamera) {
+            CameraPicker(cameraImagesData: $cameraImagesData)
+        }
         .alert("Item.Draft.Detail.Action.AddAttribute", isPresented: $showAddCustomAttributeSheet) {
             makeAddCustomAttributeAlertContent()
         }
@@ -69,12 +75,20 @@ struct ItemDetailView: View {
             makeAddMediaAlertContent()
         }
         .task {
-            do {
-                try await cameraModel.initialize()
+            Task.detached {
+                do {
+                    try await cameraModel.initialize()
+                }
+                catch {
+                    print("Camera init failed: \(error.localizedDescription)")
+                }
             }
-            catch {
-                print("Camera init failed: \(error.localizedDescription)")
-            }
+        }
+    }
+    
+    private func onChangeOfCameraImagesData(oldValue: [Data], newValue: [Data]) {
+        newValue.forEach { data in
+            imagesData.append(.init(data: data))
         }
     }
 }
@@ -143,9 +157,12 @@ extension ItemDetailView {
                 ScrollView(.horizontal) {
                     HStack {
                         // Live camera feed
+                        /* Determine if this feature is useable and how
                         CameraPreview(cameraModel: cameraModel)
                             .frame(width: 60, height: 60)
-
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                         */
+                        
                         // List of images
                         ForEach(imagesData, id: \.id) { imageData in
                             // Render image
@@ -369,7 +386,7 @@ extension ItemDetailView {
         
         // Camera
         Button("Item.Draft.Action.TakePhoto") {
-            print("Take Photo")
+            showCamera.toggle()
         }
         
         // Icon wizard

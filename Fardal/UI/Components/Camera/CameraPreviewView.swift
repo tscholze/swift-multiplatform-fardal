@@ -9,6 +9,8 @@ import SwiftUI
 import Foundation
 import AVFoundation
 
+/// SwiftUI wtapper for the sadly `UIKit` based `PreviewLayerView`.
+/// The `cameraModel` is required to be set.
 struct CameraPreview: UIViewRepresentable {
     // MARK: - Internal properties -
 
