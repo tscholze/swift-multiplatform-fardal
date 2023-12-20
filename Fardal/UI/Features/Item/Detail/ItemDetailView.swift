@@ -85,8 +85,8 @@ struct ItemDetailView: View {
             }
         }
     }
-    
-    private func onChangeOfCameraImagesData(oldValue: [Data], newValue: [Data]) {
+
+    private func onChangeOfCameraImagesData(oldValue _: [Data], newValue: [Data]) {
         newValue.forEach { data in
             imagesData.append(.init(data: data))
         }
@@ -157,12 +157,12 @@ extension ItemDetailView {
                 ScrollView(.horizontal) {
                     HStack {
                         // Live camera feed
-                        /* Determine if this feature is useable and how
-                        CameraPreview(cameraModel: cameraModel)
-                            .frame(width: 60, height: 60)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                         */
-                        
+                        // Determine if this feature is useable and how
+                        // CameraPreview(cameraModel: cameraModel)
+                        //    .frame(width: 60, height: 60)
+                        //    .clipShape(RoundedRectangle(cornerRadius: 4))
+                        // 
+
                         // List of images
                         ForEach(imagesData, id: \.id) { imageData in
                             // Render image
@@ -283,7 +283,7 @@ extension ItemDetailView {
                 Text("Item.Draft.Detail.Section.Attributes.Title")
                 if viewMode != .read {
                     Spacer()
-                    
+
                     Button(
                         action: { onAddCustomTapped() },
                         label: {
@@ -376,24 +376,24 @@ extension ItemDetailView {
             // nothing
         }
     }
-    
+
     @ViewBuilder
     private func makeAddMediaAlertContent() -> some View {
         // Photo picker
         Button("Item.Draft.Action.SelectPhoto") {
             showPhotoPicker.toggle()
         }
-        
+
         // Camera
         Button("Item.Draft.Action.TakePhoto") {
             showCamera.toggle()
         }
-        
+
         // Icon wizard
         Button("Item.Draft.Action.AddCustomIcon") {
             showIconWizard.toggle()
         }
-        
+
         // Cancel
         Button("Misc.Cancel", role: .cancel) {
             // nothing

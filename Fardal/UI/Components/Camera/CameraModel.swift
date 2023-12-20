@@ -15,7 +15,7 @@ class CameraModel: NSObject, ObservableObject {
 
     /// Taken image data
     @Published private(set) var takenImageData: Data?
-    
+
     /// Preview layer that can be used to show a live feed of the camera finder.
     lazy var previewLayer = AVCaptureVideoPreviewLayer(session: session)
 
@@ -79,7 +79,7 @@ class CameraModel: NSObject, ObservableObject {
             else {
                 throw CameraError.invalidSession
             }
-            
+
             // Commit configiguration
             session.commitConfiguration()
 
