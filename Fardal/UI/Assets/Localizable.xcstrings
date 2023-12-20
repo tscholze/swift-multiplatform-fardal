@@ -14,6 +14,65 @@
         }
       }
     },
+    "CameraPicker.Action.Submit" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish"
+          }
+        }
+      }
+    },
+    "CameraPicker.Actions.Mock" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add mocked photo"
+          }
+        }
+      }
+    },
+    "CameraPicker.SimulatorNotSupported.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera is not supported in simulator.\nUse 'mock' button."
+          }
+        }
+      }
+    },
+    "CameraPicker.TakenPhotos.Headline" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The photos you took"
+          }
+        }
+      }
+    },
+    "CameraPicker.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera"
+          }
+        }
+      }
+    },
+    "Dashboard.Title" : {
+
+    },
+    "Fardal" : {
+
+    },
+    "Hello, World!" : {
+
+    },
     "Item.Detail.Attribute.Date.Title.Placeholder" : {
       "localizations" : {
         "en" : {
@@ -64,6 +123,16 @@
         }
       }
     },
+    "Item.Draft.Action.AddCustomIcon" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add custom icon"
+          }
+        }
+      }
+    },
     "Item.Draft.Action.Cancel" : {
       "localizations" : {
         "en" : {
@@ -94,6 +163,26 @@
         }
       }
     },
+    "Item.Draft.Action.SelectPhoto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select photo"
+          }
+        }
+      }
+    },
+    "Item.Draft.Action.TakePhoto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take photo"
+          }
+        }
+      }
+    },
     "Item.Draft.Detail.Action.AddAttribute" : {
       "localizations" : {
         "en" : {
@@ -110,6 +199,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add a date"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Action.AddMedia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add images"
           }
         }
       }
@@ -154,12 +253,52 @@
         }
       }
     },
+    "Item.Draft.Detail.Section.CustomAttributes.Empty.Dates.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add dates"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.CustomAttributes.Empty.Pricing.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add pricing"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.CustomAttributes.Empty.Url.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add links"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.Photo.Empty.Camera.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take a photo"
+          }
+        }
+      }
+    },
     "Item.Draft.Detail.Section.Photo.Empty.Icon.Hint" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create an icon. It will be always the first one."
+            "value" : "Create an icon"
           }
         }
       }
@@ -169,7 +308,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Select a photo from your phone. It should be square."
+            "value" : "Select a photo"
           }
         }
       }
@@ -273,6 +412,9 @@
           }
         }
       }
+    },
+    "New" : {
+
     },
     "Settings.Appereance.Mode" : {
       "localizations" : {
@@ -463,6 +605,12 @@
           }
         }
       }
+    },
+    "Your collections" : {
+
+    },
+    "Your latest items" : {
+
     }
   },
   "version" : "1.0"
