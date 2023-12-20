@@ -346,7 +346,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					4A848A2F2B24F2700090FC73 = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -406,7 +406,6 @@
 				4A1EA7F72B2EF6760053E5AF /* ItemDatabaseOperations.swift in Sources */,
 				4A31E2212B3023F5005CD1A1 /* CameraPreviewView.swift in Sources */,
 				4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */,
-				4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */,
 				4A848A362B24F2700090FC73 /* ContentView.swift in Sources */,
 				4AED2B632B2C604700E348A0 /* Appereance.swift in Sources */,
 				4A723D002B31EEF200A3ED67 /* ActionButtons.swift in Sources */,
@@ -417,11 +416,9 @@
 				4A04AD092B25B87500CA9053 /* ItemDetailView.swift in Sources */,
 				4AED2B612B2C5F7700E348A0 /* SettingsView.swift in Sources */,
 				4A06F84E2B2A2D7C00F93E37 /* UrlCustomAttributeView.swift in Sources */,
-				4A06F84E2B2A2D7C00F93E37 /* UrlCustomAttributeView.swift in Sources */,
 				4A31E2242B302459005CD1A1 /* UIDevice+System.swift in Sources */,
 				4A31E2262B3026C6005CD1A1 /* MockGenerator.swift in Sources */,
 				4A848A382B24F2700090FC73 /* Item.swift in Sources */,
-				4A04AD112B25CFFE00CA9053 /* ViewMode.swift in Sources */,
 				4A04AD112B25CFFE00CA9053 /* ViewMode.swift in Sources */,
 				4A848A342B24F2700090FC73 /* FardalApp.swift in Sources */,
 			);
@@ -464,6 +461,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -525,6 +523,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -552,6 +551,7 @@
 				CODE_SIGN_ENTITLEMENTS = Fardal/Fardal.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Fardal/Preview Content\"";
 				DEVELOPMENT_TEAM = 6WAYJC7M67;
 				ENABLE_PREVIEWS = YES;
@@ -593,6 +593,7 @@
 				CODE_SIGN_ENTITLEMENTS = Fardal/Fardal.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Fardal/Preview Content\"";
 				DEVELOPMENT_TEAM = 6WAYJC7M67;
 				ENABLE_PREVIEWS = YES;
