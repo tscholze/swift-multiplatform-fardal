@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Represents a custom item attribute which contains
+/// an `URL` value.
 struct UrlCustomAttributeView: View {
     // MARK: - Properties -
 
@@ -79,14 +81,14 @@ struct UrlCustomAttributeView: View {
             }
         }
     }
+}
 
-    // MARK: - Helpers -
+// MARK: - Events -
 
+extension UrlCustomAttributeView {
     private func onTitleChanged(oldValue _: String, newValue: String) {
         store.title = newValue
     }
-
-    // MARK: - Helpers -
 
     private func onRawUrlChanged(oldValue _: String, newValue: String) {
         guard let url = URL(string: newValue) else { return }

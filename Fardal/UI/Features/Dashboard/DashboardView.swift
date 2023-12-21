@@ -20,7 +20,7 @@ struct DashboardView: View {
         NavigationView {
             VStack(alignment: .leading) {
                 makeCollectionsSection()
-                makeLatestCartons()
+                makeLatestItemsSection()
             }
             .padding()
             .frame(
@@ -28,7 +28,7 @@ struct DashboardView: View {
                 maxHeight: .infinity,
                 alignment: .topLeading
             )
-            .navigationTitle("Fardal")
+            .navigationTitle("Dashboard.Title")
         }
         .tabItem {
             Label("Dashboard.Title", systemSymbol: .house)
@@ -41,27 +41,31 @@ struct DashboardView: View {
 extension DashboardView {
     @ViewBuilder
     private func makeCollectionsSection() -> some View {
-        Section("Your collections") {
+        Section {
             HStack {
                 Button("") {}
                     .buttonStyle(LargeAddButton())
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .frame(height: 60)
+        } header: {
+            HStack {
+                Text("Dashboard.Section.LatestCollections.Title")
+                Spacer()
+                NavigationLink {
+                    ItemDetailView(initialState: .create)
+                } label: {
+                    Image(systemSymbol: .plus)
+                }
+            }
         }
     }
 
     @ViewBuilder
-    private func makeLatestCartons() -> some View {
-        Section("Your latest items") {
+    private func makeLatestItemsSection() -> some View {
+        Section {
             HStack {
                 ScrollView(.horizontal) {
-                    NavigationLink {
-                        ItemDetailView(item: .empty, initialViewMode: .create)
-                    } label: {
-                        Text("New")
-                    }
-
                     ForEach(items) { item in
                         ZStack(alignment: .center) {
                             if let uiImage = item.imageDatas.first?.uiImage {
@@ -76,13 +80,21 @@ extension DashboardView {
                     }
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: 60)
+        } header: {
+            HStack {
+                Text("Dashboard.Section.LatestItems.Title")
+                Spacer()
+                NavigationLink {
+                    ItemDetailView(initialState: .create)
+                } label: {
+                    Image(systemSymbol: .plus)
+                }
+            }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(height: 60)
     }
 }
-
-extension DashboardView {}
 
 #Preview {
     DashboardView()
