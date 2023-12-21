@@ -64,13 +64,26 @@
         }
       }
     },
-    "Dashboard.Title" : {
+    "Dashboard.Section.LatestCollections.Title" : {
 
     },
-    "Fardal" : {
+    "Dashboard.Section.LatestItems.Title" : {
 
+    },
+    "Dashboard.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dashboard"
+          }
+        }
+      }
     },
     "Hello, World!" : {
+
+    },
+    "Invalid" : {
 
     },
     "Item.Detail.Attribute.Date.Title.Placeholder" : {
@@ -79,6 +92,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Date"
+          }
+        }
+      }
+    },
+    "Item.Detail.Attribute.Note.Title.Placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My note"
+          }
+        }
+      }
+    },
+    "Item.Detail.Attribute.Note.Validation.Format %lld / %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Available characters: %1$lld / %2$lld"
           }
         }
       }
@@ -213,6 +246,16 @@
         }
       }
     },
+    "Item.Draft.Detail.Action.AddNoteAttribute" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a note"
+          }
+        }
+      }
+    },
     "Item.Draft.Detail.Action.AddPriceAttribute" : {
       "localizations" : {
         "en" : {
@@ -243,6 +286,16 @@
         }
       }
     },
+    "Item.Draft.Detail.Section.Attributes.Footer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can add multiple attributes of the same type. Use swipe to delete to remove unwanted attributes."
+          }
+        }
+      }
+    },
     "Item.Draft.Detail.Section.Attributes.Title" : {
       "localizations" : {
         "en" : {
@@ -258,7 +311,17 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add dates"
+            "value" : "Dates"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.CustomAttributes.Empty.More.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More"
           }
         }
       }
@@ -268,7 +331,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add pricing"
+            "value" : "Pricing"
           }
         }
       }
@@ -278,7 +341,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add links"
+            "value" : "Link"
           }
         }
       }
@@ -313,12 +376,12 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Photos.Title %lld / 3" : {
+    "Item.Draft.Detail.Section.Photos.Title %lld / %lld" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Photos %lld / 3"
+            "value" : "Photos %1$lld / %2$lld"
           }
         }
       }
@@ -373,6 +436,16 @@
         }
       }
     },
+    "Item.Draft.Section.Photos.Footer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All assets should be in a square format or should look nice if cropped."
+          }
+        }
+      }
+    },
     "Item.List.Action.Add" : {
       "localizations" : {
         "en" : {
@@ -413,8 +486,15 @@
         }
       }
     },
-    "New" : {
-
+    "Misc.EmptyValue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No value, yet"
+          }
+        }
+      }
     },
     "Settings.Appereance.Mode" : {
       "localizations" : {
@@ -606,10 +686,7 @@
         }
       }
     },
-    "Your collections" : {
-
-    },
-    "Your latest items" : {
+    "Valid" : {
 
     }
   },

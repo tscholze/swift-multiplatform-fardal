@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Represents a custom item attribute which contains
+/// a [Date] value.
 struct DateCustomAttributeView: View {
     // MARK: - Properties -
 
@@ -60,9 +62,11 @@ struct DateCustomAttributeView: View {
             }
         }
     }
+}
 
-    // MARK: - Helpers -
+// MARK: - Events -
 
+extension DateCustomAttributeView {
     private func onTitleChanged(oldValue _: String, newValue: String) {
         store.title = newValue
     }

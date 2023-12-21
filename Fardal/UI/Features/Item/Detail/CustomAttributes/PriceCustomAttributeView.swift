@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Represents a custom item attribute which contains pricing
+/// information with a selectable currency
 struct PriceCustomAttributeView: View {
     // MARK: - Properties -
 
@@ -32,9 +34,11 @@ struct PriceCustomAttributeView: View {
             makeWriteableView()
         }
     }
+}
 
-    // MARK: - View builders -
+// MARK: - View Builders -
 
+extension PriceCustomAttributeView {
     @ViewBuilder
     private func makeReadView() -> some View {
         VStack(alignment: .leading) {
@@ -95,10 +99,6 @@ struct PriceCustomAttributeView: View {
         }
     }
 }
-
-// MARK: - View Builders -
-
-extension PriceCustomAttributeView {}
 
 // MARK: - Actions -
 

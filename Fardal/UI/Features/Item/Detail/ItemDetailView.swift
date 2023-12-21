@@ -11,18 +11,15 @@ import PhotosUI
 /// Represents a [View] that shows the detail of the model
 /// and enables the user to perform CRUD operations on the [Item].
 struct ItemDetailView: View {
-    // MARK: - Properties -
-
-    /// Underlying item that shall be target of CRUD operations
-    let item: Item?
-
-    /// Initials view mode
-    let initialViewModel: ViewMode
-
     // MARK: - Private properties -
 
+    private var item: Item?
+    private let intialViewMode: ViewMode
+
     @State private var draft: ItemDraft
-    @State private var viewMode: ViewMode = .edit
+    @State private var viewMode: ViewMode = .read
+    @State private var title = ""
+    @State private var summary = ""
     @State private var showAddCustomAttributeSheet = false
     @State private var showAddMediaSheet = false
     @State private var showIconWizard = false
@@ -34,15 +31,32 @@ struct ItemDetailView: View {
     @State private var cameraImagesData = [Data]()
     @State private var iconData: Data? = nil
     @State private var cameraModel = CameraModel()
+    @State private var isValid = false
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
 
     // MARK: - Init -
 
-    init(item: Item, initialViewMode: ViewMode) {
-        initialViewModel = initialViewMode
-        self.item = item
-        _draft = .init(initialValue: .from(item: item))
+    /// Initializes a new detail view with given state configuration
+    ///
+    /// - Parameter initialState: Initial state that defines the viewMode and the datasource.
+    init(initialState: ItemDetailViewInitalState) {
+        switch initialState {
+        case let .read(item):
+            _draft = .init(initialValue: .from(item: item))
+            self.item = item
+            intialViewMode = .read
+
+        case .create:
+            _draft = .init(initialValue: .from(item: .empty))
+            item = nil
+            intialViewMode = .create
+
+        case let .edit(item):
+            _draft = .init(initialValue: .from(item: item))
+            self.item = item
+            intialViewMode = .edit
+        }
     }
 
     // MARK: - UI -
@@ -59,7 +73,6 @@ struct ItemDetailView: View {
         .navigationBarBackButtonHidden(viewMode == .edit)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { makeToolbar() }
-        .onAppear(perform: onDidAppear)
         .photosPicker(
             isPresented: $showPhotoPicker,
             selection: $imageSelection,
@@ -74,6 +87,7 @@ struct ItemDetailView: View {
         .alert("Item.Draft.Detail.Action.AddMedia", isPresented: $showAddMediaSheet) {
             makeAddMediaAlertContent()
         }
+        .onAppear(perform: onViewAppear)
         .task {
             Task.detached {
                 do {
@@ -85,22 +99,6 @@ struct ItemDetailView: View {
             }
         }
     }
-
-    private func onChangeOfCameraImagesData(oldValue _: [Data], newValue: [Data]) {
-        newValue.forEach { data in
-            imagesData.append(.init(data: data))
-        }
-    }
-}
-
-// MARK: - Life cyle -
-
-extension ItemDetailView {
-    private func onDidAppear() {
-        viewMode = initialViewModel
-        selectedColor = Color(hex: draft.hexColor)
-        imagesData = draft.imagesData
-    }
 }
 
 // MARK: - View builders -
@@ -111,14 +109,16 @@ extension ItemDetailView {
         Section("Item.Draft.Detail.Section.Required.Title") {
             // Name
             if viewMode == .read {
-                Text(draft.title)
-                Text(draft.summary)
+                Text(title)
+                Text(summary)
             }
             else {
-                TextField("Item.Draft.Detail.Section.Required.Name", text: $draft.title)
+                TextField("Item.Draft.Detail.Section.Required.Name", text: $title)
+                    .onChange(of: title, onTitleChanged(oldValue:newValue:))
 
                 // Summary
-                TextField("Item.Draft.Detail.Section.Required.Summary", text: $draft.summary)
+                TextField("Item.Draft.Detail.Section.Required.Summary", text: $summary)
+                    .onChange(of: summary, onSummaryChanged(oldValue:newValue:))
             }
         }
     }
@@ -134,6 +134,7 @@ extension ItemDetailView {
                 Image(systemName: "flag.fill")
                     .foregroundStyle(Color(hex: draft.hexColor))
 
+                // Color picker button if is in edit mode
                 if viewMode != .read {
                     // Picker
                     ColorPicker("", selection: $selectedColor)
@@ -161,7 +162,7 @@ extension ItemDetailView {
                         // CameraPreview(cameraModel: cameraModel)
                         //    .frame(width: 60, height: 60)
                         //    .clipShape(RoundedRectangle(cornerRadius: 4))
-                        // 
+                        //
 
                         // List of images
                         ForEach(imagesData, id: \.id) { imageData in
@@ -193,7 +194,7 @@ extension ItemDetailView {
             }
         } header: {
             HStack {
-                Text("Item.Draft.Detail.Section.Photos.Title \(draft.imagesData.count) / 3")
+                Text("Item.Draft.Detail.Section.Photos.Title \(draft.imagesData.count) / \(FardalConstants.Item.maxNumberOfPhotosPerItem)")
                 if viewMode != .read {
                     HStack {
                         Spacer()
@@ -201,13 +202,15 @@ extension ItemDetailView {
                             showAddMediaSheet.toggle()
                         } label: {
                             Image(systemName: "plus.circle")
-                        }
+                        }.disabled(draft.imagesData.count == FardalConstants.Item.maxNumberOfPhotosPerItem)
                     }
                 }
             }
             .sheet(isPresented: $showIconWizard) {
                 SymbolWizardView(selectedData: $iconData)
             }
+        } footer: {
+            Text("Item.Draft.Section.Photos.Footer")
         }
         .onChange(of: iconData) { n, o in
             onIconDataChanged(oldValue: n, newValue: o)
@@ -275,9 +278,12 @@ extension ItemDetailView {
                         .onDelete(perform: onDeleteCustomTapped)
                         .deleteDisabled(viewMode == .read)
                     }
+                    .alignmentGuide(.listRowSeparatorLeading) { _ in
+                        return 0
+                    }
                 }
             }
-            .frame(height: 60)
+            .frame(minHeight: 60)
         } header: {
             HStack {
                 Text("Item.Draft.Detail.Section.Attributes.Title")
@@ -292,6 +298,8 @@ extension ItemDetailView {
                     )
                 }
             }
+        } footer: {
+            Text("Item.Draft.Detail.Section.Attributes.Footer")
         }
     }
 
@@ -328,7 +336,19 @@ extension ItemDetailView {
 
                 Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Url.Hint")
             }
+
+            Divider()
+
+            VStack(spacing: 8) {
+                Image(systemSymbol: .ellipsisCircle)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 20)
+
+                Text("Item.Draft.Detail.Section.CustomAttributes.Empty.More.Hint")
+            }
         }
+        .multilineTextAlignment(.center)
         .font(.caption2)
         .foregroundStyle(.secondary)
         .opacity(0.6)
@@ -369,6 +389,11 @@ extension ItemDetailView {
         // Url
         Button("Item.Draft.Detail.Action.AddUrlAttribute") {
             onAddUrlCustomAttributeTapped()
+        }
+
+        // Url
+        Button("Item.Draft.Detail.Action.AddNoteAttribute") {
+            onAddNoteCustomAttributeTapped()
         }
 
         // Cancel
@@ -420,8 +445,12 @@ extension ItemDetailView {
 
             ToolbarItem(placement: .primaryAction) {
                 Button(action: { onSaveButtonTapped() }) {
-                    Text("Item.Draft.Action.Save")
+                    VStack {
+                        Text("Item.Draft.Action.Save")
+                        Text(isValid ? "Valid" : "Invalid")
+                    }
                 }
+                .disabled(isValid == false)
             }
         }
     }
@@ -430,6 +459,41 @@ extension ItemDetailView {
 // MARK: - Actions -
 
 extension ItemDetailView {
+    private func isValidInput() -> Bool {
+        if title.isEmpty || summary.isEmpty {
+            return false
+        }
+        else {
+            return true
+        }
+    }
+
+    private func onViewAppear() {
+        viewMode = intialViewMode
+        selectedColor = Color(hex: draft.hexColor)
+        imagesData = draft.imagesData
+    }
+
+    private func onTitleChanged(oldValue _: String, newValue: String) {
+        isValid = isValidInput()
+        if isValid {
+            draft.title = newValue
+        }
+    }
+
+    private func onSummaryChanged(oldValue _: String, newValue: String) {
+        isValid = isValidInput()
+        if isValid {
+            draft.summary = newValue
+        }
+    }
+
+    private func onChangeOfCameraImagesData(oldValue _: [Data], newValue: [Data]) {
+        newValue.forEach { data in
+            imagesData.append(.init(data: data))
+        }
+    }
+
     private func onChangeImageSelection(oldValue _: PhotosPickerItem?, newValue: PhotosPickerItem?) {
         guard let newValue else { return }
 
@@ -483,15 +547,25 @@ extension ItemDetailView {
         showAddCustomAttributeSheet.toggle()
     }
 
+    private func onAddNoteCustomAttributeTapped() {
+        draft.customAttributes.append(.emptyNoteAttribute)
+    }
+
     private func onDeleteCustomTapped(withIndexSet indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
-        let attributeToDelete = draft.customAttributes[index]
-        draft.customAttributes.removeAll(where: { $0.id == attributeToDelete.id })
-        modelContext.delete(attributeToDelete)
+        let attribute = draft.customAttributes[index]
+        draft.customAttributes.removeAll(where: { $0.id == attribute.id })
     }
 
     private func onSaveButtonTapped() {
         if let item {
+            // Remove attributes from database which are deleted in drafts
+            item.customAttributes.forEach { itemAttribute in
+                if draft.customAttributes.contains(itemAttribute) == false {
+                    modelContext.delete(itemAttribute)
+                }
+            }
+
             item.title = draft.title
             item.summary = draft.summary
             item.customAttributes = draft.customAttributes
@@ -506,6 +580,7 @@ extension ItemDetailView {
                 summary: draft.summary,
                 hexColor: draft.hexColor,
                 imagesData: draft.imagesData,
+                // customAttributes: draft.customAttributes,
                 updatedAt: .now
             )
 
@@ -519,10 +594,21 @@ extension ItemDetailView {
     }
 }
 
+extension ItemDetailView {
+    private func validateInput() {
+        if title.isEmpty || summary.isEmpty {
+            isValid = false
+        }
+        else {
+            isValid = true
+        }
+    }
+}
+
 // MARK: - Preview -
 
 #Preview {
     NavigationView {
-        ItemDetailView(item: .mocked, initialViewMode: .read)
+        ItemDetailView(initialState: .create)
     }
 }

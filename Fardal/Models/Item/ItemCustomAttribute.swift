@@ -16,6 +16,7 @@ enum ItemCustomAttributeTypes: String {
     case date
     case price
     case url
+    case note
 
     // MARK: - Generators -
 
@@ -37,6 +38,8 @@ enum ItemCustomAttributeTypes: String {
                 PriceCustomAttributeView(mode: mode, store: .init(attribute: attribute))
             case .url:
                 UrlCustomAttributeView(mode: mode, store: .init(attribute: attribute))
+            case .note:
+                NoteCustomAttributeView(mode: mode, store: .init(attribute: attribute))
             }
         }
     }
@@ -90,6 +93,12 @@ extension ItemCustomAttribute {
         layout: "url",
         payload: ["title": "Homepage", "url": ""]
     )
+
+    /// Gets an empty (initial) empty note attribute.
+    static var emptyNoteAttribute: ItemCustomAttribute = .init(
+        layout: "note",
+        payload: ["title": "Note", "text": ""]
+    )
 }
 
 // MARK: - Mock -
@@ -111,5 +120,11 @@ extension ItemCustomAttribute {
     static var mockedLinkAttribute: ItemCustomAttribute = .init(
         layout: "url",
         payload: ["title": "Homepage", "url": "https://tscholze.github.io"]
+    )
+
+    /// Mocked `ItemCustomAttribute` representing a note
+    static var mockedNoteAttribute: ItemCustomAttribute = .init(
+        layout: "note",
+        payload: ["title": "Keep in mind", "text": "Always use Fardal!"]
     )
 }

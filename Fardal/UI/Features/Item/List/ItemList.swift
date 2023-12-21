@@ -23,7 +23,7 @@ struct ItemListView: View {
             List {
                 ForEach(items) { item in
                     NavigationLink {
-                        ItemDetailView(item: item, initialViewMode: .read)
+                        ItemDetailView(initialState: .read(item))
                     } label: {
                         Text(item.title)
                     }
@@ -36,8 +36,8 @@ struct ItemListView: View {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: onAddItemTapped) {
-                        Label("Item.List.Action.Add", systemImage: "plus")
+                    NavigationLink("Item.List.Action.Add") {
+                        ItemDetailView(initialState: .create)
                     }
                 }
             }

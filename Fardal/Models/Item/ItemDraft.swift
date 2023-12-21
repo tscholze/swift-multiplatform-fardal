@@ -19,7 +19,9 @@ final class ItemDraft: ObservableObject {
     let existingId: UUID?
 
     /// Human read-able title
-    var title: String
+    var title: String {
+        didSet { validate() }
+    }
 
     /// Identifiying color
     var hexColor: UInt
@@ -32,6 +34,8 @@ final class ItemDraft: ObservableObject {
 
     /// List of custom attributes
     var customAttributes: [ItemCustomAttribute]
+
+    var isValid = false
 
     // MARK: - Init -
 
@@ -49,6 +53,15 @@ final class ItemDraft: ObservableObject {
         self.imagesData = imagesData
         self.customAttributes = customAttributes
         self.hexColor = hexColor
+    }
+
+    private func validate() {
+        if title.isEmpty {
+            isValid = false
+        }
+        else {
+            isValid = true
+        }
     }
 }
 
