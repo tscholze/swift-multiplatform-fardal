@@ -18,7 +18,7 @@ struct ContentView: View {
 
     var body: some View {
         TabView {
-            ItemListView()
+            DashboardView()
             SettingsView()
         }
     }

@@ -39,7 +39,7 @@ struct ChipsView: View {
 
             if viewMode != .read {
                 HStack {
-                    TextField("Add new tag", text: $newTagText)
+                    TextField("Chips.NewTag.Placeholder", text: $newTagText)
                         .font(.caption)
                         .onChange(of: newTagText, onNewTagTextChanged(oldValue:newValue:))
 

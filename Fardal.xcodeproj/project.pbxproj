@@ -25,6 +25,9 @@
 		4A31E2212B3023F5005CD1A1 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E2202B3023F5005CD1A1 /* CameraPreviewView.swift */; };
 		4A31E2242B302459005CD1A1 /* UIDevice+System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E2232B302459005CD1A1 /* UIDevice+System.swift */; };
 		4A31E2262B3026C6005CD1A1 /* MockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E2252B3026C6005CD1A1 /* MockGenerator.swift */; };
+		4A33DBE62B35A39900EF1D1B /* InitialAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33DBE52B35A39900EF1D1B /* InitialAvatarView.swift */; };
+		4A33DBE92B35AED800EF1D1B /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33DBE82B35AED800EF1D1B /* CollectionModel.swift */; };
+		4A33DBED2B35AFD400EF1D1B /* CollectionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33DBEC2B35AFD400EF1D1B /* CollectionDetailView.swift */; };
 		4A5D865C2B34759D0056FAC1 /* FardalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5D865B2B34759D0056FAC1 /* FardalConstants.swift */; };
 		4A5D865E2B347A8C0056FAC1 /* NoteCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5D865D2B347A8C0056FAC1 /* NoteCustomAttributeView.swift */; };
 		4A5D86602B349F350056FAC1 /* ItemDetailViewInitalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5D865F2B349F350056FAC1 /* ItemDetailViewInitalState.swift */; };
@@ -66,6 +69,9 @@
 		4A31E2202B3023F5005CD1A1 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		4A31E2232B302459005CD1A1 /* UIDevice+System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+System.swift"; sourceTree = "<group>"; };
 		4A31E2252B3026C6005CD1A1 /* MockGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGenerator.swift; sourceTree = "<group>"; };
+		4A33DBE52B35A39900EF1D1B /* InitialAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAvatarView.swift; sourceTree = "<group>"; };
+		4A33DBE82B35AED800EF1D1B /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
+		4A33DBEC2B35AFD400EF1D1B /* CollectionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailView.swift; sourceTree = "<group>"; };
 		4A5D865B2B34759D0056FAC1 /* FardalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FardalConstants.swift; sourceTree = "<group>"; };
 		4A5D865D2B347A8C0056FAC1 /* NoteCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCustomAttributeView.swift; sourceTree = "<group>"; };
 		4A5D865F2B349F350056FAC1 /* ItemDetailViewInitalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewInitalState.swift; sourceTree = "<group>"; };
@@ -158,6 +164,7 @@
 		4A06F84F2B2A368A00F93E37 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4A33DBE42B35A38C00EF1D1B /* Avatar */,
 				4A5D86612B3566730056FAC1 /* Chips */,
 				4A723CFE2B31EEDA00A3ED67 /* Buttons */,
 				4A31E21B2B302113005CD1A1 /* Camera */,
@@ -210,6 +217,38 @@
 				4A31E2232B302459005CD1A1 /* UIDevice+System.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4A33DBE42B35A38C00EF1D1B /* Avatar */ = {
+			isa = PBXGroup;
+			children = (
+				4A33DBE52B35A39900EF1D1B /* InitialAvatarView.swift */,
+			);
+			path = Avatar;
+			sourceTree = "<group>";
+		};
+		4A33DBE72B35AEC900EF1D1B /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				4A33DBE82B35AED800EF1D1B /* CollectionModel.swift */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		4A33DBEA2B35AFB800EF1D1B /* List */ = {
+			isa = PBXGroup;
+			children = (
+				4AF864242B30C2E900F567EB /* CollectionListView.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		4A33DBEB2B35AFC000EF1D1B /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				4A33DBEC2B35AFD400EF1D1B /* CollectionDetailView.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		4A5D865A2B3475890056FAC1 /* Configuration */ = {
@@ -287,6 +326,7 @@
 		4A848A442B24F3820090FC73 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4A33DBE72B35AEC900EF1D1B /* Collection */,
 				4A04AD152B26F7DB00CA9053 /* Item */,
 				4A04AD0A2B25B9D700CA9053 /* Extensions */,
 			);
@@ -336,7 +376,8 @@
 		4AF864232B30C2DD00F567EB /* Collection */ = {
 			isa = PBXGroup;
 			children = (
-				4AF864242B30C2E900F567EB /* CollectionListView.swift */,
+				4A33DBEB2B35AFC000EF1D1B /* Detail */,
+				4A33DBEA2B35AFB800EF1D1B /* List */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -432,10 +473,12 @@
 				4A5D86602B349F350056FAC1 /* ItemDetailViewInitalState.swift in Sources */,
 				4A31E21F2B3023B3005CD1A1 /* CameraModel.swift in Sources */,
 				4A1EA8012B2F57DC0053E5AF /* SymbolPickerView.swift in Sources */,
+				4A33DBE92B35AED800EF1D1B /* CollectionModel.swift in Sources */,
 				4A5D86672B3567CC0056FAC1 /* ChipModel.swift in Sources */,
 				4A1EA7FB2B2F548E0053E5AF /* SymbolWizardView.swift in Sources */,
 				4A31E21D2B30217C005CD1A1 /* CameraPicker.swift in Sources */,
 				4A5D865E2B347A8C0056FAC1 /* NoteCustomAttributeView.swift in Sources */,
+				4A33DBE62B35A39900EF1D1B /* InitialAvatarView.swift in Sources */,
 				4A8561C42B2EEF18002193E2 /* ItemDraft.swift in Sources */,
 				4A5D86652B3567BD0056FAC1 /* Chip.swift in Sources */,
 				4AF864282B30C3DA00F567EB /* DashboardView.swift in Sources */,
@@ -450,6 +493,7 @@
 				4A06F8552B2B3BBD00F93E37 /* ItemList.swift in Sources */,
 				4A06F8512B2A369D00F93E37 /* FavIconAsyncImage.swift in Sources */,
 				4AF864252B30C2E900F567EB /* CollectionListView.swift in Sources */,
+				4A33DBED2B35AFD400EF1D1B /* CollectionDetailView.swift in Sources */,
 				4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */,
 				4A5D865C2B34759D0056FAC1 /* FardalConstants.swift in Sources */,
 				4A5D86692B356D9F0056FAC1 /* ChipsView.swift in Sources */,

@@ -14,6 +14,9 @@ struct DashboardView: View {
     @Query(sort: \ItemModel.createdAt, order: .reverse)
     private var items: [ItemModel]
 
+    @Query(sort: \ItemModel.createdAt, order: .reverse)
+    private var collections: [ItemModel]
+
     // MARK: - UI -
 
     var body: some View {
@@ -43,11 +46,24 @@ extension DashboardView {
     private func makeCollectionsSection() -> some View {
         Section {
             HStack {
-                Button("") {}
-                    .buttonStyle(LargeAddButton())
+                ForEach(items) { item in
+                    NavigationLink {
+                        ItemDetailView(initialState: .read(item))
+                    } label: {
+                        if let imageData = item.imagesData.first {
+                            imageData.image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 80, height: 80)
+                        }
+                        else {
+                            InitialAvatarView(name: item.title, dimension: 80)
+                        }
+                    }
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: 60)
+            .frame(height: 80)
         } header: {
             HStack {
                 Text("Dashboard.Section.LatestCollections.Title")
@@ -67,14 +83,17 @@ extension DashboardView {
             HStack {
                 ScrollView(.horizontal) {
                     ForEach(items) { item in
-                        ZStack(alignment: .center) {
-                            if let uiImage = item.imagesData.first?.uiImage {
-                                Image(uiImage: uiImage)
+                        NavigationLink {
+                            ItemDetailView(initialState: .read(item))
+                        } label: {
+                            if let imageData = item.imagesData.first {
+                                imageData.image
                                     .resizable()
-                                    .scaledToFit()
+                                    .scaledToFill()
+                                    .frame(width: 80, height: 80)
                             }
                             else {
-                                Image(systemSymbol: .questionmark)
+                                InitialAvatarView(name: item.title, dimension: 80)
                             }
                         }
                     }

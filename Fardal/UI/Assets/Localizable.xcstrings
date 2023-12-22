@@ -14,9 +14,6 @@
         }
       }
     },
-    "Add new tag" : {
-
-    },
     "CameraPicker.Action.Submit" : {
       "localizations" : {
         "en" : {
@@ -67,11 +64,35 @@
         }
       }
     },
+    "Chips.NewTag.Placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add new tag"
+          }
+        }
+      }
+    },
     "Dashboard.Section.LatestCollections.Title" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Latest collections"
+          }
+        }
+      }
     },
     "Dashboard.Section.LatestItems.Title" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Latest items"
+          }
+        }
+      }
     },
     "Dashboard.Title" : {
       "localizations" : {
