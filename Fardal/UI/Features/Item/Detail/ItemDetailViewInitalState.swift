@@ -13,8 +13,8 @@ enum ItemDetailViewInitalState {
     case create
 
     /// Read-only representation of given `Item`
-    case read(Item)
+    case read(ItemModel)
 
     /// Editable representation of given `Item`
-    case edit(Item)
+    case edit(ItemModel)
 }

@@ -14,7 +14,7 @@ struct ItemListView: View {
     // MARK: - Properties -
 
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var items: [ItemModel]
 
     // MARK: - UI -
 
@@ -57,7 +57,7 @@ struct ItemListView: View {
 extension ItemListView {
     private func onAddItemTapped() {
         withAnimation {
-            modelContext.insert(Item.mocked)
+            modelContext.insert(ItemModel.mocked)
         }
     }
 
@@ -74,5 +74,5 @@ extension ItemListView {
 
 #Preview {
     ItemListView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: ItemModel.self, inMemory: true)
 }

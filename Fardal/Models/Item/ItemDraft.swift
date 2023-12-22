@@ -26,6 +26,9 @@ final class ItemDraft: ObservableObject {
     /// Identifiying color
     var hexColor: UInt
 
+    /// Tags
+    var tags: [String]
+
     /// Short summary
     var summary: String
 
@@ -44,6 +47,7 @@ final class ItemDraft: ObservableObject {
         title: String,
         summary: String,
         hexColor: UInt,
+        tags: [String],
         imagesData: [ImageData],
         customAttributes: [ItemCustomAttribute]
     ) {
@@ -53,6 +57,7 @@ final class ItemDraft: ObservableObject {
         self.imagesData = imagesData
         self.customAttributes = customAttributes
         self.hexColor = hexColor
+        self.tags = tags
     }
 
     private func validate() {
@@ -78,6 +83,7 @@ extension ItemDraft {
             title: "",
             summary: "",
             hexColor: Color.clear.hexValue,
+            tags: [],
             imagesData: [],
             customAttributes: []
         )
@@ -87,13 +93,14 @@ extension ItemDraft {
     ///
     /// - Parameter item: Underlying item. Used for edit an item but with cancel option
     /// - Returns: Created item draft.
-    static func from(item: Item) -> ItemDraft {
+    static func from(item: ItemModel) -> ItemDraft {
         return .init(
             existingId: item.id,
             title: item.title,
             summary: item.summary,
             hexColor: item.hexColor,
-            imagesData: item.imageDatas,
+            tags: item.tags,
+            imagesData: item.imagesData,
             customAttributes: item.customAttributes
         )
     }

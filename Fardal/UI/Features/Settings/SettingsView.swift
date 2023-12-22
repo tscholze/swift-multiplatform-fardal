@@ -14,7 +14,7 @@ struct SettingsView: View {
     // MARK: - Properties -
 
     @AppStorage("appereance") private var currentAppereance: Appereance = .system
-    @Query private var items: [Item]
+    @Query private var items: [ItemModel]
 
     // MARK: - UI -
 

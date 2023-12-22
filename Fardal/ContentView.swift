@@ -12,7 +12,7 @@ struct ContentView: View {
     // MARK: - Properties -
 
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var items: [ItemModel]
 
     // MARK: - UI -
 
@@ -26,5 +26,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: ItemModel.self, inMemory: true)
 }
