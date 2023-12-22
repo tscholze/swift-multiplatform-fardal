@@ -29,7 +29,7 @@ struct FardalApp: App {
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            ItemModel.self,
         ])
 
         let configuration = ModelConfiguration(

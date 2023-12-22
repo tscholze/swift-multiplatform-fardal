@@ -1,5 +1,5 @@
 //
-//  Item.swift
+//  ItemModel.swift
 //  Fardal
 //
 //  Created by Tobias Scholze on 09.12.23.
@@ -10,7 +10,7 @@ import SwiftData
 import Foundation
 
 @Model
-final class Item {
+final class ItemModel {
     /// Unique id of the item
     @Attribute(.unique)
     var id = UUID()
@@ -21,10 +21,15 @@ final class Item {
     /// Identifiying color
     var hexColor: UInt
 
+    /// List of tags for the item
+    var tags: [String]
+
     /// Short summary
     var summary: String
 
-    var imageDatas: [ImageData]
+    /// List of data objects that represents attached images.
+    /// Could be photos or icons.
+    var imagesData: [ImageData]
 
     /// List of custom attributes
     var customAttributes: [ItemCustomAttribute]
@@ -40,7 +45,8 @@ final class Item {
     init(
         title: String,
         summary: String,
-        hexColor: UInt = Color.clear.hexValue,
+        hexColor: UInt = Color.white.hexValue,
+        tags: [String] = [],
         imagesData: [ImageData] = [],
         customAttributes: [ItemCustomAttribute] = [],
         updatedAt: Date,
@@ -48,22 +54,24 @@ final class Item {
     ) {
         self.title = title
         self.summary = summary
-        imageDatas = imagesData
+        self.imagesData = imagesData
         self.customAttributes = customAttributes
         self.updatedAt = updatedAt
         self.createdAt = createdAt
         self.hexColor = hexColor
+        self.tags = tags
     }
 }
 
 // MARK: - Mocked -
 
-extension Item {
+extension ItemModel {
     /// Gets a static mocked item entry to be used on Previews
-    static let mocked: Item = .init(
+    static let mocked: ItemModel = .init(
         title: "Mocked",
         summary: "My Mocked Foo",
         hexColor: Color.orange.hexValue,
+        tags: ["This", "is", "a", "demo"],
         customAttributes: [],
         updatedAt: .now
     )
@@ -71,6 +79,6 @@ extension Item {
 
 // MARK: - Mocked -
 
-extension Item {
-    static let empty: Item = .init(title: "", summary: "", updatedAt: .now)
+extension ItemModel {
+    static let empty: ItemModel = .init(title: "", summary: "", updatedAt: .now)
 }

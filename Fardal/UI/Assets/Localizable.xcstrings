@@ -14,6 +14,9 @@
         }
       }
     },
+    "Add new tag" : {
+
+    },
     "CameraPicker.Action.Submit" : {
       "localizations" : {
         "en" : {
@@ -81,9 +84,6 @@
       }
     },
     "Hello, World!" : {
-
-    },
-    "Invalid" : {
 
     },
     "Item.Detail.Attribute.Date.Title.Placeholder" : {
@@ -421,7 +421,17 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Flag"
+            "value" : "Select a color"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.Tagging.Tag" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tags"
           }
         }
       }
@@ -685,9 +695,6 @@
           }
         }
       }
-    },
-    "Valid" : {
-
     }
   },
   "version" : "1.0"

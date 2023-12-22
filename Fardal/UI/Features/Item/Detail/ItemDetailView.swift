@@ -13,7 +13,7 @@ import PhotosUI
 struct ItemDetailView: View {
     // MARK: - Private properties -
 
-    private var item: Item?
+    private var item: ItemModel?
     private let intialViewMode: ViewMode
 
     @State private var draft: ItemDraft
@@ -25,7 +25,8 @@ struct ItemDetailView: View {
     @State private var showIconWizard = false
     @State private var showPhotoPicker = false
     @State private var showCamera = false
-    @State private var selectedColor: Color = Color.clear
+    @State private var selectedColor: Color = Color.white
+    @State private var chips: [ChipModel] = []
     @State private var imagesData = [ImageData]()
     @State private var imageSelection: PhotosPickerItem? = nil
     @State private var cameraImagesData = [Data]()
@@ -131,7 +132,7 @@ extension ItemDetailView {
                 Text("Item.Draft.Detail.Section.Tagging.Flag")
 
                 // Identicator
-                Image(systemName: "flag.fill")
+                Image(systemName: "flag.square.fill")
                     .foregroundStyle(Color(hex: draft.hexColor))
 
                 // Color picker button if is in edit mode
@@ -142,6 +143,12 @@ extension ItemDetailView {
                             draft.hexColor = newValue.hexValue
                         }
                 }
+            }
+
+            VStack(alignment: .leading) {
+                Text("Item.Draft.Detail.Section.Tagging.Tag")
+                ChipsView(chips: $chips, viewMode: $viewMode)
+                    .onChange(of: chips, onChipsChanged(oldValue:newValue:))
             }
         }
     }
@@ -435,6 +442,7 @@ extension ItemDetailView {
             }
         }
         else {
+            // Cancel button
             if viewMode != .create {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: { onCancelTapped() }) {
@@ -443,13 +451,12 @@ extension ItemDetailView {
                 }
             }
 
+            // Save button
             ToolbarItem(placement: .primaryAction) {
-                Button(action: { onSaveButtonTapped() }) {
-                    VStack {
-                        Text("Item.Draft.Action.Save")
-                        Text(isValid ? "Valid" : "Invalid")
-                    }
-                }
+                Button(
+                    "Item.Draft.Action.Save",
+                    action: onSaveButtonTapped
+                )
                 .disabled(isValid == false)
             }
         }
@@ -470,22 +477,22 @@ extension ItemDetailView {
 
     private func onViewAppear() {
         viewMode = intialViewMode
+        title = draft.title
+        summary = draft.summary
+        chips = draft.tags.map { ChipModel(title: $0) }
         selectedColor = Color(hex: draft.hexColor)
         imagesData = draft.imagesData
+        isValid = isValidInput()
     }
 
     private func onTitleChanged(oldValue _: String, newValue: String) {
         isValid = isValidInput()
-        if isValid {
-            draft.title = newValue
-        }
+        draft.title = newValue
     }
 
     private func onSummaryChanged(oldValue _: String, newValue: String) {
         isValid = isValidInput()
-        if isValid {
-            draft.summary = newValue
-        }
+        draft.summary = newValue
     }
 
     private func onChangeOfCameraImagesData(oldValue _: [Data], newValue: [Data]) {
@@ -507,6 +514,10 @@ extension ItemDetailView {
         }
     }
 
+    private func onChipsChanged(oldValue _: [ChipModel], newValue: [ChipModel]) {
+        draft.tags = newValue.map(\.title)
+    }
+
     private func onIconDataChanged(oldValue _: Data?, newValue: Data?) {
         guard let newValue else { return }
         imagesData.insert(.init(data: newValue), at: 0)
@@ -515,7 +526,10 @@ extension ItemDetailView {
     private func onCancelTapped() {
         if let item {
             draft = .from(item: item)
+            title = draft.title
+            summary = draft.summary
             selectedColor = Color(hex: draft.hexColor)
+            chips = draft.tags.map { ChipModel(title: $0) }
             imagesData = draft.imagesData
             viewMode = .read
         }
@@ -570,17 +584,18 @@ extension ItemDetailView {
             item.summary = draft.summary
             item.customAttributes = draft.customAttributes
             item.hexColor = draft.hexColor
-            item.imageDatas = draft.imagesData
+            item.tags = draft.tags
+            item.imagesData = draft.imagesData
             item.updatedAt = .now
             viewMode = .read
         }
         else {
-            let newItem = Item(
+            let newItem = ItemModel(
                 title: draft.title,
                 summary: draft.summary,
                 hexColor: draft.hexColor,
                 imagesData: draft.imagesData,
-                // customAttributes: draft.customAttributes,
+                customAttributes: draft.customAttributes,
                 updatedAt: .now
             )
 

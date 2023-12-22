@@ -19,7 +19,7 @@ class ItemDatabaseOperations {
 
     // MARK: - Private properties
 
-    @Query private var items: [Item]
+    @Query private var items: [ItemModel]
     @Environment(\.modelContext) private var modelContext
 
     // MARK: - Init -

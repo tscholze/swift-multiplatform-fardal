@@ -11,8 +11,8 @@ import SwiftData
 struct DashboardView: View {
     // MARK: - Private properties -
 
-    @Query(sort: \Item.createdAt, order: .reverse)
-    private var items: [Item]
+    @Query(sort: \ItemModel.createdAt, order: .reverse)
+    private var items: [ItemModel]
 
     // MARK: - UI -
 
@@ -68,7 +68,7 @@ extension DashboardView {
                 ScrollView(.horizontal) {
                     ForEach(items) { item in
                         ZStack(alignment: .center) {
-                            if let uiImage = item.imageDatas.first?.uiImage {
+                            if let uiImage = item.imagesData.first?.uiImage {
                                 Image(uiImage: uiImage)
                                     .resizable()
                                     .scaledToFit()
