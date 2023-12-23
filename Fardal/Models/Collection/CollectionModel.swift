@@ -21,6 +21,9 @@ import Foundation
     /// Human read-able title
     var title: String
 
+    /// Human read-able summary
+    var summary: String
+
     /// List of attached items of the collection
     var items: [ItemModel]
 
@@ -32,10 +35,25 @@ import Foundation
     init(
         coverImageData: ImageData,
         title: String,
+        summary: String,
         items: [ItemModel]
     ) {
         self.coverImageData = coverImageData
         self.title = title
+        self.summary = summary
         self.items = items
+    }
+}
+
+// MARK: - Asset generators -
+
+import UIKit
+extension CollectionModel {
+    static func makeSystemCoverImageData() -> ImageData {
+        guard let data = UIImage(named: "AppLogiLarge")?.pngData() else {
+            fatalError("Internal data generation failure")
+        }
+
+        return .init(data: data)
     }
 }

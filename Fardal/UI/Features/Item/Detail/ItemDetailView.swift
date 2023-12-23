@@ -571,6 +571,7 @@ extension ItemDetailView {
         draft.customAttributes.removeAll(where: { $0.id == attribute.id })
     }
 
+    // TODO: Move to ItemDatabaseOperations
     private func onSaveButtonTapped() {
         if let item {
             // Remove attributes from database which are deleted in drafts

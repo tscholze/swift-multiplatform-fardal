@@ -8,6 +8,10 @@
 import Foundation
 
 enum FardalConstants {
+    enum Collection {
+        static let systemUnlinkedItemsCollectionTitle: String = "__unlinkedItems"
+    }
+
     enum Item {
         static let maxNumberOfAttributesPerItem = 5
         static let maxNumberOfPhotosPerItem = 3

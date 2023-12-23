@@ -15,6 +15,7 @@ struct SettingsView: View {
 
     @AppStorage("appereance") private var currentAppereance: Appereance = .system
     @Query private var items: [ItemModel]
+    @Query private var collections: [CollectionModel]
 
     // MARK: - UI -
 
@@ -59,6 +60,7 @@ extension SettingsView {
     private func makeSectionDataInformation() -> some View {
         Section("Settings.DataInformation") {
             LabeledContent("Settings.DataInformation.NumberOfItems", value: "\(items.count) / ∞")
+            LabeledContent("Settings.DataInformation.NumberOfCollections", value: "\(collections.count) / ∞")
         }
     }
 

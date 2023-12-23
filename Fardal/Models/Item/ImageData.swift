@@ -24,7 +24,7 @@ import Foundation
     @Attribute(.unique) let id = UUID()
 
     /// [Data] representation of the image
-    let data: Data
+    var data: Data
 
     /// Timestamp at which the image was initially created
     let createdAt = Date.now

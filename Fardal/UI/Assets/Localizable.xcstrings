@@ -74,6 +74,86 @@
         }
       }
     },
+    "CollectionDetail.Actions.DeleteCollection" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete collection"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Section.Items.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use the + button to add existing items"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Section.Items.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attached items"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Section.Required.Name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Section.Required.Summary" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Summary"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Section.Required.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Required"
+          }
+        }
+      }
+    },
+    "Dashboard.Section.Collections.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use the + button to create a new collection of items"
+          }
+        }
+      }
+    },
+    "Dashboard.Section.Items.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use the + button to create a new item"
+          }
+        }
+      }
+    },
     "Dashboard.Section.LatestCollections.Title" : {
       "localizations" : {
         "en" : {
@@ -527,6 +607,9 @@
         }
       }
     },
+    "Re-Generate" : {
+
+    },
     "Settings.Appereance.Mode" : {
       "localizations" : {
         "en" : {
@@ -583,6 +666,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Data usage"
+          }
+        }
+      }
+    },
+    "Settings.DataInformation.NumberOfCollections" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of collections"
           }
         }
       }

@@ -29,20 +29,17 @@ struct InitialAvatarView: View {
             .joined(separator: "")
     }
 
-    private let randomizeabledBackgroundColors = [
-        Color.blue, Color.red, Color.green, Color.orange,
-    ]
-
     // MARK: - UI -
 
     var body: some View {
         Text(compressedInitials)
-            .opacity(0.75)
+            .opacity(0.4)
             .font(.system(size: dimension))
             .minimumScaleFactor(0.01)
             .padding()
             .frame(width: dimension, height: dimension)
-            .background(randomizeabledBackgroundColors.randomElement())
+            .opacity(1)
+            .background(AppColors.pastelColors.randomElement())
     }
 }
 

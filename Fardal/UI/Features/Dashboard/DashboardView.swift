@@ -14,27 +14,21 @@ struct DashboardView: View {
     @Query(sort: \ItemModel.createdAt, order: .reverse)
     private var items: [ItemModel]
 
-    @Query(sort: \ItemModel.createdAt, order: .reverse)
-    private var collections: [ItemModel]
+    @Query(filter: CollectionDatabaseOperations.allWithoutSystemCollection, sort: \CollectionModel.createdAt, order: .reverse)
+    private var collections: [CollectionModel]
 
     // MARK: - UI -
 
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
+            List {
                 makeCollectionsSection()
                 makeLatestItemsSection()
             }
-            .padding()
-            .frame(
-                maxWidth: .infinity,
-                maxHeight: .infinity,
-                alignment: .topLeading
-            )
             .navigationTitle("Dashboard.Title")
-        }
-        .tabItem {
-            Label("Dashboard.Title", systemSymbol: .house)
+            .tabItem {
+                Label("Dashboard.Title", systemSymbol: .house)
+            }
         }
     }
 }
@@ -46,18 +40,29 @@ extension DashboardView {
     private func makeCollectionsSection() -> some View {
         Section {
             HStack {
-                ForEach(items) { item in
-                    NavigationLink {
-                        ItemDetailView(initialState: .read(item))
-                    } label: {
-                        if let imageData = item.imagesData.first {
-                            imageData.image
+                if collections.isEmpty {
+                    VStack(spacing: 12) {
+                        Image(systemName: "doc.on.doc")
+                            .resizable()
+                            .scaledToFit()
+
+                        Text("Dashboard.Section.Collections.Empty.Hint")
+                            .font(.caption2)
+                    }
+                    .padding(8)
+                    .foregroundStyle(.secondary.opacity(0.6))
+                    .frame(maxWidth: .infinity)
+                }
+                else {
+                    ForEach(collections) { collection in
+                        NavigationLink {
+                            CollectionDetailView(initialState: .read(collection))
+                        } label: {
+                            collection.coverImageData.image
                                 .resizable()
                                 .scaledToFill()
+                                .clipShape(RoundedRectangle(cornerRadius: 4))
                                 .frame(width: 80, height: 80)
-                        }
-                        else {
-                            InitialAvatarView(name: item.title, dimension: 80)
                         }
                     }
                 }
@@ -69,7 +74,7 @@ extension DashboardView {
                 Text("Dashboard.Section.LatestCollections.Title")
                 Spacer()
                 NavigationLink {
-                    ItemDetailView(initialState: .create)
+                    CollectionDetailView(initialState: .create)
                 } label: {
                     Image(systemSymbol: .plus)
                 }
@@ -81,19 +86,35 @@ extension DashboardView {
     private func makeLatestItemsSection() -> some View {
         Section {
             HStack {
-                ScrollView(.horizontal) {
-                    ForEach(items) { item in
-                        NavigationLink {
-                            ItemDetailView(initialState: .read(item))
-                        } label: {
-                            if let imageData = item.imagesData.first {
-                                imageData.image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 80, height: 80)
-                            }
-                            else {
-                                InitialAvatarView(name: item.title, dimension: 80)
+                if items.isEmpty {
+                    VStack(spacing: 12) {
+                        Image(systemName: "doc")
+                            .resizable()
+                            .scaledToFit()
+
+                        Text("Dashboard.Section.Items.Empty.Hint")
+                            .font(.caption2)
+                    }
+                    .padding(8)
+                    .foregroundStyle(.secondary.opacity(0.6))
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 80)
+                }
+                else {
+                    ScrollView(.horizontal) {
+                        ForEach(items) { item in
+                            NavigationLink {
+                                ItemDetailView(initialState: .read(item))
+                            } label: {
+                                if let imageData = item.imagesData.first {
+                                    imageData.image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 80, height: 80)
+                                }
+                                else {
+                                    InitialAvatarView(name: item.title, dimension: 80)
+                                }
                             }
                         }
                     }
@@ -111,7 +132,6 @@ extension DashboardView {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .frame(height: 60)
     }
 }
 

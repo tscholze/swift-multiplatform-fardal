@@ -20,11 +20,11 @@ struct BlueButton: ButtonStyle {
 struct LargeAddButton: ButtonStyle {
     func makeBody(configuration _: Configuration) -> some View {
         ZStack(alignment: .center) {
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 4)
                 .foregroundStyle(.background)
                 .frame(width: 60, height: 60)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 4)
                         .stroke(Color.accentColor, lineWidth: 2)
                 )
 
