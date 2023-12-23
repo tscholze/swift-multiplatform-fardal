@@ -290,12 +290,25 @@
         }
       }
     },
+    "Item.Draft.Action.AssignCollection" : {
+
+    },
     "Item.Draft.Action.Cancel" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Item.Draft.Action.CreateCollection" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create collection"
           }
         }
       }
@@ -346,6 +359,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add new attribute"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Action.AddCollection" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assign collection"
           }
         }
       }
@@ -426,6 +449,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Custom attributes"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.Collection.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item is not assigned to any collection"
           }
         }
       }
@@ -616,6 +649,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Items"
+          }
+        }
+      }
+    },
+    "ItemLinkCollection.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link collection"
           }
         }
       }

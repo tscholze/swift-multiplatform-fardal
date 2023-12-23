@@ -304,8 +304,10 @@ extension CollectionDetailView {
                 Spacer()
 
                 // Add item button
-                Button(action: { showAddItemAlert.toggle() }) {
-                    Image(systemName: "plus")
+                if viewMode != .read {
+                    Button(action: { showAddItemAlert.toggle() }) {
+                        Image(systemName: "plus")
+                    }
                 }
             }
         }

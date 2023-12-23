@@ -17,11 +17,13 @@ struct ItemDetailView: View {
     private var item: ItemModel?
     private let intialViewMode: ViewMode
 
-    @State private var draft: ItemDraft
     @State private var viewMode: ViewMode = .read
     @State private var title = ""
     @State private var summary = ""
     @State private var collection: CollectionModel? = nil
+    @State private var showAddCollectionAlert = false
+    @State private var showAddCollectionSheet = false
+    @State private var showLinkCollectionSheet = false
     @State private var showAddCustomAttributeSheet = false
     @State private var showAddMediaSheet = false
     @State private var showIconWizard = false
@@ -31,6 +33,7 @@ struct ItemDetailView: View {
     @State private var chips: [ChipModel] = []
     @State private var imagesData = [ImageData]()
     @State private var imageSelection: PhotosPickerItem? = nil
+    @State private var customAttributes = [ItemCustomAttribute]()
     @State private var cameraImagesData = [Data]()
     @State private var iconData: Data? = nil
     @State private var cameraModel = CameraModel()
@@ -47,17 +50,14 @@ struct ItemDetailView: View {
     init(initialState: ItemDetailViewInitalState) {
         switch initialState {
         case let .read(item):
-            _draft = .init(initialValue: .from(item: item))
             self.item = item
             intialViewMode = .read
 
         case .create:
-            _draft = .init(initialValue: .from(item: .empty))
             item = nil
             intialViewMode = .create
 
         case let .edit(item):
-            _draft = .init(initialValue: .from(item: item))
             self.item = item
             intialViewMode = .edit
         }
@@ -68,7 +68,7 @@ struct ItemDetailView: View {
     var body: some View {
         Form {
             makeRequiredSection()
-            makeCollectionsSection()
+            makeCollectionSection()
             makePhotosSection()
             makeTaggingSection()
             makeCustomAttributesSection()
@@ -91,6 +91,17 @@ struct ItemDetailView: View {
         }
         .alert("Item.Draft.Detail.Action.AddMedia", isPresented: $showAddMediaSheet) {
             makeAddMediaAlertContent()
+        }
+        .alert("Item.Draft.Detail.Action.AddCollection", isPresented: $showAddCollectionAlert) {
+            makeAddCollectionAlertContent()
+        }
+        .sheet(isPresented: $showAddCollectionSheet) {
+            NavigationView {
+                CollectionDetailView(initialState: .create)
+            }
+        }
+        .sheet(isPresented: $showLinkCollectionSheet) {
+            ItemDetailLinkCollectionView(selectedCollection: $collection)
         }
         .onAppear(perform: onViewAppear)
         .task {
@@ -129,11 +140,49 @@ extension ItemDetailView {
     }
 
     @ViewBuilder
-    private func makeCollectionsSection() -> some View {
-        Section("Item.Draft.Detail.Section.Collection.Title") {
-            Picker("", selection: $collection) {
-                ForEach(collections) { collection in
-                    Text(collection.title)
+    private func makeCollectionSection() -> some View {
+        Section {
+            if let collection {
+                NavigationLink {
+                    CollectionDetailView(initialState: .read(collection))
+                } label: {
+                    HStack {
+                        collection.coverImageData.image
+                            .resizable()
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                            .frame(width: 60, height: 60)
+
+                        VStack {
+                            Text(collection.title)
+                            Text(collection.summary)
+                        }
+                    }
+                }
+            }
+            else {
+                VStack(spacing: 8) {
+                    Image(systemName: "doc.on.doc")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 20)
+
+                    Text("Item.Draft.Detail.Section.Collection.Empty.Hint")
+                        .font(.caption2)
+                        .multilineTextAlignment(.center)
+                }
+                .foregroundStyle(.secondary)
+                .opacity(0.6)
+                .frame(maxWidth: .infinity, alignment: .center)
+            }
+        } header: {
+            HStack {
+                Text("Item.Draft.Detail.Section.Collection.Title")
+                Spacer()
+
+                if viewMode != .read {
+                    Button(action: { onAddCollectionTapped() }) {
+                        Image(systemName: "plus")
+                    }
                 }
             }
         }
@@ -148,22 +197,18 @@ extension ItemDetailView {
 
                 // Identicator
                 Image(systemName: "flag.square.fill")
-                    .foregroundStyle(Color(hex: draft.hexColor))
+                    .foregroundStyle(selectedColor)
 
                 // Color picker button if is in edit mode
                 if viewMode != .read {
                     // Picker
                     ColorPicker("", selection: $selectedColor)
-                        .onChange(of: selectedColor) { _, newValue in
-                            draft.hexColor = newValue.hexValue
-                        }
                 }
             }
 
             VStack(alignment: .leading) {
                 Text("Item.Draft.Detail.Section.Tagging.Tag")
                 ChipsView(chips: $chips, viewMode: $viewMode)
-                    .onChange(of: chips, onChipsChanged(oldValue:newValue:))
             }
         }
     }
@@ -216,7 +261,7 @@ extension ItemDetailView {
             }
         } header: {
             HStack {
-                Text("Item.Draft.Detail.Section.Photos.Title \(draft.imagesData.count) / \(FardalConstants.Item.maxNumberOfPhotosPerItem)")
+                Text("Item.Draft.Detail.Section.Photos.Title \(imagesData.count) / \(FardalConstants.Item.maxNumberOfPhotosPerItem)")
                 if viewMode != .read {
                     HStack {
                         Spacer()
@@ -224,7 +269,7 @@ extension ItemDetailView {
                             showAddMediaSheet.toggle()
                         } label: {
                             Image(systemName: "plus.circle")
-                        }.disabled(draft.imagesData.count == FardalConstants.Item.maxNumberOfPhotosPerItem)
+                        }.disabled(imagesData.count == FardalConstants.Item.maxNumberOfPhotosPerItem)
                     }
                 }
             }
@@ -238,7 +283,6 @@ extension ItemDetailView {
             onIconDataChanged(oldValue: n, newValue: o)
         }
         .onChange(of: imageSelection, onChangeImageSelection(oldValue:newValue:))
-        .onChange(of: imagesData) { draft.imagesData = $1 }
     }
 
     @ViewBuilder
@@ -288,12 +332,12 @@ extension ItemDetailView {
     private func makeCustomAttributesSection() -> some View {
         Section {
             Group {
-                if draft.customAttributes.isEmpty {
+                if customAttributes.isEmpty {
                     makeEmptyCustomAttributeHint()
                 }
                 else {
                     List {
-                        ForEach(draft.customAttributes) { attribute in
+                        ForEach(customAttributes) { attribute in
                             ItemCustomAttributeTypes(rawValue: attribute.layout)?
                                 .makeView(for: attribute, with: viewMode)
                         }
@@ -384,11 +428,11 @@ extension ItemDetailView {
         } header: {
             EmptyView()
         } footer: {
-            if let modelId = draft.existingId {
+            if let item {
                 HStack {
                     Spacer()
                     Button("Item.Draft.Detail.Actions.DeleteItem", role: .destructive) {
-                        ItemDatabaseOperations.shared.delete(withId: modelId)
+                        modelContext.delete(item)
                         dismiss()
                     }
                 }
@@ -447,6 +491,24 @@ extension ItemDetailView {
         }
     }
 
+    @ViewBuilder
+    private func makeAddCollectionAlertContent() -> some View {
+        // Photo picker
+        Button("Item.Draft.Action.CreateCollection") {
+            showAddCollectionSheet.toggle()
+        }
+
+        // Camera
+        Button("Item.Draft.Action.AssignCollection") {
+            showLinkCollectionSheet.toggle()
+        }
+
+        // Cancel
+        Button("Misc.Cancel", role: .cancel) {
+            // nothing
+        }
+    }
+
     @ToolbarContentBuilder
     private func makeToolbar() -> some ToolbarContent {
         if viewMode == .read {
@@ -492,23 +554,15 @@ extension ItemDetailView {
 
     private func onViewAppear() {
         viewMode = intialViewMode
-        title = draft.title
-        summary = draft.summary
-        chips = draft.tags.map { ChipModel(title: $0) }
-        selectedColor = Color(hex: draft.hexColor)
-        imagesData = draft.imagesData
-        isValid = isValidInput()
-        collection = item?.collection
+        populateViewWithItemInformation()
     }
 
-    private func onTitleChanged(oldValue _: String, newValue: String) {
+    private func onTitleChanged(oldValue _: String, newValue _: String) {
         isValid = isValidInput()
-        draft.title = newValue
     }
 
-    private func onSummaryChanged(oldValue _: String, newValue: String) {
+    private func onSummaryChanged(oldValue _: String, newValue _: String) {
         isValid = isValidInput()
-        draft.summary = newValue
     }
 
     private func onChangeOfCameraImagesData(oldValue _: [Data], newValue: [Data]) {
@@ -530,29 +584,33 @@ extension ItemDetailView {
         }
     }
 
-    private func onChipsChanged(oldValue _: [ChipModel], newValue: [ChipModel]) {
-        draft.tags = newValue.map(\.title)
-    }
-
     private func onIconDataChanged(oldValue _: Data?, newValue: Data?) {
         guard let newValue else { return }
         imagesData.insert(.init(data: newValue), at: 0)
     }
 
     private func onCancelTapped() {
-        if let item {
-            draft = .from(item: item)
-            title = draft.title
-            summary = draft.summary
-            selectedColor = Color(hex: draft.hexColor)
-            chips = draft.tags.map { ChipModel(title: $0) }
-            imagesData = draft.imagesData
-            collection = item.collection
+        if item != nil {
+            populateViewWithItemInformation()
             viewMode = .read
         }
         else {
             dismiss()
         }
+    }
+
+    private func populateViewWithItemInformation() {
+        title = item?.title ?? ""
+        summary = item?.summary ?? ""
+        chips = item?.tags.map { ChipModel(title: $0) } ?? []
+        selectedColor = Color(hex: item?.hexColor ?? 0xFFFFFF)
+        imagesData = item?.imagesData ?? []
+        isValid = isValidInput()
+        collection = item?.collection
+    }
+
+    private func onAddCollectionTapped() {
+        showAddCollectionAlert.toggle()
     }
 
     private func onAddIconTapped() {
@@ -564,28 +622,29 @@ extension ItemDetailView {
     }
 
     private func onAddPriceCustomAttributeTapped() {
-        draft.customAttributes.append(.emptyPriceAttribute)
+        customAttributes.append(.emptyPriceAttribute)
         showAddCustomAttributeSheet.toggle()
     }
 
     private func onAddDateCustomAttributeTapped() {
-        draft.customAttributes.append(.emptyDateAttribute)
+        customAttributes.append(.emptyDateAttribute)
         showAddCustomAttributeSheet.toggle()
     }
 
     private func onAddUrlCustomAttributeTapped() {
-        draft.customAttributes.append(.emptyUrlAttribute)
+        customAttributes.append(.emptyUrlAttribute)
         showAddCustomAttributeSheet.toggle()
     }
 
     private func onAddNoteCustomAttributeTapped() {
-        draft.customAttributes.append(.emptyNoteAttribute)
+        customAttributes.append(.emptyNoteAttribute)
+        showAddCustomAttributeSheet.toggle()
     }
 
     private func onDeleteCustomTapped(withIndexSet indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
-        let attribute = draft.customAttributes[index]
-        draft.customAttributes.removeAll(where: { $0.id == attribute.id })
+        let attribute = customAttributes[index]
+        customAttributes.removeAll(where: { $0.id == attribute.id })
     }
 
     // TODO: Move to ItemDatabaseOperations
@@ -593,27 +652,29 @@ extension ItemDetailView {
         if let item {
             // Remove attributes from database which are deleted in drafts
             item.customAttributes.forEach { itemAttribute in
-                if draft.customAttributes.contains(itemAttribute) == false {
+                if customAttributes.contains(itemAttribute) == false {
                     modelContext.delete(itemAttribute)
                 }
             }
 
-            item.title = draft.title
-            item.summary = draft.summary
-            item.customAttributes = draft.customAttributes
-            item.hexColor = draft.hexColor
-            item.tags = draft.tags
-            item.imagesData = draft.imagesData
+            // TODO: Check if this is also needed for imagesData
+
+            item.title = title
+            item.summary = summary
+            item.customAttributes = customAttributes
+            item.hexColor = selectedColor.hexValue
+            item.tags = chips.map(\.title)
+            item.imagesData = imagesData
             item.updatedAt = .now
             viewMode = .read
         }
         else {
             let newItem = ItemModel(
-                title: draft.title,
-                summary: draft.summary,
-                hexColor: draft.hexColor,
-                imagesData: draft.imagesData,
-                customAttributes: draft.customAttributes,
+                title: title,
+                summary: summary,
+                hexColor: selectedColor.hexValue,
+                imagesData: imagesData,
+                customAttributes: customAttributes,
                 updatedAt: .now
             )
 

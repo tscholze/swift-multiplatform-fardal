@@ -16,7 +16,7 @@ struct DashboardView: View {
 
     @Query(sort: \CollectionModel.createdAt, order: .reverse)
     private var collections: [CollectionModel]
-    
+
     // MARK: - States -
 
     @State var path = NavigationPath()
