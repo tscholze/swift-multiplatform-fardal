@@ -11,23 +11,36 @@ import SwiftData
 struct DashboardView: View {
     // MARK: - Private properties -
 
-    @Query(sort: \ItemModel.createdAt, order: .reverse)
+    @Query(
+        sort: \ItemModel.createdAt,
+        order: .reverse
+    )
     private var items: [ItemModel]
 
-    @Query(filter: CollectionDatabaseOperations.allWithoutSystemCollection, sort: \CollectionModel.createdAt, order: .reverse)
+    @Query(
+        filter: CollectionDatabaseOperations.allWithoutSystemCollection,
+        sort: \CollectionModel.createdAt,
+        order: .reverse
+    )
     private var collections: [CollectionModel]
+    
+    @State var path = NavigationPath()
 
     // MARK: - UI -
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             List {
                 makeCollectionsSection()
                 makeLatestItemsSection()
             }
             .navigationTitle("Dashboard.Title")
-            .tabItem {
-                Label("Dashboard.Title", systemSymbol: .house)
+            .tabItem { Label("Dashboard.Title", systemSymbol: .house) }
+            .navigationDestination(for: CollectionModel.self) { collection in
+                CollectionDetailView(initialState: .read(collection))
+            }
+            .navigationDestination(for: ItemModel.self) { item in
+                ItemDetailView(initialState: .read(item))
             }
         }
     }
@@ -55,8 +68,8 @@ extension DashboardView {
                 }
                 else {
                     ForEach(collections) { collection in
-                        NavigationLink {
-                            CollectionDetailView(initialState: .read(collection))
+                        Button {
+                            path.append(collection)
                         } label: {
                             collection.coverImageData.image
                                 .resizable()
@@ -103,8 +116,8 @@ extension DashboardView {
                 else {
                     ScrollView(.horizontal) {
                         ForEach(items) { item in
-                            NavigationLink {
-                                ItemDetailView(initialState: .read(item))
+                            Button {
+                                path.append(item)
                             } label: {
                                 if let imageData = item.imagesData.first {
                                     imageData.image
