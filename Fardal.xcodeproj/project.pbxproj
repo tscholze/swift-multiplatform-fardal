@@ -20,6 +20,9 @@
 		4A1EA7FB2B2F548E0053E5AF /* SymbolWizardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EA7FA2B2F548E0053E5AF /* SymbolWizardView.swift */; };
 		4A1EA7FE2B2F55A20053E5AF /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 4A1EA7FD2B2F55A20053E5AF /* SFSafeSymbols */; };
 		4A1EA8012B2F57DC0053E5AF /* SymbolPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EA8002B2F57DC0053E5AF /* SymbolPickerView.swift */; };
+		4A2B8EED2B371AF10025AB48 /* CollectionDatabaseOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2B8EEC2B371AF10025AB48 /* CollectionDatabaseOperations.swift */; };
+		4A2B8EEF2B3727FC0025AB48 /* ImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2B8EEE2B3727FC0025AB48 /* ImageGenerator.swift */; };
+		4A2B8EF12B37334D0025AB48 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2B8EF02B37334D0025AB48 /* AppColors.swift */; };
 		4A31E21D2B30217C005CD1A1 /* CameraPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E21C2B30217C005CD1A1 /* CameraPicker.swift */; };
 		4A31E21F2B3023B3005CD1A1 /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E21E2B3023B3005CD1A1 /* CameraModel.swift */; };
 		4A31E2212B3023F5005CD1A1 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A31E2202B3023F5005CD1A1 /* CameraPreviewView.swift */; };
@@ -28,6 +31,7 @@
 		4A33DBE62B35A39900EF1D1B /* InitialAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33DBE52B35A39900EF1D1B /* InitialAvatarView.swift */; };
 		4A33DBE92B35AED800EF1D1B /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33DBE82B35AED800EF1D1B /* CollectionModel.swift */; };
 		4A33DBED2B35AFD400EF1D1B /* CollectionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33DBEC2B35AFD400EF1D1B /* CollectionDetailView.swift */; };
+		4A33DBEF2B35E67A00EF1D1B /* CollectionDetailViewInitialState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33DBEE2B35E67A00EF1D1B /* CollectionDetailViewInitialState.swift */; };
 		4A5D865C2B34759D0056FAC1 /* FardalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5D865B2B34759D0056FAC1 /* FardalConstants.swift */; };
 		4A5D865E2B347A8C0056FAC1 /* NoteCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5D865D2B347A8C0056FAC1 /* NoteCustomAttributeView.swift */; };
 		4A5D86602B349F350056FAC1 /* ItemDetailViewInitalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5D865F2B349F350056FAC1 /* ItemDetailViewInitalState.swift */; };
@@ -64,6 +68,9 @@
 		4A1EA7F62B2EF6760053E5AF /* ItemDatabaseOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDatabaseOperations.swift; sourceTree = "<group>"; };
 		4A1EA7FA2B2F548E0053E5AF /* SymbolWizardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolWizardView.swift; sourceTree = "<group>"; };
 		4A1EA8002B2F57DC0053E5AF /* SymbolPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolPickerView.swift; sourceTree = "<group>"; };
+		4A2B8EEC2B371AF10025AB48 /* CollectionDatabaseOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDatabaseOperations.swift; sourceTree = "<group>"; };
+		4A2B8EEE2B3727FC0025AB48 /* ImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGenerator.swift; sourceTree = "<group>"; };
+		4A2B8EF02B37334D0025AB48 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		4A31E21C2B30217C005CD1A1 /* CameraPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPicker.swift; sourceTree = "<group>"; };
 		4A31E21E2B3023B3005CD1A1 /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
 		4A31E2202B3023F5005CD1A1 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
@@ -72,6 +79,7 @@
 		4A33DBE52B35A39900EF1D1B /* InitialAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAvatarView.swift; sourceTree = "<group>"; };
 		4A33DBE82B35AED800EF1D1B /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
 		4A33DBEC2B35AFD400EF1D1B /* CollectionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailView.swift; sourceTree = "<group>"; };
+		4A33DBEE2B35E67A00EF1D1B /* CollectionDetailViewInitialState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailViewInitialState.swift; sourceTree = "<group>"; };
 		4A5D865B2B34759D0056FAC1 /* FardalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FardalConstants.swift; sourceTree = "<group>"; };
 		4A5D865D2B347A8C0056FAC1 /* NoteCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCustomAttributeView.swift; sourceTree = "<group>"; };
 		4A5D865F2B349F350056FAC1 /* ItemDetailViewInitalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewInitalState.swift; sourceTree = "<group>"; };
@@ -145,6 +153,7 @@
 				4AED2B622B2C604700E348A0 /* Appereance.swift */,
 				4AED2B692B2C650D00E348A0 /* SupportedCurrencies.swift */,
 				4A31E2252B3026C6005CD1A1 /* MockGenerator.swift */,
+				4A2B8EEE2B3727FC0025AB48 /* ImageGenerator.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -231,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				4A33DBE82B35AED800EF1D1B /* CollectionModel.swift */,
+				4A2B8EEC2B371AF10025AB48 /* CollectionDatabaseOperations.swift */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -247,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				4A33DBEC2B35AFD400EF1D1B /* CollectionDetailView.swift */,
+				4A33DBEE2B35E67A00EF1D1B /* CollectionDetailViewInitialState.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -281,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				4A746A502B33746B000963AA /* Launch Screen.storyboard */,
+				4A2B8EF02B37334D0025AB48 /* AppColors.swift */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -469,6 +481,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AED2B6A2B2C650D00E348A0 /* SupportedCurrencies.swift in Sources */,
+				4A2B8EEF2B3727FC0025AB48 /* ImageGenerator.swift in Sources */,
 				4A04AD0F2B25CEBF00CA9053 /* PriceCustomAttributeView.swift in Sources */,
 				4A5D86602B349F350056FAC1 /* ItemDetailViewInitalState.swift in Sources */,
 				4A31E21F2B3023B3005CD1A1 /* CameraModel.swift in Sources */,
@@ -488,6 +501,7 @@
 				4A31E2212B3023F5005CD1A1 /* CameraPreviewView.swift in Sources */,
 				4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */,
 				4A848A362B24F2700090FC73 /* ContentView.swift in Sources */,
+				4A33DBEF2B35E67A00EF1D1B /* CollectionDetailViewInitialState.swift in Sources */,
 				4AED2B632B2C604700E348A0 /* Appereance.swift in Sources */,
 				4A723D002B31EEF200A3ED67 /* ActionButtons.swift in Sources */,
 				4A06F8552B2B3BBD00F93E37 /* ItemList.swift in Sources */,
@@ -498,7 +512,9 @@
 				4A5D865C2B34759D0056FAC1 /* FardalConstants.swift in Sources */,
 				4A5D86692B356D9F0056FAC1 /* ChipsView.swift in Sources */,
 				4A04AD092B25B87500CA9053 /* ItemDetailView.swift in Sources */,
+				4A2B8EF12B37334D0025AB48 /* AppColors.swift in Sources */,
 				4AED2B612B2C5F7700E348A0 /* SettingsView.swift in Sources */,
+				4A2B8EED2B371AF10025AB48 /* CollectionDatabaseOperations.swift in Sources */,
 				4A06F84E2B2A2D7C00F93E37 /* UrlCustomAttributeView.swift in Sources */,
 				4A31E2242B302459005CD1A1 /* UIDevice+System.swift in Sources */,
 				4A31E2262B3026C6005CD1A1 /* MockGenerator.swift in Sources */,
