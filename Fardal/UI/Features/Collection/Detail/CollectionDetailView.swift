@@ -21,6 +21,8 @@ struct CollectionDetailView: View {
     @State private var summary = ""
     @State private var items = [ItemModel]()
     @State private var coverData = Data()
+    @State private var showLinkItemSheet = false
+    @State private var showAddItemAlert = false
 
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
@@ -57,6 +59,16 @@ struct CollectionDetailView: View {
         .onAppear(perform: onViewAppear)
         .toolbar { makeToolbar() }
         .navigationBarTitleDisplayMode(.inline)
+        .alert("Add item", isPresented: $showAddItemAlert) {
+            Button("Add item", action: onAddItemTapped)
+            Button("Link item", action: onLinkItemTapped)
+            Button("Misc.Cancel") {
+                //
+            }
+        }
+        .sheet(isPresented: $showLinkItemSheet) {
+            CollectionDetailLinkItemView(selectedItems: $items)
+        }
     }
 }
 
@@ -129,7 +141,15 @@ extension CollectionDetailView {
             dismiss()
         }
     }
-
+    
+    private func onLinkItemTapped() {
+        showLinkItemSheet.toggle()
+    }
+    
+    private func onAddItemTapped() {
+        
+    }
+    
     private func updateCoverData() async {
         let content = InitialAvatarView(name: title.isEmpty ? "?" : title, dimension: 256)
         coverData = await ImageGenerator.fromContentToData(content: content)
@@ -274,7 +294,9 @@ extension CollectionDetailView {
             HStack {
                 Text("CollectionDetail.Section.Items.Title")
                 Spacer()
-                Button(action: {}) {
+                
+                // Add item button
+                Button(action: { showAddItemAlert.toggle() }) {
                     Image(systemName: "plus")
                 }
             }

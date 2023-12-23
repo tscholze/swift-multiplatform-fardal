@@ -14,6 +14,9 @@
         }
       }
     },
+    "Add item" : {
+
+    },
     "CameraPicker.Action.Submit" : {
       "localizations" : {
         "en" : {
@@ -587,6 +590,9 @@
         }
       }
     },
+    "Link item" : {
+
+    },
     "Misc.Cancel" : {
       "localizations" : {
         "en" : {
@@ -608,6 +614,9 @@
       }
     },
     "Re-Generate" : {
+
+    },
+    "Save" : {
 
     },
     "Settings.Appereance.Mode" : {
