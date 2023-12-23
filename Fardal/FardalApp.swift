@@ -48,30 +48,31 @@ struct FardalApp: App {
                 configurations: [configuration]
             )
 
-            // Make fetcher to check if all required system collections exists.
-            var fetchDescriptor = FetchDescriptor<CollectionModel>()
-            let title = FardalConstants.Collection.systemUnlinkedItemsCollectionTitle
-            fetchDescriptor.predicate = #Predicate { $0.title == title }
-
-            // TODO: Why does this not work?
-            // fetchDescriptor.predicate = #Predicate { $0.title == FardalConstants.Collection.systemUnlinkedItemsCollectionTitle }
-
-            // Perform fetch
-            // If at least one collection exists, than return container
-            // Else add system-required models.
-            guard try container.mainContext.fetch(fetchDescriptor).count == 0 else {
-                return container
-            }
-
-            let systemCollection = CollectionModel(
-                coverImageData: CollectionModel.makeSystemCoverImageData(),
-                title: FardalConstants.Collection.systemUnlinkedItemsCollectionTitle,
-                summary: "",
-                items: []
-            )
-
-            container.mainContext.insert(systemCollection)
-
+            // How to add default values
+            // // Make fetcher to check if all required system collections exists.
+            // var fetchDescriptor = FetchDescriptor<CollectionModel>()
+            // let title = FardalConstants.Collection.systemUnlinkedItemsCollectionTitle
+            // fetchDescriptor.predicate = #Predicate { $0.title == title }
+            //
+            // // TODO: Why does this not work?
+            // // fetchDescriptor.predicate = #Predicate { $0.title == FardalConstants.Collection.systemUnlinkedItemsCollectionTitle }
+            //
+            // // Perform fetch
+            // // If at least one collection exists, than return container
+            // // Else add system-required models.
+            // guard try container.mainContext.fetch(fetchDescriptor).count == 0 else {
+            //    return container
+            // }
+            //
+            // let systemCollection = CollectionModel(
+            //    coverImageData: CollectionModel.makeSystemCoverImageData(),
+            //    title: FardalConstants.Collection.systemUnlinkedItemsCollectionTitle,
+            //    summary: "",
+            //    items: []
+            // )
+            //
+            // container.mainContext.insert(systemCollection)
+            // 
             return container
         }
         catch {

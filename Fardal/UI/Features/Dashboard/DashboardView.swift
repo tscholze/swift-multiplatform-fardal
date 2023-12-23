@@ -9,21 +9,16 @@ import SwiftUI
 import SwiftData
 
 struct DashboardView: View {
-    // MARK: - Private properties -
+    // MARK: - Database properties -
 
-    @Query(
-        sort: \ItemModel.createdAt,
-        order: .reverse
-    )
+    @Query(sort: \ItemModel.createdAt, order: .reverse)
     private var items: [ItemModel]
 
-    @Query(
-        filter: CollectionDatabaseOperations.allWithoutSystemCollection,
-        sort: \CollectionModel.createdAt,
-        order: .reverse
-    )
+    @Query(sort: \CollectionModel.createdAt, order: .reverse)
     private var collections: [CollectionModel]
     
+    // MARK: - States -
+
     @State var path = NavigationPath()
 
     // MARK: - UI -

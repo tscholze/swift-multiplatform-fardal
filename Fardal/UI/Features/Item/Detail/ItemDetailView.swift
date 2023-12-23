@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import SwiftData
 
 /// Represents a [View] that shows the detail of the model
 /// and enables the user to perform CRUD operations on the [Item].
@@ -20,6 +21,7 @@ struct ItemDetailView: View {
     @State private var viewMode: ViewMode = .read
     @State private var title = ""
     @State private var summary = ""
+    @State private var collection: CollectionModel? = nil
     @State private var showAddCustomAttributeSheet = false
     @State private var showAddMediaSheet = false
     @State private var showIconWizard = false
@@ -35,6 +37,7 @@ struct ItemDetailView: View {
     @State private var isValid = false
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @Query private var collections: [CollectionModel]
 
     // MARK: - Init -
 
@@ -65,6 +68,7 @@ struct ItemDetailView: View {
     var body: some View {
         Form {
             makeRequiredSection()
+            makeCollectionsSection()
             makePhotosSection()
             makeTaggingSection()
             makeCustomAttributesSection()
@@ -120,6 +124,17 @@ extension ItemDetailView {
                 // Summary
                 TextField("Item.Draft.Detail.Section.Required.Summary", text: $summary)
                     .onChange(of: summary, onSummaryChanged(oldValue:newValue:))
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func makeCollectionsSection() -> some View {
+        Section("Item.Draft.Detail.Section.Collection.Title") {
+            Picker("", selection: $collection) {
+                ForEach(collections) { collection in
+                    Text(collection.title)
+                }
             }
         }
     }
@@ -483,6 +498,7 @@ extension ItemDetailView {
         selectedColor = Color(hex: draft.hexColor)
         imagesData = draft.imagesData
         isValid = isValidInput()
+        collection = item?.collection
     }
 
     private func onTitleChanged(oldValue _: String, newValue: String) {
@@ -531,6 +547,7 @@ extension ItemDetailView {
             selectedColor = Color(hex: draft.hexColor)
             chips = draft.tags.map { ChipModel(title: $0) }
             imagesData = draft.imagesData
+            collection = item.collection
             viewMode = .read
         }
         else {

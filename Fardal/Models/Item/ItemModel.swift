@@ -14,7 +14,7 @@ final class ItemModel {
     /// Unique id of the item
     @Attribute(.unique)
     var id = UUID()
-    
+
     /// Parent collection
     var collection: CollectionModel?
 

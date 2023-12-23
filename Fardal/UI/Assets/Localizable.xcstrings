@@ -430,6 +430,16 @@
         }
       }
     },
+    "Item.Draft.Detail.Section.Collection.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Member of collection"
+          }
+        }
+      }
+    },
     "Item.Draft.Detail.Section.CustomAttributes.Empty.Dates.Hint" : {
       "localizations" : {
         "en" : {

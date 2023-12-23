@@ -135,15 +135,13 @@ extension CollectionDetailView {
             dismiss()
         }
     }
-    
+
     private func onLinkItemTapped() {
         showLinkItemSheet.toggle()
     }
-    
-    private func onAddItemTapped() {
-        
-    }
-    
+
+    private func onAddItemTapped() {}
+
     private func updateCoverData() async {
         let content = InitialAvatarView(name: title.isEmpty ? "?" : title, dimension: 256)
         coverData = await ImageGenerator.fromContentToData(content: content)
@@ -194,7 +192,7 @@ extension CollectionDetailView {
             }
         }
     }
-    
+
     @ViewBuilder
     private func makeAddItemAlertContent() -> some View {
         // Photo picker
@@ -203,8 +201,7 @@ extension CollectionDetailView {
         }
 
         // Camera
-        Button("CollectionDetail.Actions.AddItem") {
-        }
+        Button("CollectionDetail.Actions.AddItem") {}
 
         // Cancel
         Button("Misc.Cancel", role: .cancel) {
@@ -305,7 +302,7 @@ extension CollectionDetailView {
             HStack {
                 Text("CollectionDetail.Section.Items.Title")
                 Spacer()
-                
+
                 // Add item button
                 Button(action: { showAddItemAlert.toggle() }) {
                     Image(systemName: "plus")
