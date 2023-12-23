@@ -15,6 +15,9 @@ final class ItemModel {
     @Attribute(.unique)
     var id = UUID()
 
+    /// Parent collection
+    var collection: CollectionModel?
+
     /// Human read-able title
     var title: String
 
@@ -43,6 +46,7 @@ final class ItemModel {
     // MARK: - Init -
 
     init(
+        collection: CollectionModel? = nil,
         title: String,
         summary: String,
         hexColor: UInt = Color.white.hexValue,
@@ -52,6 +56,7 @@ final class ItemModel {
         updatedAt: Date,
         createdAt: Date = Date.now
     ) {
+        self.collection = collection
         self.title = title
         self.summary = summary
         self.imagesData = imagesData

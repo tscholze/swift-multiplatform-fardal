@@ -14,7 +14,7 @@
         }
       }
     },
-    "Add new tag" : {
+    "Add Item" : {
 
     },
     "CameraPicker.Action.Submit" : {
@@ -67,18 +67,142 @@
         }
       }
     },
+    "Chips.NewTag.Placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add new tag"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Actions.AddItem" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add new item"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Actions.DeleteCollection" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete collection"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Actions.LinkItem" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link existing item"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Section.Items.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use the + button to add existing items"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Section.Items.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attached items"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Section.Required.Name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Section.Required.Summary" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Summary"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Section.Required.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Required"
+          }
+        }
+      }
+    },
+    "Dashboard.Section.Collections.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use the + button to create a new collection of items"
+          }
+        }
+      }
+    },
+    "Dashboard.Section.Items.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use the + button to create a new item"
+          }
+        }
+      }
+    },
     "Dashboard.Section.LatestCollections.Title" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Latest collections"
+          }
+        }
+      }
     },
     "Dashboard.Section.LatestItems.Title" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Latest items"
+          }
+        }
+      }
     },
     "Dashboard.Title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dashboard"
+            "value" : "Fardal"
           }
         }
       }
@@ -166,12 +290,25 @@
         }
       }
     },
+    "Item.Draft.Action.AssignCollection" : {
+
+    },
     "Item.Draft.Action.Cancel" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Item.Draft.Action.CreateCollection" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create collection"
           }
         }
       }
@@ -222,6 +359,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add new attribute"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Action.AddCollection" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assign collection"
           }
         }
       }
@@ -302,6 +449,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Custom attributes"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.Collection.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item is not assigned to any collection"
+          }
+        }
+      }
+    },
+    "Item.Draft.Detail.Section.Collection.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Member of collection"
           }
         }
       }
@@ -486,6 +653,19 @@
         }
       }
     },
+    "ItemLinkCollection.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link collection"
+          }
+        }
+      }
+    },
+    "Linked items" : {
+
+    },
     "Misc.Cancel" : {
       "localizations" : {
         "en" : {
@@ -505,6 +685,19 @@
           }
         }
       }
+    },
+    "Misc.Save" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
+    "Re-Generate" : {
+
     },
     "Settings.Appereance.Mode" : {
       "localizations" : {
@@ -562,6 +755,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Data usage"
+          }
+        }
+      }
+    },
+    "Settings.DataInformation.NumberOfCollections" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of collections"
           }
         }
       }

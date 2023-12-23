@@ -130,7 +130,7 @@ extension SymbolWizardView {
     @ViewBuilder
     private func makeSymbol(size: CGFloat) -> some View {
         ZStack(alignment: .center) {
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 4)
                 .foregroundStyle(selectedBackgroundColor)
 
             Image(systemName: selectedSymbolName)

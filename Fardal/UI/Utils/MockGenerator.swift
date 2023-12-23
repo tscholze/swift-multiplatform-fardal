@@ -29,19 +29,17 @@ private struct SquareTemplate: View {
 
     let dimension: CGFloat = 256
 
-    // MARK: - Internal properties -
-
-    private let availableColors: [Color] = [.red, .gray, .green, .yellow, .blue, .purple, .orange, .mint, .indigo, .cyan]
+    // MARK: - UI -
 
     var body: some View {
         ZStack(alignment: .center) {
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 4)
                 .foregroundStyle(makeRandomColor())
 
             Image(systemName: makeRandomSymbolName())
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .foregroundStyle(makeRandomColor())
+                .foregroundStyle(Color.black.opacity(0.6))
                 .padding()
                 .frame(width: dimension * 0.90)
         }
@@ -49,7 +47,7 @@ private struct SquareTemplate: View {
     }
 
     private func makeRandomColor() -> Color {
-        availableColors.randomElement() ?? .cyan
+        AppColors.pastelColors.randomElement() ?? .cyan
     }
 
     private func makeRandomSymbolName() -> String {
