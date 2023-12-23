@@ -59,13 +59,7 @@ struct CollectionDetailView: View {
         .onAppear(perform: onViewAppear)
         .toolbar { makeToolbar() }
         .navigationBarTitleDisplayMode(.inline)
-        .alert("Add item", isPresented: $showAddItemAlert) {
-            Button("Add item", action: onAddItemTapped)
-            Button("Link item", action: onLinkItemTapped)
-            Button("Misc.Cancel") {
-                //
-            }
-        }
+        .alert("Add Item", isPresented: $showAddItemAlert, actions: makeAddItemAlertContent)
         .sheet(isPresented: $showLinkItemSheet) {
             CollectionDetailLinkItemView(selectedItems: $items)
         }
@@ -198,6 +192,23 @@ extension CollectionDetailView {
                 )
                 .disabled(isValid == false)
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func makeAddItemAlertContent() -> some View {
+        // Photo picker
+        Button("CollectionDetail.Actions.LinkItem") {
+            showLinkItemSheet.toggle()
+        }
+
+        // Camera
+        Button("CollectionDetail.Actions.AddItem") {
+        }
+
+        // Cancel
+        Button("Misc.Cancel", role: .cancel) {
+            // nothing
         }
     }
 

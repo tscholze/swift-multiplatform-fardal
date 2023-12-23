@@ -14,7 +14,7 @@
         }
       }
     },
-    "Add item" : {
+    "Add Item" : {
 
     },
     "CameraPicker.Action.Submit" : {
@@ -77,12 +77,32 @@
         }
       }
     },
+    "CollectionDetail.Actions.AddItem" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add new item"
+          }
+        }
+      }
+    },
     "CollectionDetail.Actions.DeleteCollection" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete collection"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Actions.LinkItem" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link existing item"
           }
         }
       }
@@ -590,7 +610,7 @@
         }
       }
     },
-    "Link item" : {
+    "Linked items" : {
 
     },
     "Misc.Cancel" : {
@@ -613,10 +633,17 @@
         }
       }
     },
-    "Re-Generate" : {
-
+    "Misc.Save" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
     },
-    "Save" : {
+    "Re-Generate" : {
 
     },
     "Settings.Appereance.Mode" : {

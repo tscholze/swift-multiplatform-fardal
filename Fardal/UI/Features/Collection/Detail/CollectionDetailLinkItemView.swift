@@ -22,17 +22,24 @@ struct CollectionDetailLinkItemView: View {
     ) private var items: [ItemModel]
     
     @State private var __selectedItems = [ItemModel]()
+    @State private var searchQuery = ""
+    @Environment(\.dismiss) var dismiss
     
     // MARK: - UI -
     
     var body: some View {
         NavigationView {
-            ForEach(items) { item in
+            List(items) { item in
                 HStack {
+                    // Title
                     Text(item.title)
+                    
+                    Spacer()
+                    
+                    // Actions
                     if __selectedItems.contains(item) {
                         Button(action: { onUnlinkItemTapped(item) }) {
-                            Image(systemName: "x.circle")
+                            Image(systemName: "xmark")
                         }
                     } else {
                         Button(action: { onLinkItemTapped(item) }) {
@@ -41,11 +48,17 @@ struct CollectionDetailLinkItemView: View {
                     }
                 }
             }
+            .searchable(text: $searchQuery)
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Misc.Cancel", action: { dismiss() })
+                }
                 ToolbarItem(placement: .primaryAction) {
-                    Button("Save", action: onSaveButtonTapped)
+                    Button("Misc.Save", action: onSaveButtonTapped)
                 }
             }
+            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle("Linked items")
         }
     }
 }
