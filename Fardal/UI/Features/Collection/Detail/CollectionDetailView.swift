@@ -306,7 +306,7 @@ extension CollectionDetailView {
                 // Add item button
                 if viewMode != .read {
                     Button(action: { showAddItemAlert.toggle() }) {
-                        Image(systemName: "plus")
+                        Image(systemName: "plus.circle")
                     }
                 }
             }

@@ -30,7 +30,6 @@ struct DashboardView: View {
                 makeLatestItemsSection()
             }
             .navigationTitle("Dashboard.Title")
-            .tabItem { Label("Dashboard.Title", systemSymbol: .house) }
             .navigationDestination(for: CollectionModel.self) { collection in
                 CollectionDetailView(initialState: .read(collection))
             }
@@ -38,6 +37,7 @@ struct DashboardView: View {
                 ItemDetailView(initialState: .read(item))
             }
         }
+        .tabItem { Label("Dashboard.Title", systemSymbol: .house) }
     }
 }
 

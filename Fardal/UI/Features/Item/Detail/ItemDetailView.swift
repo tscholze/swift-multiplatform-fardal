@@ -181,7 +181,7 @@ extension ItemDetailView {
 
                 if viewMode != .read {
                     Button(action: { onAddCollectionTapped() }) {
-                        Image(systemName: "plus")
+                        Image(systemName: "plus.circle")
                     }
                 }
             }
