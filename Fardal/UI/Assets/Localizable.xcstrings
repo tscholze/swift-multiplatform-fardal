@@ -283,7 +283,7 @@
         }
       }
     },
-    "Item.Draft.Action.AddCustomIcon" : {
+    "ItemDetail.Action.AddCustomIcon" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -293,10 +293,10 @@
         }
       }
     },
-    "Item.Draft.Action.AssignCollection" : {
+    "ItemDetail.Action.AssignCollection" : {
 
     },
-    "Item.Draft.Action.Cancel" : {
+    "ItemDetail.Action.Cancel" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -306,7 +306,7 @@
         }
       }
     },
-    "Item.Draft.Action.CreateCollection" : {
+    "ItemDetail.Action.CreateCollection" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -316,7 +316,7 @@
         }
       }
     },
-    "Item.Draft.Action.Edit" : {
+    "ItemDetail.Action.Edit" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -326,7 +326,7 @@
         }
       }
     },
-    "Item.Draft.Action.Save" : {
+    "ItemDetail.Action.Save" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -336,7 +336,7 @@
         }
       }
     },
-    "Item.Draft.Action.SelectPhoto" : {
+    "ItemDetail.Action.SelectPhoto" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -346,7 +346,7 @@
         }
       }
     },
-    "Item.Draft.Action.TakePhoto" : {
+    "ItemDetail.Action.TakePhoto" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -356,7 +356,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Action.AddAttribute" : {
+    "ItemDetail.Action.AddAttribute" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -366,7 +366,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Action.AddCollection" : {
+    "ItemDetail.Action.AddCollection" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -376,7 +376,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Action.AddDateAttribute" : {
+    "ItemDetail.Action.AddDateAttribute" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -386,7 +386,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Action.AddMedia" : {
+    "ItemDetail.Action.AddMedia" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -396,7 +396,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Action.AddNoteAttribute" : {
+    "ItemDetail.Action.AddNoteAttribute" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -406,7 +406,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Action.AddPriceAttribute" : {
+    "ItemDetail.Action.AddPriceAttribute" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -416,7 +416,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Action.AddUrlAttribute" : {
+    "ItemDetail.Action.AddUrlAttribute" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -426,7 +426,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Actions.DeleteItem" : {
+    "ItemDetail.Actions.DeleteItem" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -436,7 +436,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Attributes.Footer" : {
+    "ItemDetail.Section.Attributes.Footer" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -446,7 +446,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Attributes.Title" : {
+    "ItemDetail.Section.Attributes.Title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -456,7 +456,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Collection.Empty.Hint" : {
+    "ItemDetail.Section.Collection.Empty.Hint" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -466,7 +466,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Collection.Title" : {
+    "ItemDetail.Section.Collection.Title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -476,7 +476,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.CustomAttributes.Empty.Dates.Hint" : {
+    "ItemDetail.Section.CustomAttributes.Empty.Dates.Hint" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -486,7 +486,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.CustomAttributes.Empty.More.Hint" : {
+    "ItemDetail.Section.CustomAttributes.Empty.More.Hint" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -496,7 +496,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.CustomAttributes.Empty.Pricing.Hint" : {
+    "ItemDetail.Section.CustomAttributes.Empty.Pricing.Hint" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -506,7 +506,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.CustomAttributes.Empty.Url.Hint" : {
+    "ItemDetail.Section.CustomAttributes.Empty.Url.Hint" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -516,7 +516,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Photo.Empty.Camera.Hint" : {
+    "ItemDetail.Section.Photo.Empty.Camera.Hint" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -526,7 +526,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Photo.Empty.Icon.Hint" : {
+    "ItemDetail.Section.Photo.Empty.Icon.Hint" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -536,7 +536,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Photo.Empty.Library.Hint" : {
+    "ItemDetail.Section.Photo.Empty.Library.Hint" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -546,7 +546,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Photos.Title %lld / %lld" : {
+    "ItemDetail.Section.Photos.Title %lld / %lld" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -556,7 +556,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Required.Name" : {
+    "ItemDetail.Section.Required.Name" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -566,7 +566,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Required.Summary" : {
+    "ItemDetail.Section.Required.Summary" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -576,7 +576,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Required.Title" : {
+    "ItemDetail.Section.Required.Title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -586,7 +586,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Tagging.Flag" : {
+    "ItemDetail.Section.Tagging.Flag" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -596,7 +596,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Tagging.Tag" : {
+    "ItemDetail.Section.Tagging.Tag" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -606,7 +606,7 @@
         }
       }
     },
-    "Item.Draft.Detail.Section.Tagging.Title" : {
+    "ItemDetail.Section.Tagging.Title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -616,7 +616,7 @@
         }
       }
     },
-    "Item.Draft.Section.Photos.Footer" : {
+    "ItemDetail.Section.Photos.Footer" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {

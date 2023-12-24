@@ -170,7 +170,7 @@ extension CollectionDetailView {
         if viewMode == .read {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: { viewMode = .edit }) {
-                    Text("Item.Draft.Action.Edit")
+                    Text("ItemDetail.Action.Edit")
                 }
             }
         }
@@ -179,7 +179,7 @@ extension CollectionDetailView {
             if viewMode != .create {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: { onCancelTapped() }) {
-                        Text("Item.Draft.Action.Cancel")
+                        Text("ItemDetail.Action.Cancel")
                     }
                 }
             }
@@ -187,7 +187,7 @@ extension CollectionDetailView {
             // Save button
             ToolbarItem(placement: .primaryAction) {
                 Button(
-                    "Item.Draft.Action.Save",
+                    "ItemDetail.Action.Save",
                     action: onSaveButtonTapped
                 )
                 .disabled(isValid == false)
