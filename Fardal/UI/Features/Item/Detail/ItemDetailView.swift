@@ -129,12 +129,16 @@ extension ItemDetailView {
                 Text(summary)
             }
             else {
-                TextField("Item.Draft.Detail.Section.Required.Name", text: $title)
-                    .onChange(of: title, onTitleChanged(oldValue:newValue:))
-
-                // Summary
-                TextField("Item.Draft.Detail.Section.Required.Summary", text: $summary)
-                    .onChange(of: summary, onSummaryChanged(oldValue:newValue:))
+                VStack(alignment: .leading) {
+                    TextField("Item.Draft.Detail.Section.Required.Name", text: $title)
+                        .onChange(of: title, onTitleChanged(oldValue:newValue:))
+                    
+                    Divider()
+                    
+                    // Summary
+                    TextField("Item.Draft.Detail.Section.Required.Summary", text: $summary)
+                        .onChange(of: summary, onSummaryChanged(oldValue:newValue:))
+                }
             }
         }
     }
@@ -160,18 +164,10 @@ extension ItemDetailView {
                 }
             }
             else {
-                VStack(spacing: 8) {
-                    Image(systemName: "doc.on.doc")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 20)
-
-                    Text("Item.Draft.Detail.Section.Collection.Empty.Hint")
-                        .font(.caption2)
-                        .multilineTextAlignment(.center)
-                }
-                .foregroundStyle(.secondary)
-                .opacity(0.6)
+                Hint(
+                    titleKey: "Item.Draft.Detail.Section.Collection.Empty.Hint",
+                    systemName:  "doc.on.doc"
+                )
                 .frame(maxWidth: .infinity, alignment: .center)
             }
         } header: {
@@ -287,24 +283,24 @@ extension ItemDetailView {
 
     @ViewBuilder
     private func makeEmptyImagesHint() -> some View {
-        HStack(spacing: 24) {
+        HStack(spacing: Theme.Spacing.large) {
             Hint(
                 titleKey: "Item.Draft.Detail.Section.Photo.Empty.Camera.Hint",
                 systemName: "camera.viewfinder"
             )
 
             Divider()
+            
+            Hint(
+                titleKey: "Item.Draft.Detail.Section.Photo.Empty.Library.Hint",
+                systemName: "photo.badge.plus"
+            )
+            
+            Divider()
 
             Hint(
                 titleKey: "Item.Draft.Detail.Section.Photo.Empty.Icon.Hint",
                 systemName: "rectangle.center.inset.filled.badge.plus"
-            )
-
-            Divider()
-
-            Hint(
-                titleKey: "Item.Draft.Detail.Section.Photo.Empty.Library.Hint",
-                systemName: "photo.badge.plus"
             )
         }
         .foregroundStyle(.secondary)
@@ -355,7 +351,7 @@ extension ItemDetailView {
 
     @ViewBuilder
     private func makeEmptyCustomAttributeHint() -> some View {
-        HStack(spacing: 24) {
+        HStack(spacing: Theme.Spacing.large) {
             Hint(
                 titleKey: "Item.Draft.Detail.Section.CustomAttributes.Empty.Pricing.Hint",
                 systemName: "eurosign.circle"

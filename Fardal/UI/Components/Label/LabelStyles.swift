@@ -13,7 +13,7 @@ import Foundation
 /// Caution: Do not use for any large hint. Use instead Hint(titleKey:systemImage)
 struct HorizonalLabelStyle: LabelStyle {
     func makeBody(configuration: Configuration) -> some View {
-        VStack(spacing: 4) {
+        VStack(spacing: Theme.Spacing.tiny) {
             configuration.icon
 
             configuration.title

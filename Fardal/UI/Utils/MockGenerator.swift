@@ -46,7 +46,7 @@ private struct SquareTemplate: View {
     }
 
     private func makeRandomColor() -> Color {
-        Colors.pastelColors.randomElement() ?? .cyan
+        Theme.Colors.pastelColors.randomElement() ?? .cyan
     }
 
     private func makeRandomSymbolName() -> String {

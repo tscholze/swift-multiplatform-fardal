@@ -95,8 +95,8 @@ private struct ChipsViewLayout: Layout {
     // MARK: - Properties -
 
     /// Vertical and horizontal spacing
-    /// Default value 8.
-    var spacing: CGFloat = 8
+    /// Default value Theme.Spacing.tiny.
+    var spacing: CGFloat = Theme.Spacing.tiny
 
     // MARK: - Layout implementation -
 

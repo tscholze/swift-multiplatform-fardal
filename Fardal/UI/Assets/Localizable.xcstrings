@@ -521,7 +521,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Take a photo"
+            "value" : "Camera"
           }
         }
       }
@@ -531,7 +531,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create an icon"
+            "value" : "Custom icon"
           }
         }
       }
@@ -541,7 +541,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Select a photo"
+            "value" : "Library"
           }
         }
       }

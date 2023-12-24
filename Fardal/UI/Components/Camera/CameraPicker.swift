@@ -29,14 +29,14 @@ struct CameraPicker: View {
     // MARK: - View -
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: Theme.Spacing.none) {
             ZStack(alignment: .bottomTrailing) {
                 makeCameraPreview()
                 makeShutterButton()
             }
 
             // List of taken photos
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: Theme.Spacing.large) {
                 // Title
                 Text("CameraPicker.TakenPhotos.Headline")
                     .font(.headline)
@@ -113,7 +113,7 @@ extension CameraPicker {
     @ViewBuilder
     private func makeTakenPhotosList() -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
+            HStack(spacing: Theme.Spacing.medium) {
                 ForEach(Array(takenImagesData.enumerated()), id: \.offset) { index, data in
                     Button(action: { takenImagesData.remove(at: index) }) {
                         ZStack(alignment: .topTrailing) {

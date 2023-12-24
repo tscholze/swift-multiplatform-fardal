@@ -214,49 +214,52 @@ extension CollectionDetailView {
     @ViewBuilder
     private func makeRequiredSection() -> some View {
         Section("CollectionDetail.Section.Required.Title") {
-            // Mode: Read
-            if viewMode == .read {
-                HStack(alignment: .center) {
-                    if let uiImage = UIImage(data: coverData) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .clipShape(Theme.Shape.roundedRectangle2)
-                            .frame(width: 80, height: 80)
-                    }
-
-                    VStack {
-                        Text(title)
-                        Text(summary)
-                    }
-                }
-            }
-            // Mode: Editable
-            else {
-                HStack(spacing: 12) {
-                    if let uiImage = UIImage(data: coverData) {
-                        VStack {
+            VStack(alignment: .leading) {
+                // Mode: Read
+                if viewMode == .read {
+                    HStack(alignment: .center, spacing: Theme.Spacing.medium) {
+                        if let uiImage = UIImage(data: coverData) {
                             Image(uiImage: uiImage)
                                 .resizable()
                                 .clipShape(Theme.Shape.roundedRectangle2)
-                                .frame(width: 60, height: 60)
-
-                            Button("Re-Generate") {
-                                Task { await updateCoverData() }
-                            }
-                            .buttonStyle(.bordered)
-                            .font(.caption2)
+                                .frame(width: 80, height: 80)
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text(title)
+                            Divider()
+                            Text(summary)
                         }
                     }
-
-                    VStack {
-                        TextField("CollectionDetail.Section.Required.Name", text: $title)
-                            .onChange(of: title, onTitleChanged(oldValue:newValue:))
-
-                        Divider()
-
-                        // Summary
-                        TextField("CollectionDetail.Section.Required.Summary", text: $summary)
-                            .onChange(of: summary, onSummaryChanged(oldValue:newValue:))
+                }
+                // Mode: Editable
+                else {
+                    HStack(spacing: Theme.Spacing.medium) {
+                        if let uiImage = UIImage(data: coverData) {
+                            VStack {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .clipShape(Theme.Shape.roundedRectangle2)
+                                    .frame(width: 60, height: 60)
+                                
+                                Button("Re-Generate") {
+                                    Task { await updateCoverData() }
+                                }
+                                .buttonStyle(.bordered)
+                                .font(.caption2)
+                            }
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            TextField("CollectionDetail.Section.Required.Name", text: $title)
+                                .onChange(of: title, onTitleChanged(oldValue:newValue:))
+                            
+                            Divider()
+                            
+                            // Summary
+                            TextField("CollectionDetail.Section.Required.Summary", text: $summary)
+                                .onChange(of: summary, onSummaryChanged(oldValue:newValue:))
+                        }
                     }
                 }
             }

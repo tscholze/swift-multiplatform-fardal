@@ -17,9 +17,9 @@ struct Hint: View {
     /// System image name
     let systemName: String
 
-    /// Dimension
+    /// Size
     /// Default value: .medium
-    var dimension: HintDimension = .medium
+    var size: HintSize = .medium
 
     /// Style
     /// Default value: .default
@@ -28,19 +28,20 @@ struct Hint: View {
     // MARK: - Body -
 
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(alignment: .center, spacing: Theme.Spacing.medium) {
             Image(systemName: systemName)
                 .resizable()
-                .scaledToFit()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: size.height * 0.4)
 
             Text(titleKey)
                 .font(.caption2)
                 .multilineTextAlignment(.center)
+                .lineLimit(2, reservesSpace: false)
         }
-        .padding(8)
         .foregroundStyle(style.foregroundStyle)
-        .frame(maxWidth: .infinity)
-        .frame(height: dimension.height)
+        .frame(maxWidth: .infinity, alignment: .center)
+        .frame(height: size.height)
     }
 }
 
@@ -63,13 +64,20 @@ enum HintStyle {
 }
 
 /// Available dimensions of a `Hint`
-enum HintDimension {
+enum HintSize {
     /// Medium
     case medium
+    
+    /// Large
+    case large
 
+    // MARK: - Computed properties -
+    
+    /// Height
     var height: CGFloat {
         switch self {
         case .medium: 60
+        case .large: 80
         }
     }
 }

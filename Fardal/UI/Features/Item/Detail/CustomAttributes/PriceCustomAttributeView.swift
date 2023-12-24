@@ -52,7 +52,7 @@ extension PriceCustomAttributeView {
 
     @ViewBuilder
     private func makeWriteableView() -> some View {
-        VStack(spacing: 0) {
+        VStack(spacing: Theme.Spacing.none) {
             // Title
             TextField("Item.Detail.Attribute.Price.Title", text: $title)
                 .font(.caption)

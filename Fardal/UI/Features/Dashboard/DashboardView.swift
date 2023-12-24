@@ -53,25 +53,21 @@ extension DashboardView {
                 if collections.isEmpty {
                     Hint(
                         titleKey: "Dashboard.Section.Collections.Empty.Hint",
-                        systemName: "doc.on.doc"
+                        systemName: "doc.on.doc",
+                        size: .large
                     )
                 }
                 else {
                     ForEach(collections) { collection in
-                        Button {
-                            path.append(collection)
-                        } label: {
-                            collection.coverImageData.image
-                                .resizable()
-                                .scaledToFill()
-                                .clipShape(Theme.Shape.roundedRectangle2)
-                                .frame(width: 80, height: 80)
-                        }
+                        CollectionThumbnail(
+                            collection: collection,
+                            size: .large,
+                            action: {   path.append(collection) }
+                        )
                     }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: 80)
         } header: {
             HStack {
                 Text("Dashboard.Section.LatestCollections.Title")
@@ -92,25 +88,18 @@ extension DashboardView {
                 if items.isEmpty {
                     Hint(
                         titleKey: "Dashboard.Section.Items.Empty.Hint",
-                        systemName: "doc"
+                        systemName: "doc",
+                        size: .large
                     )
                 }
                 else {
                     ScrollView(.horizontal) {
                         ForEach(items) { item in
-                            Button {
-                                path.append(item)
-                            } label: {
-                                if let imageData = item.imagesData.first {
-                                    imageData.image
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 80, height: 80)
-                                }
-                                else {
-                                    InitialAvatarView(name: item.title, dimension: 80)
-                                }
-                            }
+                            ItemThumbnail(
+                                item: item,
+                                size: .large, 
+                                action: { path.append(item) }
+                            )
                         }
                     }
                 }

@@ -35,7 +35,7 @@ struct UrlCustomAttributeView: View {
 
                 // URL
                 if let url = store.url {
-                    HStack(alignment: .center, spacing: 2) {
+                    HStack(alignment: .center, spacing: Theme.Spacing.tiny) {
                         Link(url.host() ?? "", destination: url)
 
                         FavIconAsyncImage(
@@ -50,7 +50,7 @@ struct UrlCustomAttributeView: View {
             }
         }
         else {
-            VStack(spacing: 0) {
+            VStack(spacing: Theme.Spacing.none) {
                 // Title
                 TextField("Item.Detail.Attribute.Url.Title.Placeholder", text: $title)
                     .font(.caption)
