@@ -224,7 +224,7 @@ extension CollectionDetailView {
                                 .clipShape(Theme.Shape.roundedRectangle2)
                                 .frame(width: 80, height: 80)
                         }
-                        
+
                         VStack(alignment: .leading) {
                             Text(title)
                             Divider()
@@ -241,7 +241,7 @@ extension CollectionDetailView {
                                     .resizable()
                                     .clipShape(Theme.Shape.roundedRectangle2)
                                     .frame(width: 60, height: 60)
-                                
+
                                 Button("Re-Generate") {
                                     Task { await updateCoverData() }
                                 }
@@ -249,13 +249,13 @@ extension CollectionDetailView {
                                 .font(.caption2)
                             }
                         }
-                        
+
                         VStack(alignment: .leading) {
                             TextField("CollectionDetail.Section.Required.Name", text: $title)
                                 .onChange(of: title, onTitleChanged(oldValue:newValue:))
-                            
+
                             Divider()
-                            
+
                             // Summary
                             TextField("CollectionDetail.Section.Required.Summary", text: $summary)
                                 .onChange(of: summary, onSummaryChanged(oldValue:newValue:))

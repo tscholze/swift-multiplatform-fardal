@@ -62,7 +62,7 @@ extension DashboardView {
                         CollectionThumbnail(
                             collection: collection,
                             size: .large,
-                            action: {   path.append(collection) }
+                            action: { path.append(collection) }
                         )
                     }
                 }
@@ -97,7 +97,7 @@ extension DashboardView {
                         ForEach(items) { item in
                             ItemThumbnail(
                                 item: item,
-                                size: .large, 
+                                size: .large,
                                 action: { path.append(item) }
                             )
                         }

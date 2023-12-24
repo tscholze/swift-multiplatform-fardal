@@ -16,15 +16,15 @@ struct ItemDetailView: View {
 
     private var item: ItemModel?
     private let intialViewMode: ViewMode
-    
+
     // MARK: - System properties -
-    
+
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Query private var collections: [CollectionModel]
 
     // MARK: - Presenation states -
-    
+
     @State private var viewMode: ViewMode = .read
     @State private var showAddCollectionAlert = false
     @State private var showAddCollectionSheet = false
@@ -35,13 +35,13 @@ struct ItemDetailView: View {
     @State private var showPhotoPicker = false
     @State private var showCamera = false
     @State private var isValid = false
-    
+
     // MARK: - Intermitten states -
-    
+
     @State private var imageSelection: PhotosPickerItem? = nil
     @State private var cameraModel = CameraModel()
     @State private var cameraImagesData = [Data]()
-    
+
     // MARK: - Draft states -
 
     @State private var title = ""
@@ -94,37 +94,35 @@ struct ItemDetailView: View {
             selection: $imageSelection,
             photoLibrary: .shared()
         )
-        .fullScreenCover(isPresented: $showCamera) {
-            CameraPicker(cameraImagesData: $cameraImagesData)
-        }
-        .alert("Item.Draft.Detail.Action.AddAttribute", isPresented: $showAddCustomAttributeSheet) {
-            makeAddCustomAttributeAlertContent()
-        }
-        .alert("Item.Draft.Detail.Action.AddMedia", isPresented: $showAddMediaSheet) {
-            makeAddMediaAlertContent()
-        }
-        .alert("Item.Draft.Detail.Action.AddCollection", isPresented: $showAddCollectionAlert) {
-            makeAddCollectionAlertContent()
-        }
-        .sheet(isPresented: $showAddCollectionSheet) {
-            NavigationView {
-                CollectionDetailView(initialState: .create)
-            }
-        }
-        .sheet(isPresented: $showLinkCollectionSheet) {
-            ItemDetailLinkCollectionView(selectedCollection: $collection)
-        }
+        .fullScreenCover(
+            isPresented: $showCamera,
+            content: { CameraPicker(cameraImagesData: $cameraImagesData) }
+        )
+        .alert(
+            "Item.Draft.Detail.Action.AddAttribute",
+            isPresented: $showAddCustomAttributeSheet,
+            actions: { makeAddCustomAttributeAlertContent() }
+        )
+        .alert(
+            "Item.Draft.Detail.Action.AddMedia",
+            isPresented: $showAddMediaSheet,
+            actions: { makeAddMediaAlertContent() }
+        )
+        .alert(
+            "Item.Draft.Detail.Action.AddCollection",
+            isPresented: $showAddCollectionAlert,
+            actions: { makeAddCollectionAlertContent() }
+        )
+        .sheet(
+            isPresented: $showLinkCollectionSheet,
+            content: { ItemDetailLinkCollectionView(selectedCollection: $collection) }
+        )
+        .sheet(
+            isPresented: $showAddCollectionSheet,
+            content: { NavigationView { CollectionDetailView(initialState: .create) } }
+        )
         .onAppear(perform: onViewAppear)
-        .task {
-            Task.detached {
-                do {
-                    try await cameraModel.initialize()
-                }
-                catch {
-                    print("Camera init failed: \(error.localizedDescription)")
-                }
-            }
-        }
+        .task { await performStartupTasks() }
     }
 }
 
@@ -143,9 +141,9 @@ extension ItemDetailView {
                 VStack(alignment: .leading) {
                     TextField("Item.Draft.Detail.Section.Required.Name", text: $title)
                         .onChange(of: title, onTitleChanged(oldValue:newValue:))
-                    
+
                     Divider()
-                    
+
                     // Summary
                     TextField("Item.Draft.Detail.Section.Required.Summary", text: $summary)
                         .onChange(of: summary, onSummaryChanged(oldValue:newValue:))
@@ -177,7 +175,7 @@ extension ItemDetailView {
             else {
                 Hint(
                     titleKey: "Item.Draft.Detail.Section.Collection.Empty.Hint",
-                    systemName:  "doc.on.doc"
+                    systemName: "doc.on.doc"
                 )
                 .frame(maxWidth: .infinity, alignment: .center)
             }
@@ -299,12 +297,12 @@ extension ItemDetailView {
             )
 
             Divider()
-            
+
             Hint(
                 titleKey: "Item.Draft.Detail.Section.Photo.Empty.Library.Hint",
                 systemName: "photo.badge.plus"
             )
-            
+
             Divider()
 
             Hint(
@@ -549,6 +547,17 @@ extension ItemDetailView {
                 let newImage = ImageData(data: data)
                 selectedImagesData.append(newImage)
             default: print("Failed")
+            }
+        }
+    }
+    
+    private func performStartupTasks() async {
+        Task.detached {
+            do {
+                try await cameraModel.initialize()
+            }
+            catch {
+                print("Camera init failed: \(error.localizedDescription)")
             }
         }
     }

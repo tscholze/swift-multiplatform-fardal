@@ -67,12 +67,12 @@ enum HintStyle {
 enum HintSize {
     /// Medium
     case medium
-    
+
     /// Large
     case large
 
     // MARK: - Computed properties -
-    
+
     /// Height
     var height: CGFloat {
         switch self {

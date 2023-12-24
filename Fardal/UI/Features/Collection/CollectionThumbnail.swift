@@ -9,21 +9,20 @@ import SwiftUI
 
 /// Thumbnail representation of a `CollectionModel`
 struct CollectionThumbnail: View {
-    
     // MARK: - Properties -
-    
+
     /// Collection to show
     let collection: CollectionModel
-    
+
     /// Square size of the thumbnail
     /// Default value: .medium
     var size: CollectionThumbnailSize = .medium
-    
+
     /// On tap action block
-    let action: (() -> Void)
-    
+    let action: () -> Void
+
     // MARK: - UI -
-    
+
     var body: some View {
         Button { action() } label: {
             collection.coverImageData.image
@@ -38,14 +37,15 @@ struct CollectionThumbnail: View {
 /// Available size of a `CollectionThumbnail`.
 enum CollectionThumbnailSize {
     // MARK: - Values -
+
     /// Medium
     case medium
-    
+
     /// Large
     case large
-    
+
     // MARK: - computed properties -
-    
+
     /// Square dimension
     var dimension: CGFloat {
         switch self {
@@ -56,8 +56,6 @@ enum CollectionThumbnailSize {
 }
 
 // TODO: Create Collection mock
-/*
- #Preview {
- CollectionThumbnail(collection: , action: () -> Void)
- }
- */
+// #Preview {
+// CollectionThumbnail(collection: , action: () -> Void)
+// }

@@ -9,21 +9,20 @@ import SwiftUI
 
 /// Thumbnail representation of an `Item`
 struct ItemThumbnail: View {
-    
     // MARK: - Properties -
-    
+
     /// Item to show
     let item: ItemModel
-    
+
     /// Square size of the thumbnail
     /// Default value: .medium
     var size: CollectionThumbnailSize = .medium
-    
+
     /// On tap action
-    let action: (() -> Void)
-    
+    let action: () -> Void
+
     // MARK: - UI -
-    
+
     var body: some View {
         Button { action() } label: {
             if let imageData = item.imagesData.first {
@@ -39,23 +38,24 @@ struct ItemThumbnail: View {
     }
 }
 
-/*
-#Preview {
-    ItemThumbnail()
-}
- */
+//
+// #Preview {
+//    ItemThumbnail()
+// }
+// 
 
 /// Available size of a `ItemThumbnail`.
 enum ItemThumbnailSize {
     // MARK: - Values -
+
     /// Medium
     case medium
-    
+
     /// Large
     case large
-    
+
     // MARK: - computed properties -
-    
+
     /// Square dimension
     var dimension: CGFloat {
         switch self {
