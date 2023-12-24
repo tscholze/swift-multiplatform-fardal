@@ -21,7 +21,7 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
+            VStack(spacing: Theme.Spacing.none) {
                 Form {
                     makeSectionAppereance()
                     makeSectionDataInformation()

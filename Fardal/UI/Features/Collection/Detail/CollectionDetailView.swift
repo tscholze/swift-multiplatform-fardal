@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Represents a [View] that shows the detail of the model
+/// and enables the user to perform CRUD operations on a [Collection].
 struct CollectionDetailView: View {
     // MARK: - Private properties -
 
@@ -31,7 +33,7 @@ struct CollectionDetailView: View {
 
     /// Initializes a new detail view with given state configuration
     ///
-    /// - Parameter initialState: Initial state that defines the viewMode and the datasource.
+    /// - Parameter initialState: Initial state that defines the view mode and the datasource.
     init(initialState: CollectionDetailViewInitalState) {
         switch initialState {
         case let .read(collection):
@@ -212,49 +214,52 @@ extension CollectionDetailView {
     @ViewBuilder
     private func makeRequiredSection() -> some View {
         Section("CollectionDetail.Section.Required.Title") {
-            // Mode: Read
-            if viewMode == .read {
-                HStack(alignment: .center) {
-                    if let uiImage = UIImage(data: coverData) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                            .frame(width: 80, height: 80)
-                    }
-
-                    VStack {
-                        Text(title)
-                        Text(summary)
-                    }
-                }
-            }
-            // Mode: Editable
-            else {
-                HStack(spacing: 12) {
-                    if let uiImage = UIImage(data: coverData) {
-                        VStack {
+            VStack(alignment: .leading) {
+                // Mode: Read
+                if viewMode == .read {
+                    HStack(alignment: .center, spacing: Theme.Spacing.medium) {
+                        if let uiImage = UIImage(data: coverData) {
                             Image(uiImage: uiImage)
                                 .resizable()
-                                .clipShape(RoundedRectangle(cornerRadius: 4))
-                                .frame(width: 60, height: 60)
+                                .clipShape(Theme.Shape.roundedRectangle2)
+                                .frame(width: 80, height: 80)
+                        }
 
-                            Button("Re-Generate") {
-                                Task { await updateCoverData() }
-                            }
-                            .buttonStyle(.bordered)
-                            .font(.caption2)
+                        VStack(alignment: .leading) {
+                            Text(title)
+                            Divider()
+                            Text(summary)
                         }
                     }
+                }
+                // Mode: Editable
+                else {
+                    HStack(spacing: Theme.Spacing.medium) {
+                        if let uiImage = UIImage(data: coverData) {
+                            VStack {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .clipShape(Theme.Shape.roundedRectangle2)
+                                    .frame(width: 60, height: 60)
 
-                    VStack {
-                        TextField("CollectionDetail.Section.Required.Name", text: $title)
-                            .onChange(of: title, onTitleChanged(oldValue:newValue:))
+                                Button("Re-Generate") {
+                                    Task { await updateCoverData() }
+                                }
+                                .buttonStyle(.bordered)
+                                .font(.caption2)
+                            }
+                        }
 
-                        Divider()
+                        VStack(alignment: .leading) {
+                            TextField("CollectionDetail.Section.Required.Name", text: $title)
+                                .onChange(of: title, onTitleChanged(oldValue:newValue:))
 
-                        // Summary
-                        TextField("CollectionDetail.Section.Required.Summary", text: $summary)
-                            .onChange(of: summary, onSummaryChanged(oldValue:newValue:))
+                            Divider()
+
+                            // Summary
+                            TextField("CollectionDetail.Section.Required.Summary", text: $summary)
+                                .onChange(of: summary, onSummaryChanged(oldValue:newValue:))
+                        }
                     }
                 }
             }
@@ -266,18 +271,10 @@ extension CollectionDetailView {
         Section {
             // Mode: Empty items
             if items.isEmpty == true {
-                VStack(spacing: 12) {
-                    Image(systemName: "doc")
-                        .resizable()
-                        .scaledToFit()
-
-                    Text("CollectionDetail.Section.Items.Empty.Hint")
-                        .font(.caption2)
-                }
-                .padding(8)
-                .foregroundStyle(.secondary.opacity(0.6))
-                .frame(maxWidth: .infinity)
-                .frame(height: 80)
+                Hint(
+                    titleKey: "CollectionDetail.Section.Items.Empty.Hint",
+                    systemName: "doc"
+                )
             }
             else {
                 // Mode: Filled items

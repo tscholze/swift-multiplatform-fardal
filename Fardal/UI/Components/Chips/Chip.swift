@@ -59,7 +59,7 @@ extension View {
             .foregroundStyle(.primary)
             .padding(6)
             .overlay {
-                RoundedRectangle(cornerRadius: 4)
+                Theme.Shape.roundedRectangle2
                     .foregroundStyle(.tertiary.opacity(0.6))
             }
     }

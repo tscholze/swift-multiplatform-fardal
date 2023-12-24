@@ -8,9 +8,13 @@
 import SwiftUI
 import SwiftData
 
+/// Provides the possibility to the user to set or unset the `Item`s collection.
+///
+/// Listen to `selectedCollection` for changes.
 struct ItemDetailLinkCollectionView: View {
     // MARK: - Properties -
 
+    /// User-selected collection
     @Binding var selectedCollection: CollectionModel?
 
     // MARK: - Private Properties -

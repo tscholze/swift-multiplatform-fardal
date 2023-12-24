@@ -41,7 +41,7 @@ struct DateCustomAttributeView: View {
             }
         }
         else {
-            VStack(spacing: 0) {
+            VStack(spacing: Theme.Spacing.none) {
                 // Title
                 TextField("Item.Detail.Attribute.Date.Title.Placeholder", text: $title)
                     .font(.caption)

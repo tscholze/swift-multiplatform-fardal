@@ -13,9 +13,16 @@ import Foundation
 enum ItemCustomAttributeTypes: String {
     // MARK: - Cases -
 
+    /// Date information
     case date
+
+    /// Pricining and currency information
     case price
+
+    /// External url
     case url
+
+    /// Multiline note
     case note
 
     // MARK: - Generators -

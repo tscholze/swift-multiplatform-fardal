@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 /// Defines all states the `CollectionDetailView` could have
 enum CollectionDetailViewInitalState {
     /// Create a new collection

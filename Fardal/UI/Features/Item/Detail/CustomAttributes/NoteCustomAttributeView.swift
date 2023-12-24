@@ -36,7 +36,7 @@ struct NoteCustomAttributeView: View {
 
                 // Note
                 if store.text.isEmpty {
-                    HStack(alignment: .center, spacing: 2) { Text("Misc.EmptyValue").foregroundStyle(.secondary)
+                    HStack(alignment: .center, spacing: Theme.Spacing.tiny) { Text("Misc.EmptyValue").foregroundStyle(.secondary)
                     }
                 }
                 else {
@@ -49,7 +49,7 @@ struct NoteCustomAttributeView: View {
             }
         }
         else {
-            VStack(spacing: 0) {
+            VStack(spacing: Theme.Spacing.none) {
                 // Title
                 TextField(
                     "Item.Detail.Attribute.Note.Title.Placeholder",

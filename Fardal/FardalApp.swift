@@ -72,7 +72,7 @@ struct FardalApp: App {
             // )
             //
             // container.mainContext.insert(systemCollection)
-            // 
+            //
             return container
         }
         catch {
