@@ -9,20 +9,19 @@ import SwiftUI
 import Foundation
 import SFSafeSymbols
 
+/// Convenient helper for mocking content.
 enum MockGenerator {
+    // MARK: - Images -
+
+    /// Makes a square image for mocking porpuse
+    /// It will create a square image with randomized colors and symbol as content.
     @MainActor static func makeMockSquareImageData() -> Data {
         let content = SquareTemplate()
-        guard let cgImage = ImageRenderer(content: content).cgImage else {
-            fatalError("Error: Could not create CGImage.")
-        }
-
-        guard let data = UIImage(cgImage: cgImage).pngData() else {
-            fatalError("Error: Could not create data from UIImage from CGImage")
-        }
-
-        return data
+        return ImageGenerator.fromContentToData(content: content)
     }
 }
+
+// MARK: - Private views -
 
 private struct SquareTemplate: View {
     // MARK: - Properties -
@@ -33,7 +32,7 @@ private struct SquareTemplate: View {
 
     var body: some View {
         ZStack(alignment: .center) {
-            RoundedRectangle(cornerRadius: 4)
+            Theme.Shape.roundedRectangle2
                 .foregroundStyle(makeRandomColor())
 
             Image(systemName: makeRandomSymbolName())
@@ -47,7 +46,7 @@ private struct SquareTemplate: View {
     }
 
     private func makeRandomColor() -> Color {
-        AppColors.pastelColors.randomElement() ?? .cyan
+        Colors.pastelColors.randomElement() ?? .cyan
     }
 
     private func makeRandomSymbolName() -> String {

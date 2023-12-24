@@ -8,6 +8,8 @@
 import SwiftUI
 import SwiftData
 
+/// The `DashboardView` provides a basic overview
+/// over User's created elements.
 struct DashboardView: View {
     // MARK: - Database properties -
 
@@ -49,17 +51,10 @@ extension DashboardView {
         Section {
             HStack {
                 if collections.isEmpty {
-                    VStack(spacing: 12) {
-                        Image(systemName: "doc.on.doc")
-                            .resizable()
-                            .scaledToFit()
-
-                        Text("Dashboard.Section.Collections.Empty.Hint")
-                            .font(.caption2)
-                    }
-                    .padding(8)
-                    .foregroundStyle(.secondary.opacity(0.6))
-                    .frame(maxWidth: .infinity)
+                    Hint(
+                        titleKey: "Dashboard.Section.Collections.Empty.Hint",
+                        systemName: "doc.on.doc"
+                    )
                 }
                 else {
                     ForEach(collections) { collection in
@@ -69,7 +64,7 @@ extension DashboardView {
                             collection.coverImageData.image
                                 .resizable()
                                 .scaledToFill()
-                                .clipShape(RoundedRectangle(cornerRadius: 4))
+                                .clipShape(Theme.Shape.roundedRectangle2)
                                 .frame(width: 80, height: 80)
                         }
                     }
@@ -95,18 +90,10 @@ extension DashboardView {
         Section {
             HStack {
                 if items.isEmpty {
-                    VStack(spacing: 12) {
-                        Image(systemName: "doc")
-                            .resizable()
-                            .scaledToFit()
-
-                        Text("Dashboard.Section.Items.Empty.Hint")
-                            .font(.caption2)
-                    }
-                    .padding(8)
-                    .foregroundStyle(.secondary.opacity(0.6))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 80)
+                    Hint(
+                        titleKey: "Dashboard.Section.Items.Empty.Hint",
+                        systemName: "doc"
+                    )
                 }
                 else {
                     ScrollView(.horizontal) {

@@ -7,8 +7,15 @@
 
 import Foundation
 
+/// Describes the mode in which the view currently is
+/// Mostly used in CRUD-related context
 enum ViewMode {
+    /// Read only
     case read
+
+    /// Create an element
     case create
+
+    /// Edit an element
     case edit
 }

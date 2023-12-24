@@ -149,7 +149,7 @@ extension ItemDetailView {
                     HStack {
                         collection.coverImageData.image
                             .resizable()
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                            .clipShape(Theme.Shape.roundedRectangle2)
                             .frame(width: 60, height: 60)
 
                         VStack {
@@ -237,7 +237,7 @@ extension ItemDetailView {
                             Image(uiImage: imageData.uiImage)
                                 .resizable()
                                 .aspectRatio(1, contentMode: .fill)
-                                .clipShape(RoundedRectangle(cornerRadius: 4))
+                                .clipShape(Theme.Shape.roundedRectangle2)
                                 .overlay(alignment: .topTrailing) {
                                     // Show delete button in case of edit / create
                                     // is enabled
@@ -288,40 +288,24 @@ extension ItemDetailView {
     @ViewBuilder
     private func makeEmptyImagesHint() -> some View {
         HStack(spacing: 24) {
-            VStack(spacing: 8) {
-                Image(systemName: "camera.viewfinder")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 20)
-
-                Text("Item.Draft.Detail.Section.Photo.Empty.Camera.Hint")
-                    .font(.caption2)
-                    .multilineTextAlignment(.center)
-            }
+            Hint(
+                titleKey: "Item.Draft.Detail.Section.Photo.Empty.Camera.Hint",
+                systemName: "camera.viewfinder"
+            )
 
             Divider()
 
-            VStack(spacing: 8) {
-                Image(systemName: "rectangle.center.inset.filled.badge.plus")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 20)
+            Hint(
+                titleKey: "Item.Draft.Detail.Section.Photo.Empty.Icon.Hint",
+                systemName: "rectangle.center.inset.filled.badge.plus"
+            )
 
-                Text("Item.Draft.Detail.Section.Photo.Empty.Icon.Hint")
-                    .font(.caption2)
-                    .multilineTextAlignment(.center)
-            }
+            Divider()
 
-            VStack(spacing: 8) {
-                Image(systemName: "photo.badge.plus")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 20)
-
-                Text("Item.Draft.Detail.Section.Photo.Empty.Library.Hint")
-                    .font(.caption2)
-                    .multilineTextAlignment(.center)
-            }
+            Hint(
+                titleKey: "Item.Draft.Detail.Section.Photo.Empty.Library.Hint",
+                systemName: "photo.badge.plus"
+            )
         }
         .foregroundStyle(.secondary)
         .opacity(0.6)
@@ -372,52 +356,32 @@ extension ItemDetailView {
     @ViewBuilder
     private func makeEmptyCustomAttributeHint() -> some View {
         HStack(spacing: 24) {
-            VStack(spacing: 8) {
-                Image(systemSymbol: .eurosignCircle)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 20)
-
-                Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Pricing.Hint")
-            }
+            Hint(
+                titleKey: "Item.Draft.Detail.Section.CustomAttributes.Empty.Pricing.Hint",
+                systemName: "eurosign.circle"
+            )
 
             Divider()
 
-            VStack(spacing: 8) {
-                Image(systemSymbol: .calendar)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 20)
-
-                Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Dates.Hint")
-            }
+            Hint(
+                titleKey: "Item.Draft.Detail.Section.CustomAttributes.Empty.Dates.Hint",
+                systemName: "calendar"
+            )
 
             Divider()
 
-            VStack(spacing: 8) {
-                Image(systemSymbol: .safari)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 20)
-
-                Text("Item.Draft.Detail.Section.CustomAttributes.Empty.Url.Hint")
-            }
+            Hint(
+                titleKey: "Item.Draft.Detail.Section.CustomAttributes.Empty.Url.Hint",
+                systemName: "safari"
+            )
 
             Divider()
 
-            VStack(spacing: 8) {
-                Image(systemSymbol: .ellipsisCircle)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 20)
-
-                Text("Item.Draft.Detail.Section.CustomAttributes.Empty.More.Hint")
-            }
+            Hint(
+                titleKey: "Item.Draft.Detail.Section.CustomAttributes.Empty.More.Hint",
+                systemName: "ellipsis.circle"
+            )
         }
-        .multilineTextAlignment(.center)
-        .font(.caption2)
-        .foregroundStyle(.secondary)
-        .opacity(0.6)
         .frame(maxWidth: .infinity, alignment: .center)
     }
 
@@ -647,7 +611,6 @@ extension ItemDetailView {
         customAttributes.removeAll(where: { $0.id == attribute.id })
     }
 
-    // TODO: Move to ItemDatabaseOperations
     private func onSaveButtonTapped() {
         if let item {
             // Remove attributes from database which are deleted in drafts

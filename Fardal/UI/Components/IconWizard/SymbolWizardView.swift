@@ -8,9 +8,12 @@
 import SwiftUI
 import SFSafeSymbols
 
+/// Enables the user to create an System symbol with
+/// customized symbol, fore- and background color.
 struct SymbolWizardView: View {
     // MARK: - Properties -
 
+    /// `Data` representation of  user's selected symbol
     @Binding var selectedData: Data?
 
     // MARK: - Private properties -
@@ -74,9 +77,9 @@ extension SymbolWizardView {
         Section("SymbolWizard.Section.Icon") {
             NavigationLink {
                 SymbolPickerView(
-                    tintColor: selectedColor,
-                    backgroundColor: selectedBackgroundColor,
-                    selectedSymbolName: $selectedSymbolName
+                    selectedSymbolName: $selectedSymbolName,
+                    foregroundColor: selectedColor,
+                    backgroundColor: selectedBackgroundColor
                 )
             } label: {
                 HStack {
@@ -130,7 +133,7 @@ extension SymbolWizardView {
     @ViewBuilder
     private func makeSymbol(size: CGFloat) -> some View {
         ZStack(alignment: .center) {
-            RoundedRectangle(cornerRadius: 4)
+            Theme.Shape.roundedRectangle2
                 .foregroundStyle(selectedBackgroundColor)
 
             Image(systemName: selectedSymbolName)
@@ -148,6 +151,5 @@ extension SymbolWizardView {
 
 #Preview {
     @State var data: Data?
-
     return SymbolWizardView(selectedData: $data)
 }

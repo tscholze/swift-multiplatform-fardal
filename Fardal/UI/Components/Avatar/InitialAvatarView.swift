@@ -39,7 +39,7 @@ struct InitialAvatarView: View {
             .padding()
             .frame(width: dimension, height: dimension)
             .opacity(1)
-            .background(AppColors.pastelColors.randomElement())
+            .background(Theme.Colors.pastelColors.randomElement())
     }
 }
 

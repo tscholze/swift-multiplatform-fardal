@@ -8,9 +8,13 @@
 import SwiftUI
 import Foundation
 
+/// Convenient helper for generating images.
 enum ImageGenerator {
-    @MainActor
-    static func fromContentToData(content: some View) -> Data {
+    /// Creates png data from given view content
+    ///
+    /// - Parameter content: View that shall be transformed to `Data`
+    /// - Returns: Png data representation of given vontent
+    @MainActor static func fromContentToData(content: some View) -> Data {
         guard let cgImage = ImageRenderer(content: content).cgImage else {
             fatalError("Error: Could not create CGImage.")
         }

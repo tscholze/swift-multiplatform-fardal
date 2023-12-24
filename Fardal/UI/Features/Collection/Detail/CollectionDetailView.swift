@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Represents a [View] that shows the detail of the model
+/// and enables the user to perform CRUD operations on a [Collection].
 struct CollectionDetailView: View {
     // MARK: - Private properties -
 
@@ -31,7 +33,7 @@ struct CollectionDetailView: View {
 
     /// Initializes a new detail view with given state configuration
     ///
-    /// - Parameter initialState: Initial state that defines the viewMode and the datasource.
+    /// - Parameter initialState: Initial state that defines the view mode and the datasource.
     init(initialState: CollectionDetailViewInitalState) {
         switch initialState {
         case let .read(collection):
@@ -218,7 +220,7 @@ extension CollectionDetailView {
                     if let uiImage = UIImage(data: coverData) {
                         Image(uiImage: uiImage)
                             .resizable()
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                            .clipShape(Theme.Shape.roundedRectangle2)
                             .frame(width: 80, height: 80)
                     }
 
@@ -235,7 +237,7 @@ extension CollectionDetailView {
                         VStack {
                             Image(uiImage: uiImage)
                                 .resizable()
-                                .clipShape(RoundedRectangle(cornerRadius: 4))
+                                .clipShape(Theme.Shape.roundedRectangle2)
                                 .frame(width: 60, height: 60)
 
                             Button("Re-Generate") {
@@ -266,18 +268,10 @@ extension CollectionDetailView {
         Section {
             // Mode: Empty items
             if items.isEmpty == true {
-                VStack(spacing: 12) {
-                    Image(systemName: "doc")
-                        .resizable()
-                        .scaledToFit()
-
-                    Text("CollectionDetail.Section.Items.Empty.Hint")
-                        .font(.caption2)
-                }
-                .padding(8)
-                .foregroundStyle(.secondary.opacity(0.6))
-                .frame(maxWidth: .infinity)
-                .frame(height: 80)
+                Hint(
+                    titleKey: "CollectionDetail.Section.Items.Empty.Hint",
+                    systemName: "doc"
+                )
             }
             else {
                 // Mode: Filled items

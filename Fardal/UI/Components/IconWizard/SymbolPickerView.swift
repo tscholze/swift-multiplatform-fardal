@@ -8,12 +8,15 @@
 import SwiftUI
 import SFSafeSymbols
 
+/// Grid-based System symbol picker with
+/// setable fore- and background color
 struct SymbolPickerView: View {
     // MARK: - Properties -
 
-    let tintColor: Color
-    let backgroundColor: Color
     @Binding var selectedSymbolName: String
+
+    let foregroundColor: Color
+    let backgroundColor: Color
 
     // MARK: - Private properties -
 
@@ -47,7 +50,7 @@ struct SymbolPickerView: View {
                                 .padding()
                         }
                         .background(backgroundColor)
-                        .tint(tintColor)
+                        .tint(foregroundColor)
                     }
                 }
             }
@@ -83,9 +86,9 @@ extension SymbolPickerView {
     @State var name: String = ""
 
     return SymbolPickerView(
-        tintColor: .orange,
-        backgroundColor: .gray,
-        selectedSymbolName: $name
+        selectedSymbolName: $name,
+        foregroundColor: .orange,
+        backgroundColor: .gray
     )
 }
 

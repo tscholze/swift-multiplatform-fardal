@@ -8,17 +8,20 @@
 import SwiftUI
 import SwiftData
 
+/// Provides the possibility to the user to link or unlink the list of
+/// attached `Item` models.
+///
+/// Listen to `selectedItems` for changes.
 struct CollectionDetailLinkItemView: View {
     // MARK: - Properties -
 
+    /// User-selected items of the collection
     @Binding var selectedItems: [ItemModel]
 
     // MARK: - Private Properties -
 
-    @Query(
-        filter: #Predicate<ItemModel> { $0.collection == nil },
-        sort: \.title
-    ) private var items: [ItemModel]
+    @Query(filter: #Predicate<ItemModel> { $0.collection == nil }, sort: \.title)
+    private var items: [ItemModel]
 
     @State private var __selectedItems = [ItemModel]()
     @State private var searchQuery = ""
