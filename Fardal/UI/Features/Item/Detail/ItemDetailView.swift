@@ -99,17 +99,17 @@ struct ItemDetailView: View {
             content: { CameraPicker(cameraImagesData: $cameraImagesData) }
         )
         .alert(
-            "Item.Draft.Detail.Action.AddAttribute",
+            "ItemDetail.Action.AddAttribute",
             isPresented: $showAddCustomAttributeSheet,
             actions: { makeAddCustomAttributeAlertContent() }
         )
         .alert(
-            "Item.Draft.Detail.Action.AddMedia",
+            "ItemDetail.Action.AddMedia",
             isPresented: $showAddMediaSheet,
             actions: { makeAddMediaAlertContent() }
         )
         .alert(
-            "Item.Draft.Detail.Action.AddCollection",
+            "ItemDetail.Action.AddCollection",
             isPresented: $showAddCollectionAlert,
             actions: { makeAddCollectionAlertContent() }
         )
@@ -131,7 +131,7 @@ struct ItemDetailView: View {
 extension ItemDetailView {
     @ViewBuilder
     private func makeRequiredSection() -> some View {
-        Section("Item.Draft.Detail.Section.Required.Title") {
+        Section("ItemDetail.Section.Required.Title") {
             // Name
             if viewMode == .read {
                 Text(title)
@@ -139,13 +139,13 @@ extension ItemDetailView {
             }
             else {
                 VStack(alignment: .leading) {
-                    TextField("Item.Draft.Detail.Section.Required.Name", text: $title)
+                    TextField("ItemDetail.Section.Required.Name", text: $title)
                         .onChange(of: title, onTitleChanged(oldValue:newValue:))
 
                     Divider()
 
                     // Summary
-                    TextField("Item.Draft.Detail.Section.Required.Summary", text: $summary)
+                    TextField("ItemDetail.Section.Required.Summary", text: $summary)
                         .onChange(of: summary, onSummaryChanged(oldValue:newValue:))
                 }
             }
@@ -174,14 +174,14 @@ extension ItemDetailView {
             }
             else {
                 Hint(
-                    titleKey: "Item.Draft.Detail.Section.Collection.Empty.Hint",
+                    titleKey: "ItemDetail.Section.Collection.Empty.Hint",
                     systemName: "doc.on.doc"
                 )
                 .frame(maxWidth: .infinity, alignment: .center)
             }
         } header: {
             HStack {
-                Text("Item.Draft.Detail.Section.Collection.Title")
+                Text("ItemDetail.Section.Collection.Title")
                 Spacer()
 
                 if viewMode != .read {
@@ -195,10 +195,10 @@ extension ItemDetailView {
 
     @ViewBuilder
     private func makeTaggingSection() -> some View {
-        Section("Item.Draft.Detail.Section.Tagging.Title") {
+        Section("ItemDetail.Section.Tagging.Title") {
             // Color
             HStack(alignment: .center) {
-                Text("Item.Draft.Detail.Section.Tagging.Flag")
+                Text("ItemDetail.Section.Tagging.Flag")
 
                 // Identicator
                 Image(systemName: "flag.square.fill")
@@ -212,7 +212,7 @@ extension ItemDetailView {
             }
 
             VStack(alignment: .leading) {
-                Text("Item.Draft.Detail.Section.Tagging.Tag")
+                Text("ItemDetail.Section.Tagging.Tag")
                 ChipsView(chips: $selectedChip, viewMode: $viewMode)
             }
         }
@@ -266,7 +266,7 @@ extension ItemDetailView {
             }
         } header: {
             HStack {
-                Text("Item.Draft.Detail.Section.Photos.Title \(selectedImagesData.count) / \(FardalConstants.Item.maxNumberOfPhotosPerItem)")
+                Text("ItemDetail.Section.Photos.Title \(selectedImagesData.count) / \(FardalConstants.Item.maxNumberOfPhotosPerItem)")
                 if viewMode != .read {
                     HStack {
                         Spacer()
@@ -282,7 +282,7 @@ extension ItemDetailView {
                 SymbolWizardView(selectedData: $iconData)
             }
         } footer: {
-            Text("Item.Draft.Section.Photos.Footer")
+            Text("ItemDetail.Section.Photos.Footer")
         }
         .onChange(of: iconData, onIconDataChanged(oldValue:newValue:))
         .onChange(of: imageSelection, onChangeImageSelection(oldValue:newValue:))
@@ -292,21 +292,21 @@ extension ItemDetailView {
     private func makeEmptyImagesHint() -> some View {
         HStack(spacing: Theme.Spacing.large) {
             Hint(
-                titleKey: "Item.Draft.Detail.Section.Photo.Empty.Camera.Hint",
+                titleKey: "ItemDetail.Section.Photo.Empty.Camera.Hint",
                 systemName: "camera.viewfinder"
             )
 
             Divider()
 
             Hint(
-                titleKey: "Item.Draft.Detail.Section.Photo.Empty.Library.Hint",
+                titleKey: "ItemDetail.Section.Photo.Empty.Library.Hint",
                 systemName: "photo.badge.plus"
             )
 
             Divider()
 
             Hint(
-                titleKey: "Item.Draft.Detail.Section.Photo.Empty.Icon.Hint",
+                titleKey: "ItemDetail.Section.Photo.Empty.Icon.Hint",
                 systemName: "rectangle.center.inset.filled.badge.plus"
             )
         }
@@ -339,7 +339,7 @@ extension ItemDetailView {
             .frame(minHeight: 60)
         } header: {
             HStack {
-                Text("Item.Draft.Detail.Section.Attributes.Title")
+                Text("ItemDetail.Section.Attributes.Title")
                 if viewMode != .read {
                     Spacer()
 
@@ -352,7 +352,7 @@ extension ItemDetailView {
                 }
             }
         } footer: {
-            Text("Item.Draft.Detail.Section.Attributes.Footer")
+            Text("ItemDetail.Section.Attributes.Footer")
         }
     }
 
@@ -360,28 +360,28 @@ extension ItemDetailView {
     private func makeEmptyCustomAttributeHint() -> some View {
         HStack(spacing: Theme.Spacing.large) {
             Hint(
-                titleKey: "Item.Draft.Detail.Section.CustomAttributes.Empty.Pricing.Hint",
+                titleKey: "ItemDetail.Section.CustomAttributes.Empty.Pricing.Hint",
                 systemName: "eurosign.circle"
             )
 
             Divider()
 
             Hint(
-                titleKey: "Item.Draft.Detail.Section.CustomAttributes.Empty.Dates.Hint",
+                titleKey: "ItemDetail.Section.CustomAttributes.Empty.Dates.Hint",
                 systemName: "calendar"
             )
 
             Divider()
 
             Hint(
-                titleKey: "Item.Draft.Detail.Section.CustomAttributes.Empty.Url.Hint",
+                titleKey: "ItemDetail.Section.CustomAttributes.Empty.Url.Hint",
                 systemName: "safari"
             )
 
             Divider()
 
             Hint(
-                titleKey: "Item.Draft.Detail.Section.CustomAttributes.Empty.More.Hint",
+                titleKey: "ItemDetail.Section.CustomAttributes.Empty.More.Hint",
                 systemName: "ellipsis.circle"
             )
         }
@@ -398,7 +398,7 @@ extension ItemDetailView {
             if let item {
                 HStack {
                     Spacer()
-                    Button("Item.Draft.Detail.Actions.DeleteItem", role: .destructive) {
+                    Button("ItemDetail.Actions.DeleteItem", role: .destructive) {
                         modelContext.delete(item)
                         dismiss()
                     }
@@ -410,22 +410,22 @@ extension ItemDetailView {
     @ViewBuilder
     private func makeAddCustomAttributeAlertContent() -> some View {
         // Date
-        Button("Item.Draft.Detail.Action.AddDateAttribute") {
+        Button("ItemDetail.Action.AddDateAttribute") {
             onAddDateCustomAttributeTapped()
         }
 
         // Price
-        Button("Item.Draft.Detail.Action.AddPriceAttribute") {
+        Button("ItemDetail.Action.AddPriceAttribute") {
             onAddPriceCustomAttributeTapped()
         }
 
         // Url
-        Button("Item.Draft.Detail.Action.AddUrlAttribute") {
+        Button("ItemDetail.Action.AddUrlAttribute") {
             onAddUrlCustomAttributeTapped()
         }
 
         // Url
-        Button("Item.Draft.Detail.Action.AddNoteAttribute") {
+        Button("ItemDetail.Action.AddNoteAttribute") {
             onAddNoteCustomAttributeTapped()
         }
 
@@ -438,17 +438,17 @@ extension ItemDetailView {
     @ViewBuilder
     private func makeAddMediaAlertContent() -> some View {
         // Photo picker
-        Button("Item.Draft.Action.SelectPhoto") {
+        Button("ItemDetail.Action.SelectPhoto") {
             showPhotoPicker.toggle()
         }
 
         // Camera
-        Button("Item.Draft.Action.TakePhoto") {
+        Button("ItemDetail.Action.TakePhoto") {
             showCamera.toggle()
         }
 
         // Icon wizard
-        Button("Item.Draft.Action.AddCustomIcon") {
+        Button("ItemDetail.Action.AddCustomIcon") {
             showIconWizard.toggle()
         }
 
@@ -461,12 +461,12 @@ extension ItemDetailView {
     @ViewBuilder
     private func makeAddCollectionAlertContent() -> some View {
         // Photo picker
-        Button("Item.Draft.Action.CreateCollection") {
+        Button("ItemDetail.Action.CreateCollection") {
             showAddCollectionSheet.toggle()
         }
 
         // Camera
-        Button("Item.Draft.Action.AssignCollection") {
+        Button("ItemDetail.Action.AssignCollection") {
             showLinkCollectionSheet.toggle()
         }
 
@@ -481,7 +481,7 @@ extension ItemDetailView {
         if viewMode == .read {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: { viewMode = .edit }) {
-                    Text("Item.Draft.Action.Edit")
+                    Text("ItemDetail.Action.Edit")
                 }
             }
         }
@@ -490,7 +490,7 @@ extension ItemDetailView {
             if viewMode != .create {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: { onCancelTapped() }) {
-                        Text("Item.Draft.Action.Cancel")
+                        Text("ItemDetail.Action.Cancel")
                     }
                 }
             }
@@ -498,7 +498,7 @@ extension ItemDetailView {
             // Save button
             ToolbarItem(placement: .primaryAction) {
                 Button(
-                    "Item.Draft.Action.Save",
+                    "ItemDetail.Action.Save",
                     action: onSaveButtonTapped
                 )
                 .disabled(isValid == false)
