@@ -16,11 +16,16 @@ struct ItemDetailView: View {
 
     private var item: ItemModel?
     private let intialViewMode: ViewMode
+    
+    // MARK: - System properties -
+    
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
+    @Query private var collections: [CollectionModel]
 
+    // MARK: - Presenation states -
+    
     @State private var viewMode: ViewMode = .read
-    @State private var title = ""
-    @State private var summary = ""
-    @State private var collection: CollectionModel? = nil
     @State private var showAddCollectionAlert = false
     @State private var showAddCollectionSheet = false
     @State private var showLinkCollectionSheet = false
@@ -29,18 +34,24 @@ struct ItemDetailView: View {
     @State private var showIconWizard = false
     @State private var showPhotoPicker = false
     @State private var showCamera = false
-    @State private var selectedColor: Color = Color.white
-    @State private var chips: [ChipModel] = []
-    @State private var imagesData = [ImageData]()
-    @State private var imageSelection: PhotosPickerItem? = nil
-    @State private var customAttributes = [ItemCustomAttribute]()
-    @State private var cameraImagesData = [Data]()
-    @State private var iconData: Data? = nil
-    @State private var cameraModel = CameraModel()
     @State private var isValid = false
-    @Environment(\.modelContext) private var modelContext
-    @Environment(\.dismiss) private var dismiss
-    @Query private var collections: [CollectionModel]
+    
+    // MARK: - Intermitten states -
+    
+    @State private var imageSelection: PhotosPickerItem? = nil
+    @State private var cameraModel = CameraModel()
+    @State private var cameraImagesData = [Data]()
+    
+    // MARK: - Draft states -
+
+    @State private var title = ""
+    @State private var summary = ""
+    @State private var iconData: Data? = nil
+    @State private var collection: CollectionModel? = nil
+    @State private var selectedColor: Color = Color.white
+    @State private var selectedChip: [ChipModel] = []
+    @State private var selectedImagesData = [ImageData]()
+    @State private var customAttributes = [ItemCustomAttribute]()
 
     // MARK: - Init -
 
@@ -204,7 +215,7 @@ extension ItemDetailView {
 
             VStack(alignment: .leading) {
                 Text("Item.Draft.Detail.Section.Tagging.Tag")
-                ChipsView(chips: $chips, viewMode: $viewMode)
+                ChipsView(chips: $selectedChip, viewMode: $viewMode)
             }
         }
     }
@@ -213,7 +224,7 @@ extension ItemDetailView {
     private func makePhotosSection() -> some View {
         Section {
             // Show how to add images hint if list is empty
-            if imagesData.isEmpty {
+            if selectedImagesData.isEmpty {
                 makeEmptyImagesHint()
                     .frame(height: 60)
             }
@@ -228,7 +239,7 @@ extension ItemDetailView {
                         //
 
                         // List of images
-                        ForEach(imagesData, id: \.id) { imageData in
+                        ForEach(selectedImagesData, id: \.id) { imageData in
                             // Render image
                             Image(uiImage: imageData.uiImage)
                                 .resizable()
@@ -239,7 +250,7 @@ extension ItemDetailView {
                                     // is enabled
                                     if viewMode != .read {
                                         Button {
-                                            imagesData.removeAll(where: { $0.id == imageData.id })
+                                            selectedImagesData.removeAll(where: { $0.id == imageData.id })
                                         } label: {
                                             Image(systemName: "x.circle.fill")
                                                 .foregroundStyle(.white)
@@ -257,7 +268,7 @@ extension ItemDetailView {
             }
         } header: {
             HStack {
-                Text("Item.Draft.Detail.Section.Photos.Title \(imagesData.count) / \(FardalConstants.Item.maxNumberOfPhotosPerItem)")
+                Text("Item.Draft.Detail.Section.Photos.Title \(selectedImagesData.count) / \(FardalConstants.Item.maxNumberOfPhotosPerItem)")
                 if viewMode != .read {
                     HStack {
                         Spacer()
@@ -265,7 +276,7 @@ extension ItemDetailView {
                             showAddMediaSheet.toggle()
                         } label: {
                             Image(systemName: "plus.circle")
-                        }.disabled(imagesData.count == FardalConstants.Item.maxNumberOfPhotosPerItem)
+                        }.disabled(selectedImagesData.count == FardalConstants.Item.maxNumberOfPhotosPerItem)
                     }
                 }
             }
@@ -275,9 +286,7 @@ extension ItemDetailView {
         } footer: {
             Text("Item.Draft.Section.Photos.Footer")
         }
-        .onChange(of: iconData) { n, o in
-            onIconDataChanged(oldValue: n, newValue: o)
-        }
+        .onChange(of: iconData, onIconDataChanged(oldValue:newValue:))
         .onChange(of: imageSelection, onChangeImageSelection(oldValue:newValue:))
     }
 
@@ -527,7 +536,7 @@ extension ItemDetailView {
 
     private func onChangeOfCameraImagesData(oldValue _: [Data], newValue: [Data]) {
         newValue.forEach { data in
-            imagesData.append(.init(data: data))
+            selectedImagesData.append(.init(data: data))
         }
     }
 
@@ -538,7 +547,7 @@ extension ItemDetailView {
             switch result {
             case let .success(.some(data)):
                 let newImage = ImageData(data: data)
-                imagesData.append(newImage)
+                selectedImagesData.append(newImage)
             default: print("Failed")
             }
         }
@@ -546,7 +555,7 @@ extension ItemDetailView {
 
     private func onIconDataChanged(oldValue _: Data?, newValue: Data?) {
         guard let newValue else { return }
-        imagesData.insert(.init(data: newValue), at: 0)
+        selectedImagesData.insert(.init(data: newValue), at: 0)
     }
 
     private func onCancelTapped() {
@@ -562,9 +571,9 @@ extension ItemDetailView {
     private func populateViewWithItemInformation() {
         title = item?.title ?? ""
         summary = item?.summary ?? ""
-        chips = item?.tags.map { ChipModel(title: $0) } ?? []
+        selectedChip = item?.tags.map { ChipModel(title: $0) } ?? []
         selectedColor = Color(hex: item?.hexColor ?? 0xFFFFFF)
-        imagesData = item?.imagesData ?? []
+        selectedImagesData = item?.imagesData ?? []
         isValid = isValidInput()
         collection = item?.collection
     }
@@ -622,8 +631,8 @@ extension ItemDetailView {
             item.summary = summary
             item.customAttributes = customAttributes
             item.hexColor = selectedColor.hexValue
-            item.tags = chips.map(\.title)
-            item.imagesData = imagesData
+            item.tags = selectedChip.map(\.title)
+            item.imagesData = selectedImagesData
             item.updatedAt = .now
             viewMode = .read
         }
@@ -632,7 +641,7 @@ extension ItemDetailView {
                 title: title,
                 summary: summary,
                 hexColor: selectedColor.hexValue,
-                imagesData: imagesData,
+                imagesData: selectedImagesData,
                 customAttributes: customAttributes,
                 updatedAt: .now
             )
