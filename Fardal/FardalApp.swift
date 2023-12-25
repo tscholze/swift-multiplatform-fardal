@@ -34,6 +34,8 @@ struct FardalApp: App {
             let schema = Schema([
                 CollectionModel.self,
                 ItemModel.self,
+                ImageModel.self,
+                ItemCustomAttribute.self
             ])
 
             // Make SwiftData configuration

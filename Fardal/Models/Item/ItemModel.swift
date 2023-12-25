@@ -34,7 +34,7 @@ final class ItemModel {
     /// List of data objects that represents attached images.
     /// Could be photos or icons.
     @Relationship(deleteRule: .cascade)
-    var imagesData: [ImageDataModel]
+    var imagesData: [ImageModel]
 
     /// List of custom attributes
     @Relationship(deleteRule: .cascade)
@@ -54,7 +54,7 @@ final class ItemModel {
         summary: String,
         hexColor: UInt = Color.white.hexValue,
         tags: [String] = [],
-        imagesData: [ImageDataModel] = [],
+        imagesData: [ImageModel] = [],
         customAttributes: [ItemCustomAttribute] = [],
         updatedAt: Date,
         createdAt: Date = Date.now
@@ -80,7 +80,7 @@ extension ItemModel {
         summary: "My Mocked Foo",
         hexColor: Theme.Colors.pastelColors.random.hexValue,
         tags: ["This", "is", "a", "demo"],
-        imagesData: ImageDataModel.mockedElectronicPhotos,
+        imagesData: ImageModel.mockedElectronicPhotos,
         customAttributes: [],
         updatedAt: .now
     )

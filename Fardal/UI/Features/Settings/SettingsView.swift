@@ -17,7 +17,7 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext: ModelContext
     @Query private var items: [ItemModel]
     @Query private var collections: [CollectionModel]
-    @Query private var images: [ImageDataModel]
+    @Query private var images: [ImageModel]
 
     // MARK: - UI -
 
@@ -83,7 +83,7 @@ extension SettingsView {
                     try modelContext.delete(model: CollectionModel.self)
                     try modelContext.delete(model: ItemModel.self)
                     try modelContext.delete(model: ItemCustomAttribute.self)
-                    try modelContext.delete(model: ImageDataModel.self)
+                    try modelContext.delete(model: ImageModel.self)
                 }
                 catch {
                     print("Failed to clear all data")

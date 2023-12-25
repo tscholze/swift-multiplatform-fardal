@@ -20,8 +20,8 @@ struct DashboardView: View {
     private var collections: [CollectionModel]
 
     // TODO: Re-check if enum checks are working again in an upcoming Xcode version, source == .photo
-    @Query(sort: \ImageDataModel.createdAt, order: .reverse)
-    private var imagesData: [ImageDataModel]
+    @Query(sort: \ImageModel.createdAt, order: .reverse)
+    private var imagesData: [ImageModel]
 
     // MARK: - States -
 
@@ -44,7 +44,7 @@ struct DashboardView: View {
             .navigationDestination(for: ItemModel.self) { item in
                 ItemDetailView(initialState: .read(item))
             }
-            .navigationDestination(for: ImageDataModel.self) { imageData in
+            .navigationDestination(for: ImageModel.self) { imageData in
                 ImageDetailView(initialState: .read(imageData))
             }
         }
@@ -172,7 +172,7 @@ extension DashboardView {
         }
     }
 
-    private func onImageTapped(_: ImageDataModel) {
+    private func onImageTapped(_: ImageModel) {
         print(path)
     }
 }

@@ -16,7 +16,7 @@ import Foundation
     var id = UUID()
 
     /// Cover image as data
-    var coverImageData: ImageDataModel
+    var coverImageData: ImageModel
 
     /// Human read-able title
     var title: String
@@ -33,7 +33,7 @@ import Foundation
     // MARK: - Init -
 
     init(
-        coverImageData: ImageDataModel,
+        coverImageData: ImageModel,
         title: String,
         summary: String,
         items: [ItemModel]

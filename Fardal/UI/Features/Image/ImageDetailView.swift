@@ -12,7 +12,7 @@ import SwiftData
 struct ImageDetailView: View {
     // MARK: - Private properties -
 
-    private let imageModel: ImageDataModel
+    private let imageModel: ImageModel
     private let intialViewMode: ViewMode
 
     // MARK: - System -
@@ -27,7 +27,7 @@ struct ImageDetailView: View {
     /// Initializes a new detail view with given state configuration
     ///
     /// - Parameter initialState: Initial state that defines the view mode and the datasource.
-    init(initialState: ViewInitalState<ImageDataModel>) {
+    init(initialState: ViewInitalState<ImageModel>) {
         switch initialState {
         case let .read(imageModel):
             self.imageModel = imageModel

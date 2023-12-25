@@ -1,5 +1,5 @@
 //
-//  ImageDataModel.swift
+//  ImageModel.swift
 //  Fardal
 //
 //  Created by Tobias Scholze on 25.12.23.
@@ -17,7 +17,7 @@ import Foundation
 ///
 /// Use the .init(data: data) intializer to create a new model
 /// instance.
-@Model final class ImageDataModel {
+@Model final class ImageModel {
     // MARK: - Properties -
 
     /// Unique id of the stored image
@@ -28,7 +28,7 @@ import Foundation
 
     /// Source of the image.
     /// E.g. icon or photo
-    let source: ImageDataModelSource
+    let source: ImageModelSource
 
     /// List of tags that describes the content of the image
     let tags: [String]
@@ -44,7 +44,7 @@ import Foundation
     ///   - data: Data representation of the image
     ///   - source: Source type of the image (photo, icon, etc.)
     ///   - tags: List of tags that describes the content of the image
-    init(data: Data, source: ImageDataModelSource = .photo, tags: [String] = []) {
+    init(data: Data, source: ImageModelSource = .photo, tags: [String] = []) {
         self.data = data
         self.source = source
         self.tags = tags
@@ -53,7 +53,7 @@ import Foundation
 
 // MARK: - Computed properties -
 
-extension ImageDataModel {
+extension ImageModel {
     /// Calculated `UIImage` from given data.
     var uiImage: UIImage {
         guard let image = UIImage(data: data) else {
@@ -71,30 +71,30 @@ extension ImageDataModel {
 
 // MARK: - Equatable -
 
-extension ImageDataModel: Equatable {
-    public static func == (lhs: ImageDataModel, rhs: ImageDataModel) -> Bool {
+extension ImageModel: Equatable {
+    public static func == (lhs: ImageModel, rhs: ImageModel) -> Bool {
         return lhs.id == rhs.id
     }
 }
 
 // MARK: - Mock -
 
-extension ImageDataModel {
-    static var mockedPhoto: ImageDataModel = .init(
+extension ImageModel {
+    static var mockedPhoto: ImageModel = .init(
         data: MockGenerator.makeMockSquarePhotoData(inContextOf: .tradingcards),
         source: .photo
     )
 
-    static var mockedElectronicPhotos: [ImageDataModel] {
+    static var mockedElectronicPhotos: [ImageModel] {
         MockGenerator.makeMockSquarePhotosData(inContextOf: .electronic)
             .map { .init(data: $0, source: .photo, tags: ["Mocked", "Image"]) }
     }
 }
 
-// MARK: - ImageDataModelSource-
+// MARK: - ImageModelSource-
 
-/// Origin source of an `ImageDataModel`
-enum ImageDataModelSource: String, Codable {
+/// Origin source of an `ImageModel`
+enum ImageModelSource: String, Codable {
     /// TMP that this is a collection coverart
     case collection
     

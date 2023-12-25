@@ -50,7 +50,7 @@ struct ItemDetailView: View {
     @State private var collection: CollectionModel? = nil
     @State private var selectedColor: Color = Color.white
     @State private var selectedChip: [ChipModel] = []
-    @State private var selectedImagesData = [ImageDataModel]()
+    @State private var selectedImagesData = [ImageModel]()
     @State private var customAttributes = [ItemCustomAttribute]()
 
     // MARK: - Init -
@@ -544,7 +544,7 @@ extension ItemDetailView {
         newValue.loadTransferable(type: Data.self) { result in
             switch result {
             case let .success(.some(data)):
-                let newImage = ImageDataModel(data: data)
+                let newImage = ImageModel(data: data)
                 selectedImagesData.append(newImage)
             default: print("Failed")
             }
