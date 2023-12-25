@@ -35,6 +35,7 @@ struct ItemThumbnail: View {
                 InitialAvatarView(name: item.title, dimension: size.dimension)
             }
         }
+        .clipShape(Theme.Shape.roundedRectangle2)
     }
 }
 
@@ -42,7 +43,7 @@ struct ItemThumbnail: View {
 // #Preview {
 //    ItemThumbnail()
 // }
-// 
+//
 
 /// Available size of a `ItemThumbnail`.
 enum ItemThumbnailSize {

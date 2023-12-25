@@ -19,6 +19,10 @@ struct DashboardView: View {
     @Query(sort: \CollectionModel.createdAt, order: .reverse)
     private var collections: [CollectionModel]
 
+    // TODO: Re-check if enum checks are working again in an upcoming Xcode version, source == .photo
+    @Query(sort: \ImageDataModel.createdAt, order: .reverse)
+    private var imagesData: [ImageDataModel]
+
     // MARK: - States -
 
     @State var path = NavigationPath()
@@ -30,6 +34,8 @@ struct DashboardView: View {
             List {
                 makeCollectionsSection()
                 makeLatestItemsSection()
+                makeItemListSection()
+                makeAllImages()
             }
             .navigationTitle("Dashboard.Title")
             .navigationDestination(for: CollectionModel.self) { collection in
@@ -37,6 +43,9 @@ struct DashboardView: View {
             }
             .navigationDestination(for: ItemModel.self) { item in
                 ItemDetailView(initialState: .read(item))
+            }
+            .navigationDestination(for: ImageDataModel.self) { imageData in
+                ImageDetailView(initialState: .read(imageData))
             }
         }
         .tabItem { Label("Dashboard.Title", systemSymbol: .house) }
@@ -64,6 +73,7 @@ extension DashboardView {
                             size: .large,
                             action: { path.append(collection) }
                         )
+                        .buttonStyle(.borderless)
                     }
                 }
             }
@@ -100,6 +110,7 @@ extension DashboardView {
                                 size: .large,
                                 action: { path.append(item) }
                             )
+                            .buttonStyle(.borderless)
                         }
                     }
                 }
@@ -116,6 +127,53 @@ extension DashboardView {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    @ViewBuilder
+    private func makeItemListSection() -> some View {
+        Section("Dashboard.Section.AllItems.Title") {
+            if items.isEmpty {
+                Text("Dashboard.Section.AllItems.Empty.Hint")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+            else {
+                LazyVStack {
+                    ForEach(items) { item in
+                        NavigationLink(item.title) {
+                            ItemDetailView(initialState: .read(item))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func makeAllImages() -> some View {
+        Section("Dashboard.Section.AllImages.Title") {
+            if imagesData.filter({ $0.source == .photo }).isEmpty {
+                Text("Dashboard.Section.AllImages.Empty.Hint")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+            else {
+                LazyVGrid(columns: [.init(), .init(), .init()]) {
+                    ForEach(imagesData.filter { $0.source == .photo }) { imageData in
+                        Button(action: { print(path.count); path.append(imageData) }) {
+                            imageData.image
+                                .resizable()
+                                .aspectRatio(1, contentMode: .fit)
+                        }
+                        .buttonStyle(.borderless)
+                    }
+                }
+            }
+        }
+    }
+
+    private func onImageTapped(_: ImageDataModel) {
+        print(path)
     }
 }
 

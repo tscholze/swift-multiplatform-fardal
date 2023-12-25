@@ -16,6 +16,7 @@ final class ItemModel {
     var id = UUID()
 
     /// Parent collection
+    @Relationship(inverse: \CollectionModel.items)
     var collection: CollectionModel?
 
     /// Human read-able title
@@ -32,9 +33,11 @@ final class ItemModel {
 
     /// List of data objects that represents attached images.
     /// Could be photos or icons.
-    var imagesData: [ImageData]
+    @Relationship(deleteRule: .cascade)
+    var imagesData: [ImageDataModel]
 
     /// List of custom attributes
+    @Relationship(deleteRule: .cascade)
     var customAttributes: [ItemCustomAttribute]
 
     /// Last updated at timestamp
@@ -51,7 +54,7 @@ final class ItemModel {
         summary: String,
         hexColor: UInt = Color.white.hexValue,
         tags: [String] = [],
-        imagesData: [ImageData] = [],
+        imagesData: [ImageDataModel] = [],
         customAttributes: [ItemCustomAttribute] = [],
         updatedAt: Date,
         createdAt: Date = Date.now
@@ -75,15 +78,10 @@ extension ItemModel {
     static let mocked: ItemModel = .init(
         title: "Mocked",
         summary: "My Mocked Foo",
-        hexColor: Color.orange.hexValue,
+        hexColor: Theme.Colors.pastelColors.random.hexValue,
         tags: ["This", "is", "a", "demo"],
+        imagesData: ImageDataModel.mockedElectronicPhotos,
         customAttributes: [],
         updatedAt: .now
     )
-}
-
-// MARK: - Mocked -
-
-extension ItemModel {
-    static let empty: ItemModel = .init(title: "", summary: "", updatedAt: .now)
 }

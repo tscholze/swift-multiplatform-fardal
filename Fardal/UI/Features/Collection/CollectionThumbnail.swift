@@ -44,7 +44,7 @@ enum CollectionThumbnailSize {
     /// Large
     case large
 
-    // MARK: - computed properties -
+    // MARK: - Computed properties -
 
     /// Square dimension
     var dimension: CGFloat {
@@ -55,7 +55,10 @@ enum CollectionThumbnailSize {
     }
 }
 
-// TODO: Create Collection mock
-// #Preview {
-// CollectionThumbnail(collection: , action: () -> Void)
-// }
+// MARK: - Preview -
+
+/*
+#Preview {
+    CollectionThumbnail(collection: .mockedCollections.first!, action: {})
+}
+*/

@@ -16,7 +16,7 @@ import Foundation
     var id = UUID()
 
     /// Cover image as data
-    var coverImageData: ImageData
+    var coverImageData: ImageDataModel
 
     /// Human read-able title
     var title: String
@@ -33,7 +33,7 @@ import Foundation
     // MARK: - Init -
 
     init(
-        coverImageData: ImageData,
+        coverImageData: ImageDataModel,
         title: String,
         summary: String,
         items: [ItemModel]
@@ -45,15 +45,22 @@ import Foundation
     }
 }
 
-// MARK: - Asset generators -
+// MARK: - Mock -
 
-import UIKit
 extension CollectionModel {
-    static func makeSystemCoverImageData() -> ImageData {
-        guard let data = UIImage(named: "AppLogiLarge")?.pngData() else {
-            fatalError("Internal data generation failure")
-        }
-
-        return .init(data: data)
+    static func makeMockedCollections() async -> [CollectionModel] {
+        
+        let title = "Electronic Building materials"
+        let summary = "A set of modules to build other stuff"
+        let data = await ImageGenerator.fromContentToData(content: InitialAvatarView(name: title, dimension: 256))
+        
+        return [
+            .init(
+                coverImageData: .init(data: data, source: .collection),
+                title: title,
+                summary: summary,
+                items: [.mocked]
+            ),
+        ]
     }
 }
