@@ -52,7 +52,7 @@ struct CameraPicker: View {
                     // Simulator mock button.
                     if UIDevice.isSimulator {
                         Button("CameraPicker.Actions.Mock") {
-                            takenImagesData.append(MockGenerator.makeMockSquareImageData())
+                            takenImagesData.append(MockGenerator.makeMockSquareSymbol())
                         }
                         .tint(Color.pink)
                     }

@@ -50,15 +50,15 @@ struct ItemDetailView: View {
     @State private var collection: CollectionModel? = nil
     @State private var selectedColor: Color = Color.white
     @State private var selectedChip: [ChipModel] = []
-    @State private var selectedImagesData = [ImageData]()
+    @State private var selectedImagesData = [ImageDataModel]()
     @State private var customAttributes = [ItemCustomAttribute]()
 
     // MARK: - Init -
 
     /// Initializes a new detail view with given state configuration
     ///
-    /// - Parameter initialState: Initial state that defines the viewMode and the datasource.
-    init(initialState: ItemDetailViewInitalState) {
+    /// - Parameter initialState: Initial state that defines the view mode and the datasource.
+    init(initialState: ViewInitalState<ItemModel>) {
         switch initialState {
         case let .read(item):
             self.item = item
@@ -544,13 +544,13 @@ extension ItemDetailView {
         newValue.loadTransferable(type: Data.self) { result in
             switch result {
             case let .success(.some(data)):
-                let newImage = ImageData(data: data)
+                let newImage = ImageDataModel(data: data)
                 selectedImagesData.append(newImage)
             default: print("Failed")
             }
         }
     }
-    
+
     private func performStartupTasks() async {
         Task.detached {
             do {

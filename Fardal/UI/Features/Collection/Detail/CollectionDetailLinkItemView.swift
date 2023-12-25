@@ -61,7 +61,7 @@ struct CollectionDetailLinkItemView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.large)
-            .navigationTitle("Linked items")
+            .navigationTitle("CollectionDetailLinkItem.Title")
         }
     }
 }

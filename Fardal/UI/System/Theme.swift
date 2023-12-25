@@ -47,3 +47,12 @@ enum Theme {
     static let cornerRadius1: CGFloat = 8
     static let cornerRadius2: CGFloat = 4
 }
+
+extension [Color] {
+    /// Gets a random color
+    /// If `self` does not contain any color, it
+    /// fallsback to `.cyan`.
+    var random: Color {
+        self.randomElement() ?? .cyan
+    }
+}

@@ -26,6 +26,8 @@ struct CollectionDetailView: View {
     @State private var showLinkItemSheet = false
     @State private var showAddItemAlert = false
 
+    // MARK: - System -
+
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
 
@@ -34,7 +36,7 @@ struct CollectionDetailView: View {
     /// Initializes a new detail view with given state configuration
     ///
     /// - Parameter initialState: Initial state that defines the view mode and the datasource.
-    init(initialState: CollectionDetailViewInitalState) {
+    init(initialState: ViewInitalState<CollectionModel>) {
         switch initialState {
         case let .read(collection):
             self.collection = collection
@@ -61,10 +63,8 @@ struct CollectionDetailView: View {
         .onAppear(perform: onViewAppear)
         .toolbar { makeToolbar() }
         .navigationBarTitleDisplayMode(.inline)
-        .alert("Add Item", isPresented: $showAddItemAlert, actions: makeAddItemAlertContent)
-        .sheet(isPresented: $showLinkItemSheet) {
-            CollectionDetailLinkItemView(selectedItems: $items)
-        }
+        .alert("CollectionDetail.Actions.AddItem", isPresented: $showAddItemAlert, actions: makeAddItemAlertContent)
+        .sheet(isPresented: $showLinkItemSheet, content: { CollectionDetailLinkItemView(selectedItems: $items) })
     }
 }
 
@@ -120,7 +120,12 @@ extension CollectionDetailView {
             collection.title = title
             collection.summary = summary
             collection.items = items
-            collection.coverImageData.data = coverData
+
+            if collection.coverImageData.data != coverData {
+                modelContext.delete(collection.coverImageData)
+                collection.coverImageData = .init(data: coverData)
+            }
+
             viewMode = .read
         }
 
@@ -141,8 +146,6 @@ extension CollectionDetailView {
     private func onLinkItemTapped() {
         showLinkItemSheet.toggle()
     }
-
-    private func onAddItemTapped() {}
 
     private func updateCoverData() async {
         let content = InitialAvatarView(name: title.isEmpty ? "?" : title, dimension: 256)
@@ -242,7 +245,7 @@ extension CollectionDetailView {
                                     .clipShape(Theme.Shape.roundedRectangle2)
                                     .frame(width: 60, height: 60)
 
-                                Button("Re-Generate") {
+                                Button("Misc.Randomized") {
                                     Task { await updateCoverData() }
                                 }
                                 .buttonStyle(.bordered)

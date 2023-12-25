@@ -14,9 +14,6 @@
         }
       }
     },
-    "Add Item" : {
-
-    },
     "Amazing hint" : {
 
     },
@@ -160,6 +157,56 @@
         }
       }
     },
+    "CollectionDetailLinkItem.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Linked items"
+          }
+        }
+      }
+    },
+    "Dashboard.Section.AllImages.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No images added"
+          }
+        }
+      }
+    },
+    "Dashboard.Section.AllImages.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your images"
+          }
+        }
+      }
+    },
+    "Dashboard.Section.AllItems.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No items added"
+          }
+        }
+      }
+    },
+    "Dashboard.Section.AllItems.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All items"
+          }
+        }
+      }
+    },
     "Dashboard.Section.Collections.Empty.Hint" : {
       "localizations" : {
         "en" : {
@@ -210,7 +257,30 @@
         }
       }
     },
-    "Hello, World!" : {
+    "ImageDetail.Actions.DeleteCollection" : {
+
+    },
+    "ImageDetail.Section.Information.CreatedAt" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created at"
+          }
+        }
+      }
+    },
+    "ImageDetail.Section.Information.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Information"
+          }
+        }
+      }
+    },
+    "ImageDetail.Section.Usage.Title" : {
 
     },
     "Item.Detail.Attribute.Date.Title.Placeholder" : {
@@ -283,6 +353,56 @@
         }
       }
     },
+    "Item.List.Action.Add" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add item"
+          }
+        }
+      }
+    },
+    "Item.List.Detail.Empty" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please select an item"
+          }
+        }
+      }
+    },
+    "Item.List.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Items"
+          }
+        }
+      }
+    },
+    "ItemDetail.Action.AddAttribute" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add new attribute"
+          }
+        }
+      }
+    },
+    "ItemDetail.Action.AddCollection" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assign collection"
+          }
+        }
+      }
+    },
     "ItemDetail.Action.AddCustomIcon" : {
       "localizations" : {
         "en" : {
@@ -293,8 +413,65 @@
         }
       }
     },
+    "ItemDetail.Action.AddDateAttribute" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a date"
+          }
+        }
+      }
+    },
+    "ItemDetail.Action.AddMedia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add images"
+          }
+        }
+      }
+    },
+    "ItemDetail.Action.AddNoteAttribute" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a note"
+          }
+        }
+      }
+    },
+    "ItemDetail.Action.AddPriceAttribute" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add pricing information"
+          }
+        }
+      }
+    },
+    "ItemDetail.Action.AddUrlAttribute" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add an URL"
+          }
+        }
+      }
+    },
     "ItemDetail.Action.AssignCollection" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assign collection"
+          }
+        }
+      }
     },
     "ItemDetail.Action.Cancel" : {
       "localizations" : {
@@ -352,76 +529,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Take photo"
-          }
-        }
-      }
-    },
-    "ItemDetail.Action.AddAttribute" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add new attribute"
-          }
-        }
-      }
-    },
-    "ItemDetail.Action.AddCollection" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Assign collection"
-          }
-        }
-      }
-    },
-    "ItemDetail.Action.AddDateAttribute" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add a date"
-          }
-        }
-      }
-    },
-    "ItemDetail.Action.AddMedia" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add images"
-          }
-        }
-      }
-    },
-    "ItemDetail.Action.AddNoteAttribute" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add a note"
-          }
-        }
-      }
-    },
-    "ItemDetail.Action.AddPriceAttribute" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add pricing information"
-          }
-        }
-      }
-    },
-    "ItemDetail.Action.AddUrlAttribute" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add an URL"
           }
         }
       }
@@ -546,6 +653,16 @@
         }
       }
     },
+    "ItemDetail.Section.Photos.Footer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All assets should be in a square format or should look nice if cropped."
+          }
+        }
+      }
+    },
     "ItemDetail.Section.Photos.Title %lld / %lld" : {
       "localizations" : {
         "en" : {
@@ -616,46 +733,6 @@
         }
       }
     },
-    "ItemDetail.Section.Photos.Footer" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "All assets should be in a square format or should look nice if cropped."
-          }
-        }
-      }
-    },
-    "Item.List.Action.Add" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add item"
-          }
-        }
-      }
-    },
-    "Item.List.Detail.Empty" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please select an item"
-          }
-        }
-      }
-    },
-    "Item.List.Title" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Items"
-          }
-        }
-      }
-    },
     "ItemLinkCollection.Title" : {
       "localizations" : {
         "en" : {
@@ -665,9 +742,6 @@
           }
         }
       }
-    },
-    "Linked items" : {
-
     },
     "Misc.Cancel" : {
       "localizations" : {
@@ -689,6 +763,16 @@
         }
       }
     },
+    "Misc.Randomized" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Randomized"
+          }
+        }
+      }
+    },
     "Misc.Save" : {
       "localizations" : {
         "en" : {
@@ -699,50 +783,47 @@
         }
       }
     },
-    "Re-Generate" : {
-
-    },
-    "Settings.Appereance.Mode" : {
+    "Settings.Footer.Version" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mode"
+            "value" : "Version 0.0.1 - Pre Alpha"
           }
         }
       }
     },
-    "Settings.Appereance.Mode.Dark" : {
+    "Settings.Section.Actions" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dark"
+            "value" : "Actions"
           }
         }
       }
     },
-    "Settings.Appereance.Mode.Light" : {
+    "Settings.Section.Actions.ClearAll" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Light"
+            "value" : "Clear database"
           }
         }
       }
     },
-    "Settings.Appereance.Mode.System" : {
+    "Settings.Section.Actions.InsertMockCollections" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "System"
+            "value" : "Insert mock collections"
           }
         }
       }
     },
-    "Settings.Appereance.Title" : {
+    "Settings.Section.Appereance.Mode" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -752,7 +833,47 @@
         }
       }
     },
-    "Settings.DataInformation" : {
+    "Settings.Section.Appereance.Mode.Dark" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
+          }
+        }
+      }
+    },
+    "Settings.Section.Appereance.Mode.Light" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
+          }
+        }
+      }
+    },
+    "Settings.Section.Appereance.Mode.System" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        }
+      }
+    },
+    "Settings.Section.Appereance.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appereance"
+          }
+        }
+      }
+    },
+    "Settings.Section.DataInformation" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -762,7 +883,7 @@
         }
       }
     },
-    "Settings.DataInformation.NumberOfCollections" : {
+    "Settings.Section.DataInformation.NumberOfCollections" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -772,22 +893,22 @@
         }
       }
     },
-    "Settings.DataInformation.NumberOfItems" : {
+    "Settings.Section.DataInformation.NumberOfImages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of images"
+          }
+        }
+      }
+    },
+    "Settings.Section.DataInformation.NumberOfItems" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Number of items"
-          }
-        }
-      }
-    },
-    "Settings.Footer.Version" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Version 0.0.1 - Pre Alpha"
           }
         }
       }
