@@ -44,11 +44,12 @@ struct ImageDetailView: View {
         Form {
             makeImageSection()
             makeInformationSection()
-            makeActionsSection()
 
             if let item {
                 makeLinkedSection(for: item)
             }
+            
+            makeActionsSection()
         }
         .onAppear {
             // Mocking fix for not being able to get item via SwiftData
@@ -80,6 +81,11 @@ extension ImageDetailView {
                 "ImageDetail.Section.Information.CreatedAt",
                 value: imageModel.createdAt.formatted(date: .numeric, time: .omitted)
             )
+            
+            LabeledContent(
+                "ImageDetail.Section.Information.Source",
+                value: imageModel.source.rawValue
+            )
         }
     }
 
@@ -99,7 +105,7 @@ extension ImageDetailView {
         } footer: {
             HStack {
                 Spacer()
-                Button("ImageDetail.Actions.DeleteCollection", role: .destructive) {
+                Button("ImageDetail.Actions.DeleteImage", role: .destructive) {
                     modelContext.delete(imageModel)
                     dismiss()
                 }

@@ -72,8 +72,10 @@ extension SettingsView {
     private func makeActionSection() -> some View {
         Section("Settings.Section.Actions") {
             Button("Settings.Section.Actions.InsertMockCollections") {
-                CollectionModel.mockedCollections
-                    .forEach { modelContext.insert($0) }
+                Task {
+                    await CollectionModel.makeMockedCollections()
+                        .forEach { modelContext.insert($0) }
+                }
             }
 
             Button("Settings.Section.Actions.ClearAll") {

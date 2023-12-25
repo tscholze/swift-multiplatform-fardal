@@ -48,12 +48,17 @@ import Foundation
 // MARK: - Mock -
 
 extension CollectionModel {
-    static var mockedCollections: [CollectionModel] {
+    static func makeMockedCollections() async -> [CollectionModel] {
+        
+        let title = "Electronic Building materials"
+        let summary = "A set of modules to build other stuff"
+        let data = await ImageGenerator.fromContentToData(content: InitialAvatarView(name: title, dimension: 256))
+        
         return [
             .init(
-                coverImageData: .mockedPhoto,
-                title: "Electronic Building materials",
-                summary: "A set of modules to build other stuff",
+                coverImageData: .init(data: data, source: .collection),
+                title: title,
+                summary: summary,
                 items: [.mocked]
             ),
         ]

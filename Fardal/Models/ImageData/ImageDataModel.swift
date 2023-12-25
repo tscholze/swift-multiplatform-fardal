@@ -95,6 +95,9 @@ extension ImageDataModel {
 
 /// Origin source of an `ImageDataModel`
 enum ImageDataModelSource: String, Codable {
+    /// TMP that this is a collection coverart
+    case collection
+    
     /// Icon, Symbol or other non photographical images
     case icon
 

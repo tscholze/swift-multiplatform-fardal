@@ -57,6 +57,8 @@ enum CollectionThumbnailSize {
 
 // MARK: - Preview -
 
+/*
 #Preview {
     CollectionThumbnail(collection: .mockedCollections.first!, action: {})
 }
+*/

@@ -257,7 +257,7 @@
         }
       }
     },
-    "ImageDetail.Actions.DeleteCollection" : {
+    "ImageDetail.Actions.DeleteImage" : {
 
     },
     "ImageDetail.Section.Information.CreatedAt" : {
@@ -266,6 +266,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Created at"
+          }
+        }
+      }
+    },
+    "ImageDetail.Section.Information.Source" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Source"
           }
         }
       }
@@ -281,7 +291,14 @@
       }
     },
     "ImageDetail.Section.Usage.Title" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete image"
+          }
+        }
+      }
     },
     "Item.Detail.Attribute.Date.Title.Placeholder" : {
       "localizations" : {
