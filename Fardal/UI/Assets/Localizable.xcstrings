@@ -258,7 +258,14 @@
       }
     },
     "ImageDetail.Actions.DeleteImage" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete image"
+          }
+        }
+      }
     },
     "ImageDetail.Section.Information.CreatedAt" : {
       "localizations" : {

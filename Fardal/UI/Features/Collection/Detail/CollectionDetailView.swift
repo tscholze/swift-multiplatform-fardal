@@ -36,7 +36,7 @@ struct CollectionDetailView: View {
     /// Initializes a new detail view with given state configuration
     ///
     /// - Parameter initialState: Initial state that defines the view mode and the datasource.
-    init(initialState: ViewInitalState<CollectionModel>) {
+    init(initialState: ViewInitalState<CollectionModel>, isModal _: Bool = false) {
         switch initialState {
         case let .read(collection):
             self.collection = collection
@@ -63,8 +63,12 @@ struct CollectionDetailView: View {
         .onAppear(perform: onViewAppear)
         .toolbar { makeToolbar() }
         .navigationBarTitleDisplayMode(.inline)
-        .alert("CollectionDetail.Actions.AddItem", isPresented: $showAddItemAlert, actions: makeAddItemAlertContent)
-        .sheet(isPresented: $showLinkItemSheet, content: { CollectionDetailLinkItemView(selectedItems: $items) })
+        .navigationBarBackButtonHidden(viewMode == .edit)
+        .alert("CollectionDetail.Actions.AddItem", isPresented: $showAddItemAlert) { makeAddItemAlertContent()
+        }
+        .sheet(isPresented: $showLinkItemSheet) {
+            CollectionDetailLinkItemView(selectedItems: $items)
+        }
     }
 }
 
@@ -108,6 +112,7 @@ extension CollectionDetailView {
             title = collection.title
             summary = collection.summary
             items = collection.items
+            viewMode = .read
         }
         else {
             dismiss()
@@ -288,11 +293,14 @@ extension CollectionDetailView {
                         } label: {
                             HStack {
                                 if let uiImage = item.imagesData.first?.uiImage {
-                                    Image(uiImage: uiImage)
-                                        .resizable()
+                                    LabeledContent {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .frame(width: 24, height: 24)
+                                    } label: {
+                                        Text(item.title)
+                                    }
                                 }
-
-                                Text(item.title)
                             }
                         }
                     }

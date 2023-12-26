@@ -35,7 +35,7 @@ struct FardalApp: App {
                 CollectionModel.self,
                 ItemModel.self,
                 ImageModel.self,
-                ItemCustomAttribute.self
+                ItemCustomAttribute.self,
             ])
 
             // Make SwiftData configuration
