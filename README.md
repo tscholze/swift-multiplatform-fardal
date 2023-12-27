@@ -13,6 +13,23 @@
 - iOS 17+
 - Swift 5.9
 
+## Build tooling
+To have a versioned build phase tooling chain, the app uses [`mint`](https://github.com/yonaskolb/Mint) to have a defined version set of tools. 
+
+## Tools
+|Name|Configuration file|
+|-|-|
+|SwiftLint|`.swiftlint`|
+|SwiftFormat|`.swiftformat`|
+
+## How to run
+Because of the SwiftUI Preview feature, mint will not run during build time. It would run every Preview refresh which lets Xcode crash.
+
+The `SwiftFormat` command will be currently triggered by a shell command:
+```shell
+mint run swiftformat .
+```
+
 ## Tech stack
 `Fardal` is meant to be 100% Swift and dependency-free app. It uses Swift, SwiftUI and SwiftData to be implemented. Simple external dependencies like a helper to work with `SFSymbols` are in use.
 
