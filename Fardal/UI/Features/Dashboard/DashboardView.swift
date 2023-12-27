@@ -104,13 +104,15 @@ extension DashboardView {
                 }
                 else {
                     ScrollView(.horizontal) {
-                        ForEach(items) { item in
-                            ItemThumbnail(
-                                item: item,
-                                size: .large,
-                                action: { path.append(item) }
-                            )
-                            .buttonStyle(.borderless)
+                        LazyHStack {
+                            ForEach(items) { item in
+                                ItemThumbnail(
+                                    item: item,
+                                    size: .large,
+                                    action: { path.append(item) }
+                                )
+                                .buttonStyle(.borderless)
+                            }
                         }
                     }
                 }
@@ -140,11 +142,14 @@ extension DashboardView {
             else {
                 LazyVStack {
                     ForEach(items) { item in
-                        NavigationLink(item.title) {
-                            ItemDetailView(initialState: .read(item))
+                        Button(action: { path.append(item) }) {
+                            Text(item.title)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
+                        .tint(.primary)
+                        .buttonStyle(.borderless)
                     }
-                }
+                }.frame(alignment: .leading)
             }
         }
     }
