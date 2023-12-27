@@ -31,7 +31,7 @@ struct DashboardView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            List {
+            Form {
                 makeCollectionsSection()
                 makeLatestItemsSection()
                 makeItemListSection()
@@ -140,13 +140,11 @@ extension DashboardView {
                     .foregroundStyle(.secondary)
             }
             else {
-                LazyVStack {
+                List {
                     ForEach(items) { item in
-                        Button(action: { path.append(item) }) {
+                        NavigationLink(value: item) {
                             Text(item.title)
-                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        .tint(.primary)
                         .buttonStyle(.borderless)
                     }
                 }.frame(alignment: .leading)
