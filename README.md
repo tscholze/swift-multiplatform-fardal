@@ -30,11 +30,20 @@ I'm struggeling hard to get the `SwiftData` with inter-model relationships worki
 |-|-|-|-|
 |<img src="__docs/001-dashboard-empty-light.png"/>|<img src="__docs/001-dashboard-filled-light.png"/>|<img src="__docs/001-dashboard-item-detail-1.png"/>|<img src="__docs/001-dashboard-item-detail-2.png" />|
 
-  
+## Used dependencies
+
+|Name|Will be replaced by own code|
+|-|-|
+|[SFSafeSymbols](https://github.com/SFSafeSymbols/SFSafeSymbols)|no|
+|[SwiftUI-Flow](https://github.com/tevelee/SwiftUI-Flow)|yes, it will be replaced with `FlowRowLayout`|
+
 ## Keep in mind
 
 ### Not production ready
 This app is purely build for having fun! All features have room for improvements or could be done more elegant. This app was and will be never meant to run in production-like environments. Learning is fun!
+
+## Thanks to
+- shinnayu from the iOS Development Discord
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
