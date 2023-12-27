@@ -21,17 +21,19 @@ import Foundation
     // MARK: - Properties -
 
     /// Unique id of the stored image
-    @Attribute(.unique) let id = UUID()
+    @Attribute(.unique) var id = UUID()
 
     /// [Data] representation of the image
-    let data: Data
+    var data: Data
+
+    var item: ItemModel?
 
     /// Source of the image.
     /// E.g. icon or photo
-    let source: ImageModelSource
+    var source: ImageModelSource
 
     /// List of tags that describes the content of the image
-    let tags: [String]
+    var tags: [String]
 
     /// Timestamp at which the image was initially created
     let createdAt = Date.now
@@ -44,8 +46,9 @@ import Foundation
     ///   - data: Data representation of the image
     ///   - source: Source type of the image (photo, icon, etc.)
     ///   - tags: List of tags that describes the content of the image
-    init(data: Data, source: ImageModelSource = .photo, tags: [String] = []) {
+    init(data: Data, source: ImageModelSource = .photo, item: ItemModel? = nil, tags: [String] = []) {
         self.data = data
+        self.item = item
         self.source = source
         self.tags = tags
     }
@@ -85,9 +88,22 @@ extension ImageModel {
         source: .photo
     )
 
-    static var mockedElectronicPhotos: [ImageModel] {
+    static func mocked(forImage image: UIImage) -> ImageModel {
+        guard let data = image.jpegData(compressionQuality: 1) else {
+            fatalError("Failed to convert data to jpeg data.")
+        }
+
+        return .init(data: data, source: .photo)
+    }
+
+    static func mockedRaspberryPisPhotos() -> [ImageModel] {
+        MockGenerator.makeMockSquarePhotosData(inContextOf: .pi)
+            .map { .init(data: $0, source: .photo, item: nil, tags: ["Raspberry", "Pi"]) }
+    }
+
+    static func mockedElectronicPhotos() -> [ImageModel] {
         MockGenerator.makeMockSquarePhotosData(inContextOf: .electronic)
-            .map { .init(data: $0, source: .photo, tags: ["Mocked", "Image"]) }
+            .map { .init(data: $0, source: .photo, item: nil, tags: ["Mocked", "Image"]) }
     }
 }
 
@@ -95,9 +111,6 @@ extension ImageModel {
 
 /// Origin source of an `ImageModel`
 enum ImageModelSource: String, Codable {
-    /// TMP that this is a collection coverart
-    case collection
-    
     /// Icon, Symbol or other non photographical images
     case icon
 

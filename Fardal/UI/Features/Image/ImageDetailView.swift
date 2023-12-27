@@ -17,10 +17,6 @@ struct ImageDetailView: View {
 
     // MARK: - System -
 
-    // SwiftData does not support UUID, wtf.
-    @Query private var items: [ItemModel]
-    @State private var item: ItemModel?
-
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
 
@@ -45,15 +41,11 @@ struct ImageDetailView: View {
             makeImageSection()
             makeInformationSection()
 
-            if let item {
+            if let item = imageModel.item {
                 makeLinkedSection(for: item)
             }
-            
+
             makeActionsSection()
-        }
-        .onAppear {
-            // Mocking fix for not being able to get item via SwiftData
-            item = items.first
         }
     }
 }
@@ -81,7 +73,7 @@ extension ImageDetailView {
                 "ImageDetail.Section.Information.CreatedAt",
                 value: imageModel.createdAt.formatted(date: .numeric, time: .omitted)
             )
-            
+
             LabeledContent(
                 "ImageDetail.Section.Information.Source",
                 value: imageModel.source.rawValue

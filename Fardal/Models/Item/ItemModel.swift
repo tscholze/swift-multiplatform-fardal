@@ -13,7 +13,7 @@ import Foundation
 final class ItemModel {
     /// Unique id of the item
     @Attribute(.unique)
-    var id = UUID()
+    let id: UUID
 
     /// Parent collection
     @Relationship(inverse: \CollectionModel.items)
@@ -23,7 +23,7 @@ final class ItemModel {
     var title: String
 
     /// Identifiying color
-    var hexColor: UInt
+    var hexColor: UInt?
 
     /// List of tags for the item
     var tags: [String]
@@ -33,18 +33,18 @@ final class ItemModel {
 
     /// List of data objects that represents attached images.
     /// Could be photos or icons.
-    @Relationship(deleteRule: .cascade)
-    var imagesData: [ImageModel]
+    //  @Relationship(deleteRule: .cascade)
+    var imagesData: [ImageModel]?
 
     /// List of custom attributes
-    @Relationship(deleteRule: .cascade)
-    var customAttributes: [ItemCustomAttribute]
+    //  @Relationship(deleteRule: .cascade)
+    var customAttributes: [ItemCustomAttribute]?
 
     /// Last updated at timestamp
-    var updatedAt: Date
+    var updatedAt: Date?
 
     /// Created timestamp
-    var createdAt: Date = Date.now
+    let createdAt: Date = Date.now
 
     // MARK: - Init -
 
@@ -52,22 +52,21 @@ final class ItemModel {
         collection: CollectionModel? = nil,
         title: String,
         summary: String,
-        hexColor: UInt = Color.white.hexValue,
+        hexColor: UInt? = nil,
         tags: [String] = [],
-        imagesData: [ImageModel] = [],
-        customAttributes: [ItemCustomAttribute] = [],
-        updatedAt: Date,
+        updatedAt: Date? = nil,
         createdAt: Date = Date.now
     ) {
+        id = UUID()
         self.collection = collection
         self.title = title
         self.summary = summary
-        self.imagesData = imagesData
-        self.customAttributes = customAttributes
         self.updatedAt = updatedAt
         self.createdAt = createdAt
         self.hexColor = hexColor
         self.tags = tags
+        imagesData = []
+        customAttributes = []
     }
 }
 
@@ -75,13 +74,12 @@ final class ItemModel {
 
 extension ItemModel {
     /// Gets a static mocked item entry to be used on Previews
-    static let mocked: ItemModel = .init(
-        title: "Mocked",
-        summary: "My Mocked Foo",
-        hexColor: Theme.Colors.pastelColors.random.hexValue,
-        tags: ["This", "is", "a", "demo"],
-        imagesData: ImageModel.mockedElectronicPhotos,
-        customAttributes: [],
-        updatedAt: .now
-    )
+    static func makeMockedItem(with context: ModelContext) -> ItemModel {
+        let item = ItemModel(title: "Mocked", summary: "Mocked", updatedAt: .now)
+        context.insert(item)
+
+        item.imagesData = [] // <-- Crash
+
+        return item
+    }
 }

@@ -25,7 +25,7 @@ struct CollectionThumbnail: View {
 
     var body: some View {
         Button { action() } label: {
-            collection.coverImageData.image
+            collection.coverImageData!.image
                 .resizable()
                 .scaledToFill()
                 .clipShape(Theme.Shape.roundedRectangle2)

@@ -25,7 +25,7 @@ struct ItemThumbnail: View {
 
     var body: some View {
         Button { action() } label: {
-            if let imageData = item.imagesData.first {
+            if let imageData = item.imagesData?.first {
                 imageData.image
                     .resizable()
                     .scaledToFill()

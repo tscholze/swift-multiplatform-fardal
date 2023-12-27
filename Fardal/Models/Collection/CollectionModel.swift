@@ -16,7 +16,8 @@ import Foundation
     var id = UUID()
 
     /// Cover image as data
-    var coverImageData: ImageModel
+    @Relationship(deleteRule: .cascade)
+    var coverImageData: ImageModel?
 
     /// Human read-able title
     var title: String
@@ -33,10 +34,10 @@ import Foundation
     // MARK: - Init -
 
     init(
-        coverImageData: ImageModel,
+        coverImageData: ImageModel? = nil,
         title: String,
         summary: String,
-        items: [ItemModel]
+        items: [ItemModel] = []
     ) {
         self.coverImageData = coverImageData
         self.title = title
@@ -48,19 +49,29 @@ import Foundation
 // MARK: - Mock -
 
 extension CollectionModel {
-    static func makeMockedCollections() async -> [CollectionModel] {
-        
-        let title = "Electronic Building materials"
-        let summary = "A set of modules to build other stuff"
-        let data = await ImageGenerator.fromContentToData(content: InitialAvatarView(name: title, dimension: 256))
-        
-        return [
-            .init(
-                coverImageData: .init(data: data, source: .collection),
-                title: title,
-                summary: summary,
-                items: [.mocked]
-            ),
-        ]
+    static func makeMockedCollections() async -> CollectionModel {
+        // 1. Make images
+        let images = [ImageModel.mocked(forImage: .mockPiMicro)]
+
+        // 2. Make items
+        let item = ItemModel(
+            title: "Raspberry Pi Zero",
+            summary: "Low voltage SPC, used for camera"
+        )
+
+        item.imagesData = images
+
+        // 3. Make collection
+        let collection = CollectionModel(
+            title: "Raspberry Pis < 2020",
+            summary: "Container with Pis that date prior 2020"
+        )
+
+        let coverImageData = await ImageGenerator.fromContentToData(content: InitialAvatarView(name: "RPis", dimension: 256))
+        collection.coverImageData = .init(data: coverImageData, source: .icon)
+        collection.items = [item]
+
+        // Returned mocked data
+        return collection
     }
 }

@@ -48,7 +48,7 @@ struct ItemDetailView: View {
     @State private var summary = ""
     @State private var iconData: Data? = nil
     @State private var collection: CollectionModel? = nil
-    @State private var selectedColor: Color = Color.white
+    @State private var selectedColor: Color? = nil
     @State private var selectedChip: [ChipModel] = []
     @State private var selectedImagesData = [ImageModel]()
     @State private var customAttributes = [ItemCustomAttribute]()
@@ -81,7 +81,7 @@ struct ItemDetailView: View {
             makeRequiredSection()
             makeCollectionSection()
             makePhotosSection()
-            makeTaggingSection()
+           // makeTaggingSection()
             makeCustomAttributesSection()
             makeActionsSection()
         }
@@ -159,15 +159,17 @@ extension ItemDetailView {
                 NavigationLink {
                     CollectionDetailView(initialState: .read(collection))
                 } label: {
-                    HStack {
-                        collection.coverImageData.image
+                    HStack(spacing: Theme.Spacing.medium) {
+                        collection.coverImageData!.image
                             .resizable()
                             .clipShape(Theme.Shape.roundedRectangle2)
                             .frame(width: 60, height: 60)
 
-                        VStack {
+                        VStack(alignment: .leading) {
                             Text(collection.title)
                             Text(collection.summary)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
                         }
                     }
                 }
@@ -196,25 +198,39 @@ extension ItemDetailView {
     @ViewBuilder
     private func makeTaggingSection() -> some View {
         Section("ItemDetail.Section.Tagging.Title") {
-            // Color
-            HStack(alignment: .center) {
-                Text("ItemDetail.Section.Tagging.Flag")
+            VStack(alignment: .leading, spacing: 8) {
+                // Flag
+                HStack {
+                    // Identicator
+                    ZStack(alignment: .topLeading) {
+                        if let selectedColor {
+                            Image(systemName: "flag.fill")
+                                .foregroundStyle(selectedColor)
+                        }
 
-                // Identicator
-                Image(systemName: "flag.square.fill")
-                    .foregroundStyle(selectedColor)
+                        Image(systemName: "flag")
+                            .foregroundStyle(.primary)
+                    }
 
-                // Color picker button if is in edit mode
-                if viewMode != .read {
-                    // Picker
-                    ColorPicker("", selection: $selectedColor)
+                    // Color picker button if is in edit mode
+                    if viewMode != .read {
+                        GeometryReader { geometry in
+                            OptionalColorPicker(
+                                selectedColor: $selectedColor,
+                                selectableColors:
+                                    Theme.Colors.pastelColors
+                            )
+                        }
+                    }
                 }
-            }
 
-            VStack(alignment: .leading) {
-                Text("ItemDetail.Section.Tagging.Tag")
+                Divider()
+
+                // Tags / Chips
                 ChipsView(chips: $selectedChip, viewMode: $viewMode)
+                    .background(Color.red)
             }
+            .padding(.vertical)
         }
     }
 
@@ -399,6 +415,9 @@ extension ItemDetailView {
                 HStack {
                     Spacer()
                     Button("ItemDetail.Actions.DeleteItem", role: .destructive) {
+                        // TODO: Replace it with cascade rule if it would work
+                        item.customAttributes?.forEach { modelContext.delete($0) }
+                        item.imagesData?.forEach { modelContext.delete($0) }
                         modelContext.delete(item)
                         dismiss()
                     }
@@ -628,18 +647,17 @@ extension ItemDetailView {
     private func onSaveButtonTapped() {
         if let item {
             // Remove attributes from database which are deleted in drafts
-            item.customAttributes.forEach { itemAttribute in
+            item.customAttributes?.forEach { itemAttribute in
                 if customAttributes.contains(itemAttribute) == false {
                     modelContext.delete(itemAttribute)
                 }
             }
 
             // TODO: Check if this is also needed for imagesData
-
             item.title = title
             item.summary = summary
             item.customAttributes = customAttributes
-            item.hexColor = selectedColor.hexValue
+            item.hexColor = selectedColor?.hexValue
             item.tags = selectedChip.map(\.title)
             item.imagesData = selectedImagesData
             item.updatedAt = .now
@@ -649,11 +667,13 @@ extension ItemDetailView {
             let newItem = ItemModel(
                 title: title,
                 summary: summary,
-                hexColor: selectedColor.hexValue,
-                imagesData: selectedImagesData,
-                customAttributes: customAttributes,
+                hexColor: selectedColor?.hexValue,
                 updatedAt: .now
             )
+
+            // Set other models
+            newItem.imagesData = selectedImagesData
+            newItem.customAttributes = customAttributes
 
             modelContext.insert(newItem)
             dismiss()
@@ -680,6 +700,6 @@ extension ItemDetailView {
 
 #Preview {
     NavigationView {
-        ItemDetailView(initialState: .create)
+        ItemDetailView(initialState: .edit(.init(title: "f", summary: "S")))
     }
 }

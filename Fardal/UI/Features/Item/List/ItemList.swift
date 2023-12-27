@@ -55,12 +55,6 @@ struct ItemListView: View {
 // MARK: - Actions -
 
 extension ItemListView {
-    private func onAddItemTapped() {
-        withAnimation {
-            modelContext.insert(ItemModel.mocked)
-        }
-    }
-
     private func onDeleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {

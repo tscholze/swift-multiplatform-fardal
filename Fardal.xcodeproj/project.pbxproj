@@ -29,6 +29,8 @@
 		4A33DBE92B35AED800EF1D1B /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33DBE82B35AED800EF1D1B /* CollectionModel.swift */; };
 		4A33DBED2B35AFD400EF1D1B /* CollectionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33DBEC2B35AFD400EF1D1B /* CollectionDetailView.swift */; };
 		4A4627832B39FE7D004CEAA6 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4627822B39FE7D004CEAA6 /* ImageModel.swift */; };
+		4A4627862B3C34C6004CEAA6 /* OptionalColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4627852B3C34C6004CEAA6 /* OptionalColorPicker.swift */; };
+		4A4627892B3C354C004CEAA6 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4627882B3C354C004CEAA6 /* FlowLayout.swift */; };
 		4A5D865C2B34759D0056FAC1 /* FardalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5D865B2B34759D0056FAC1 /* FardalConstants.swift */; };
 		4A5D865E2B347A8C0056FAC1 /* NoteCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5D865D2B347A8C0056FAC1 /* NoteCustomAttributeView.swift */; };
 		4A5D86652B3567BD0056FAC1 /* Chip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5D86642B3567BD0056FAC1 /* Chip.swift */; };
@@ -53,6 +55,7 @@
 		4AED2B632B2C604700E348A0 /* Appereance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED2B622B2C604700E348A0 /* Appereance.swift */; };
 		4AED2B682B2C625600E348A0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4AED2B672B2C625600E348A0 /* Localizable.xcstrings */; };
 		4AED2B6A2B2C650D00E348A0 /* SupportedCurrencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED2B692B2C650D00E348A0 /* SupportedCurrencies.swift */; };
+		4AF730132B3C417E0039038D /* SelectableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF730122B3C417E0039038D /* SelectableColor.swift */; };
 		4AF864282B30C3DA00F567EB /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF864272B30C3DA00F567EB /* DashboardView.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +81,8 @@
 		4A33DBE82B35AED800EF1D1B /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
 		4A33DBEC2B35AFD400EF1D1B /* CollectionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailView.swift; sourceTree = "<group>"; };
 		4A4627822B39FE7D004CEAA6 /* ImageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		4A4627852B3C34C6004CEAA6 /* OptionalColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalColorPicker.swift; sourceTree = "<group>"; };
+		4A4627882B3C354C004CEAA6 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		4A5D865B2B34759D0056FAC1 /* FardalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FardalConstants.swift; sourceTree = "<group>"; };
 		4A5D865D2B347A8C0056FAC1 /* NoteCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCustomAttributeView.swift; sourceTree = "<group>"; };
 		4A5D86642B3567BD0056FAC1 /* Chip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip.swift; sourceTree = "<group>"; };
@@ -104,6 +109,7 @@
 		4AED2B622B2C604700E348A0 /* Appereance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appereance.swift; sourceTree = "<group>"; };
 		4AED2B672B2C625600E348A0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		4AED2B692B2C650D00E348A0 /* SupportedCurrencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCurrencies.swift; sourceTree = "<group>"; };
+		4AF730122B3C417E0039038D /* SelectableColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableColor.swift; sourceTree = "<group>"; };
 		4AF864272B30C3DA00F567EB /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +180,8 @@
 		4A06F84F2B2A368A00F93E37 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4A4627872B3C3543004CEAA6 /* Layout */,
+				4A4627842B3C34B7004CEAA6 /* Color */,
 				4A8D11042B381C05002A534F /* Hint */,
 				4A8D11012B3815C9002A534F /* Label */,
 				4A33DBE42B35A38C00EF1D1B /* Avatar */,
@@ -261,6 +269,23 @@
 				4A4627822B39FE7D004CEAA6 /* ImageModel.swift */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		4A4627842B3C34B7004CEAA6 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				4A4627852B3C34C6004CEAA6 /* OptionalColorPicker.swift */,
+				4AF730122B3C417E0039038D /* SelectableColor.swift */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
+		4A4627872B3C3543004CEAA6 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				4A4627882B3C354C004CEAA6 /* FlowLayout.swift */,
+			);
+			path = Layout;
 			sourceTree = "<group>";
 		};
 		4A5D865A2B3475890056FAC1 /* Configuration */ = {
@@ -517,10 +542,12 @@
 				4A5D86652B3567BD0056FAC1 /* Chip.swift in Sources */,
 				4AF864282B30C3DA00F567EB /* DashboardView.swift in Sources */,
 				4A04AD0C2B25B9E300CA9053 /* Color+Data.swift in Sources */,
+				4AF730132B3C417E0039038D /* SelectableColor.swift in Sources */,
 				4A31E2212B3023F5005CD1A1 /* CameraPreviewView.swift in Sources */,
 				4A04AD142B26F6B700CA9053 /* ItemCustomAttribute.swift in Sources */,
 				4A8D11062B381C0F002A534F /* Hint.swift in Sources */,
 				4A848A362B24F2700090FC73 /* ContentView.swift in Sources */,
+				4A4627862B3C34C6004CEAA6 /* OptionalColorPicker.swift in Sources */,
 				4A4627832B39FE7D004CEAA6 /* ImageModel.swift in Sources */,
 				4AED2B632B2C604700E348A0 /* Appereance.swift in Sources */,
 				4A06F8552B2B3BBD00F93E37 /* ItemList.swift in Sources */,
@@ -531,6 +558,7 @@
 				4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */,
 				4A5D865C2B34759D0056FAC1 /* FardalConstants.swift in Sources */,
 				4A5D86692B356D9F0056FAC1 /* ChipsView.swift in Sources */,
+				4A4627892B3C354C004CEAA6 /* FlowLayout.swift in Sources */,
 				4A04AD092B25B87500CA9053 /* ItemDetailView.swift in Sources */,
 				4AED2B612B2C5F7700E348A0 /* SettingsView.swift in Sources */,
 				4A8D11032B3815D3002A534F /* LabelStyles.swift in Sources */,

@@ -72,7 +72,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add new tag"
+            "value" : "Type new tag"
           }
         }
       }
@@ -728,6 +728,7 @@
       }
     },
     "ItemDetail.Section.Tagging.Flag" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -738,6 +739,7 @@
       }
     },
     "ItemDetail.Section.Tagging.Tag" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -806,6 +808,9 @@
           }
         }
       }
+    },
+    "No tags assigned" : {
+
     },
     "Settings.Footer.Version" : {
       "localizations" : {

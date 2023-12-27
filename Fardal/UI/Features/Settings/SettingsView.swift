@@ -15,6 +15,9 @@ struct SettingsView: View {
 
     @AppStorage("appereance") private var currentAppereance: Appereance = .system
     @Environment(\.modelContext) private var modelContext: ModelContext
+
+    // MARK: - Database properties -
+
     @Query private var items: [ItemModel]
     @Query private var collections: [CollectionModel]
     @Query private var images: [ImageModel]
@@ -64,7 +67,7 @@ extension SettingsView {
         Section("Settings.Section.DataInformation") {
             LabeledContent("Settings.Section.DataInformation.NumberOfCollections", value: "\(collections.count) / ∞")
             LabeledContent("Settings.Section.DataInformation.NumberOfItems", value: "\(items.count) / ∞")
-            LabeledContent("Settings.Section.DataInformation.NumberOfImages", value: "\(images.count) / ∞")
+            LabeledContent("Settings.Section.DataInformation.NumberOfImages", value: "\(images.filter { $0.source == .photo }.count) / ∞")
         }
     }
 
@@ -73,7 +76,7 @@ extension SettingsView {
         Section("Settings.Section.Actions") {
             Button("Settings.Section.Actions.InsertMockCollections") {
                 Task {
-                    await CollectionModel.makeMockedCollections(modelContext: modelContext)
+                    await modelContext.insert(CollectionModel.makeMockedCollections())
                 }
             }
 

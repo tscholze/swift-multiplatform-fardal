@@ -24,6 +24,7 @@ struct CollectionDetailView: View {
     @State private var items = [ItemModel]()
     @State private var coverData = Data()
     @State private var showLinkItemSheet = false
+    @State private var showAddItemSheet = false
     @State private var showAddItemAlert = false
 
     // MARK: - System -
@@ -69,6 +70,9 @@ struct CollectionDetailView: View {
         .sheet(isPresented: $showLinkItemSheet) {
             CollectionDetailLinkItemView(selectedItems: $items)
         }
+        .sheet(isPresented: $showAddItemSheet) {
+            ItemDetailView(initialState: .create)
+        }
     }
 }
 
@@ -82,7 +86,7 @@ extension CollectionDetailView {
         items = collection?.items ?? []
 
         // Use existing cover image data or create a randomized one.
-        if let data = collection?.coverImageData.data {
+        if let data = collection?.coverImageData?.data {
             coverData = data
         }
         else {
@@ -125,24 +129,20 @@ extension CollectionDetailView {
             collection.title = title
             collection.summary = summary
             collection.items = items
-
-            if collection.coverImageData.data != coverData {
-                modelContext.delete(collection.coverImageData)
-                collection.coverImageData = .init(data: coverData)
-            }
-
+            collection.coverImageData = .init(data: coverData, source: .icon)
             viewMode = .read
         }
 
         // if it is a creation ...
         else {
+            let image = ImageModel(data: coverData, source: .icon)
             let newCollection = CollectionModel(
-                coverImageData: .init(data: coverData),
                 title: title,
                 summary: summary,
                 items: items
             )
 
+            newCollection.coverImageData = image
             modelContext.insert(newCollection)
             dismiss()
         }
@@ -205,12 +205,12 @@ extension CollectionDetailView {
 
     @ViewBuilder
     private func makeAddItemAlertContent() -> some View {
-        // Photo picker
+        // Link
         Button("CollectionDetail.Actions.LinkItem") {
             showLinkItemSheet.toggle()
         }
 
-        // Camera
+        // Add Item
         Button("CollectionDetail.Actions.AddItem") {}
 
         // Cancel
@@ -292,7 +292,7 @@ extension CollectionDetailView {
                             ItemDetailView(initialState: .read(item))
                         } label: {
                             HStack {
-                                if let uiImage = item.imagesData.first?.uiImage {
+                                if let uiImage = item.imagesData?.first?.uiImage {
                                     LabeledContent {
                                         Image(uiImage: uiImage)
                                             .resizable()

@@ -89,7 +89,7 @@ private struct SquareTemplate: View {
             Image(systemName: makeRandomSymbolName())
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .foregroundStyle(Color.black.opacity(0.6))
+                .foregroundStyle(Color.white.opacity(0.7))
                 .padding()
                 .frame(width: dimension * 0.90)
         }
