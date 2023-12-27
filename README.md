@@ -42,7 +42,7 @@ I'm struggeling hard to get the `SwiftData` with inter-model relationships worki
 ### Not production ready
 This app is purely build for having fun! All features have room for improvements or could be done more elegant. This app was and will be never meant to run in production-like environments. Learning is fun!
 
-## Thanks to
+### Thanks to
 - shinnayu from the iOS Development Discord
 
 ## License
