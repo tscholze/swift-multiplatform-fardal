@@ -29,6 +29,7 @@ struct CollectionThumbnail: View {
                 .resizable()
                 .scaledToFill()
                 .clipShape(Theme.Shape.roundedRectangle2)
+                .shadow(radius: Theme.Shadow.radius1)
                 .frame(width: size.dimension, height: size.dimension)
         }
     }

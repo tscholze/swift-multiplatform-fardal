@@ -257,6 +257,9 @@
         }
       }
     },
+    "FOO" : {
+
+    },
     "ImageDetail.Actions.DeleteImage" : {
       "localizations" : {
         "en" : {
@@ -302,7 +305,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete image"
+            "value" : "Usage"
           }
         }
       }
@@ -727,28 +730,6 @@
         }
       }
     },
-    "ItemDetail.Section.Tagging.Flag" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Select a color"
-          }
-        }
-      }
-    },
-    "ItemDetail.Section.Tagging.Tag" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tags"
-          }
-        }
-      }
-    },
     "ItemDetail.Section.Tagging.Title" : {
       "localizations" : {
         "en" : {
@@ -918,6 +899,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Number of collections"
+          }
+        }
+      }
+    },
+    "Settings.Section.DataInformation.NumberOfCustomAttributes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of attributes"
           }
         }
       }

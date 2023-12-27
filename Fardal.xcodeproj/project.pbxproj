@@ -56,6 +56,8 @@
 		4AED2B682B2C625600E348A0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4AED2B672B2C625600E348A0 /* Localizable.xcstrings */; };
 		4AED2B6A2B2C650D00E348A0 /* SupportedCurrencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED2B692B2C650D00E348A0 /* SupportedCurrencies.swift */; };
 		4AF730132B3C417E0039038D /* SelectableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF730122B3C417E0039038D /* SelectableColor.swift */; };
+		4AF730162B3C55490039038D /* Flow in Frameworks */ = {isa = PBXBuildFile; productRef = 4AF730152B3C55490039038D /* Flow */; };
+		4AF730182B3C55490039038D /* Renderer in Frameworks */ = {isa = PBXBuildFile; productRef = 4AF730172B3C55490039038D /* Renderer */; };
 		4AF864282B30C3DA00F567EB /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF864272B30C3DA00F567EB /* DashboardView.swift */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +120,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AF730182B3C55490039038D /* Renderer in Frameworks */,
+				4AF730162B3C55490039038D /* Flow in Frameworks */,
 				4A1EA7FE2B2F55A20053E5AF /* SFSafeSymbols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +468,8 @@
 			name = Fardal;
 			packageProductDependencies = (
 				4A1EA7FD2B2F55A20053E5AF /* SFSafeSymbols */,
+				4AF730152B3C55490039038D /* Flow */,
+				4AF730172B3C55490039038D /* Renderer */,
 			);
 			productName = Fardal;
 			productReference = 4A848A302B24F2700090FC73 /* Fardal.app */;
@@ -495,6 +501,7 @@
 			mainGroup = 4A848A272B24F2700090FC73;
 			packageReferences = (
 				4A1EA7FC2B2F55A20053E5AF /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+				4AF730142B3C55490039038D /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */,
 			);
 			productRefGroup = 4A848A312B24F2700090FC73 /* Products */;
 			projectDirPath = "";
@@ -807,6 +814,14 @@
 				minimumVersion = 4.1.1;
 			};
 		};
+		4AF730142B3C55490039038D /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tevelee/SwiftUI-Flow/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -814,6 +829,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4A1EA7FC2B2F55A20053E5AF /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
+		};
+		4AF730152B3C55490039038D /* Flow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4AF730142B3C55490039038D /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */;
+			productName = Flow;
+		};
+		4AF730172B3C55490039038D /* Renderer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4AF730142B3C55490039038D /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */;
+			productName = Renderer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

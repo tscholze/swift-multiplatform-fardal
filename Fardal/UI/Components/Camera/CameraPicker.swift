@@ -125,7 +125,7 @@ extension CameraPicker {
 
                             Image(systemName: "xmark.circle.fill")
                                 .tint(Color.white)
-                                .shadow(radius: 2)
+                                .shadow(radius: Theme.Shadow.radius1)
                                 .padding(4)
                         }
                     }
@@ -150,7 +150,7 @@ extension CameraPicker {
                 .background(configuration.isPressed ? Color.orange : Color.red)
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                .shadow(radius: 4)
+                .shadow(radius: Theme.Shadow.radius1)
         }
     }
 }

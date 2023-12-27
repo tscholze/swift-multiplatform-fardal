@@ -21,6 +21,7 @@ struct SettingsView: View {
     @Query private var items: [ItemModel]
     @Query private var collections: [CollectionModel]
     @Query private var images: [ImageModel]
+    @Query private var customAttributes: [ItemCustomAttribute]
 
     // MARK: - UI -
 
@@ -68,6 +69,7 @@ extension SettingsView {
             LabeledContent("Settings.Section.DataInformation.NumberOfCollections", value: "\(collections.count) / ∞")
             LabeledContent("Settings.Section.DataInformation.NumberOfItems", value: "\(items.count) / ∞")
             LabeledContent("Settings.Section.DataInformation.NumberOfImages", value: "\(images.filter { $0.source == .photo }.count) / ∞")
+            LabeledContent("Settings.Section.DataInformation.NumberOfCustomAttributes", value: "\(customAttributes.count) / ∞")
         }
     }
 

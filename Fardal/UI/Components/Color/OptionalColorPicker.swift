@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Flow
 
 /// A color picker that provides a circle based selection with the
 /// possibility to set it to nil.
@@ -34,7 +35,7 @@ struct OptionalColorPicker: View {
     // MARK: - UI -
 
     var body: some View {
-        FlowRowLayout {
+        HFlow {
             // Empty value
             Button(action: { __selectedColor = nil }) {
                 Image(systemName: "circle.slash")
@@ -65,6 +66,7 @@ struct OptionalColorPicker: View {
                 }
             }
         }
+        .buttonStyle(.borderless)
         .onChange(of: __selectedColor) { _, _ in
             selectedColor = __selectedColor
         }

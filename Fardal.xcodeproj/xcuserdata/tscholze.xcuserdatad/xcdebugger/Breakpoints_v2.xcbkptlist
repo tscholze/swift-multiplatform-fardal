@@ -14,10 +14,42 @@
             filePath = "Fardal/Models/Item/ItemModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "makeMockedItem(with:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D99C96D4-F3CA-44E7-8E57-31870137DA95 - 82a685c7f0fa0cee"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Fardal.ItemModel.makeMockedItem(with: SwiftData.ModelContext) -&gt; Fardal.ItemModel"
+                  moduleName = "Fardal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tscholze/Code/__me/Fardal/Fardal/Models/Item/ItemModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "81"
+                  endingLineNumber = "81"
+                  offsetFromSymbolStart = "400">
+               </Location>
+               <Location
+                  uuid = "D99C96D4-F3CA-44E7-8E57-31870137DA95 - 82a685c7f0fa0c28"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Fardal.ItemModel.makeMockedItem(with: SwiftData.ModelContext) -&gt; Fardal.ItemModel"
+                  moduleName = "Fardal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tscholze/Code/__me/Fardal/Fardal/Models/Item/ItemModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "79"
+                  endingLineNumber = "79"
+                  offsetFromSymbolStart = "400">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

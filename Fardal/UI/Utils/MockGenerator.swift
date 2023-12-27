@@ -97,7 +97,11 @@ private struct SquareTemplate: View {
     }
 
     private func makeRandomColor() -> Color {
-        Theme.Colors.pastelColors.randomElement() ?? .cyan
+        guard let color = Theme.Colors.pastelColors.randomElement() else {
+            fatalError("Not possible")
+        }
+        
+        return color
     }
 
     private func makeRandomSymbolName() -> String {

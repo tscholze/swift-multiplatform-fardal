@@ -33,11 +33,9 @@ final class ItemModel {
 
     /// List of data objects that represents attached images.
     /// Could be photos or icons.
-    //  @Relationship(deleteRule: .cascade)
     var imagesData: [ImageModel]?
 
     /// List of custom attributes
-    //  @Relationship(deleteRule: .cascade)
     var customAttributes: [ItemCustomAttribute]?
 
     /// Last updated at timestamp

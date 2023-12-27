@@ -81,7 +81,7 @@ struct ItemDetailView: View {
             makeRequiredSection()
             makeCollectionSection()
             makePhotosSection()
-           // makeTaggingSection()
+            makeTaggingSection()
             makeCustomAttributesSection()
             makeActionsSection()
         }
@@ -201,35 +201,23 @@ extension ItemDetailView {
             VStack(alignment: .leading, spacing: 8) {
                 // Flag
                 HStack {
-                    // Identicator
-                    ZStack(alignment: .topLeading) {
-                        if let selectedColor {
-                            Image(systemName: "flag.fill")
-                                .foregroundStyle(selectedColor)
-                        }
+                    Theme.Shape.roundedRectangle2
+                        .fill(selectedColor ?? .clear)
+                        .shadow(radius: Theme.Shadow.border)
+                    .frame(width: 72, height: 72, alignment: .topLeading)
 
-                        Image(systemName: "flag")
-                            .foregroundStyle(.primary)
-                    }
-
-                    // Color picker button if is in edit mode
-                    if viewMode != .read {
-                        GeometryReader { geometry in
-                            OptionalColorPicker(
-                                selectedColor: $selectedColor,
-                                selectableColors:
-                                    Theme.Colors.pastelColors
-                            )
-                        }
-                    }
+                    OptionalColorPicker(
+                        selectedColor: $selectedColor,
+                        selectableColors:
+                            Theme.Colors.pastelColors
+                    )
+                    .disabled(viewMode == .read)
                 }
 
                 Divider()
 
                 // Tags / Chips
-                ChipsView(chips: $selectedChip, viewMode: $viewMode)
-                    .background(Color.red)
-            }
+                ChipsView(chips: $selectedChip, viewMode: $viewMode)            }
             .padding(.vertical)
         }
     }
@@ -269,7 +257,7 @@ extension ItemDetailView {
                                             Image(systemName: "x.circle.fill")
                                                 .foregroundStyle(.white)
                                                 .opacity(0.6)
-                                                .shadow(radius: 2)
+                                                .shadow(radius: Theme.Shadow.radius1)
                                                 .padding(4)
                                         }
                                     }
@@ -602,6 +590,7 @@ extension ItemDetailView {
         selectedChip = item?.tags.map { ChipModel(title: $0) } ?? []
         selectedColor = Color(hex: item?.hexColor ?? 0xFFFFFF)
         selectedImagesData = item?.imagesData ?? []
+        customAttributes = item?.customAttributes ?? []
         isValid = isValidInput()
         collection = item?.collection
     }

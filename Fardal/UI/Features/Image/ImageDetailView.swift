@@ -62,7 +62,7 @@ extension ImageDetailView {
             imageModel.image
                 .resizable()
                 .clipShape(Theme.Shape.roundedRectangle1)
-                .shadow(radius: 10)
+                .shadow(radius: Theme.Shadow.radius1)
                 .frame(width: 300, height: 300)
         }
     }
@@ -76,7 +76,7 @@ extension ImageDetailView {
 
             LabeledContent(
                 "ImageDetail.Section.Information.Source",
-                value: imageModel.source.rawValue
+                value: imageModel.source.rawValue.localizedCapitalized
             )
         }
     }
