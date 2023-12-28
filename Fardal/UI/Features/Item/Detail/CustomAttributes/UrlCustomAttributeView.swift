@@ -45,7 +45,7 @@ struct UrlCustomAttributeView: View {
                     }
                 }
                 else {
-                    Text("-").foregroundStyle(.secondary)
+                    Text("Misc.NoContent.Indicator").foregroundStyle(.secondary)
                 }
             }
         }

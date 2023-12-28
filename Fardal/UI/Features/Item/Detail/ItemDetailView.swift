@@ -204,12 +204,12 @@ extension ItemDetailView {
                     Theme.Shape.roundedRectangle2
                         .fill(selectedColor ?? .clear)
                         .shadow(radius: Theme.Shadow.border)
-                    .frame(width: 72, height: 72, alignment: .topLeading)
+                        .frame(width: 72, height: 72, alignment: .topLeading)
 
                     OptionalColorPicker(
                         selectedColor: $selectedColor,
                         selectableColors:
-                            Theme.Colors.pastelColors
+                        Theme.Colors.pastelColors
                     )
                     .disabled(viewMode == .read)
                 }
@@ -217,7 +217,8 @@ extension ItemDetailView {
                 Divider()
 
                 // Tags / Chips
-                ChipsView(chips: $selectedChip, viewMode: $viewMode)            }
+                ChipsView(chips: $selectedChip, viewMode: $viewMode)
+            }
             .padding(.vertical)
         }
     }

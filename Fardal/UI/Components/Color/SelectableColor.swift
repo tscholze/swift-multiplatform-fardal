@@ -11,7 +11,7 @@ import SwiftUI
 struct SelectableColor: Identifiable {
     /// Unique id
     let id = UUID()
-    
+
     /// Color payload
     let color: Color
 }

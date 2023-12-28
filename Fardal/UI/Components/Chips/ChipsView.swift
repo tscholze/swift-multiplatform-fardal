@@ -29,7 +29,7 @@ struct ChipsView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 8) {
                 if chips.isEmpty {
-                    Text("No tags assigned")
+                    Text("Chips.Empty.Hint")
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)

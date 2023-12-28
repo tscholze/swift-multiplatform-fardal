@@ -21,8 +21,8 @@ struct PriceCustomAttributeView: View {
     // MARK: - States -
 
     @State private var title: String = ""
-    @State private var price: Decimal = 0
-    @State private var selectedCurrencyCode = "EUR"
+    @State private var price: Decimal = 0.0
+    @State private var selectedCurrencyCode = SupportedCurrencies.eur.code
 
     // MARK: - UI -
 
@@ -69,14 +69,10 @@ extension PriceCustomAttributeView {
                     value: $price, format: .currency(code: selectedCurrencyCode)
                 )
                 .keyboardType(.decimalPad)
-                .onChange(
-                    of: price,
-                    onPriceChanged(oldValue:newValue:)
-                )
 
                 Spacer()
 
-                Picker("", selection: $selectedCurrencyCode) {
+                Picker(selection: $selectedCurrencyCode) {
                     ForEach(SupportedCurrencies.allCases) { currency in
                         if let name = Locale.current.localizedString(forCurrencyCode: currency.code) {
                             Text(name).tag(currency.code)
@@ -85,13 +81,13 @@ extension PriceCustomAttributeView {
                             EmptyView()
                         }
                     }
+                } label: {
+                    EmptyView()
                 }
-                .onChange(
-                    of: selectedCurrencyCode,
-                    onCurrencyCodeChanged(oldValue:newValue:)
-                )
             }
         }
+        .onChange(of: selectedCurrencyCode, onCurrencyCodeChanged(oldValue:newValue:))
+        .onChange(of: price, onPriceChanged(oldValue:newValue:))
         .onAppear {
             title = store.title
             price = store.price

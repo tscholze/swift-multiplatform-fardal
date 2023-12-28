@@ -5,8 +5,8 @@
 //  Created by Tobias Scholze on 27.12.23.
 //
 
-import SwiftUI
 import Flow
+import SwiftUI
 
 /// A color picker that provides a circle based selection with the
 /// possibility to set it to nil.
@@ -18,13 +18,15 @@ struct OptionalColorPicker: View {
 
     /// User selected color
     @Binding var selectedColor: Color?
-    
+
     /// Colors that are selectable
     let selectableColors: [Color]
-    
+
     /// Circle dimension
     /// Default value: 24
     var circleDimension: CGFloat = 24
+
+    // MARK: - Private properties -
 
     @State var __selectedColor: Color? = nil
 
@@ -73,7 +75,7 @@ struct OptionalColorPicker: View {
         .onAppear {
             __selectableColors = selectableColors
                 .map { .init(color: $0) }
-            
+
             __selectedColor = selectedColor
         }
     }

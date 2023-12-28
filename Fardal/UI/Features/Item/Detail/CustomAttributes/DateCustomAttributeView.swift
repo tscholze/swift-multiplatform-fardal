@@ -50,11 +50,13 @@ struct DateCustomAttributeView: View {
                         onTitleChanged(oldValue:newValue:)
                     )
 
-                DatePicker("", selection: $selectedDate, displayedComponents: .date)
-                    .onChange(
-                        of: selectedDate,
-                        onDateChanged(oldValue:newValue:)
-                    )
+                DatePicker(selection: $selectedDate, displayedComponents: .date) {
+                    EmptyView()
+                }
+                .onChange(
+                    of: selectedDate,
+                    onDateChanged(oldValue:newValue:)
+                )
             }
             .onAppear {
                 title = store.title

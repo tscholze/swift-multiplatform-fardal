@@ -100,7 +100,7 @@ private struct SquareTemplate: View {
         guard let color = Theme.Colors.pastelColors.randomElement() else {
             fatalError("Not possible")
         }
-        
+
         return color
     }
 

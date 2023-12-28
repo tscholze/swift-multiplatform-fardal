@@ -4,16 +4,6 @@
     "" : {
 
     },
-    "-" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "-"
-          }
-        }
-      }
-    },
     "Amazing hint" : {
 
     },
@@ -63,6 +53,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Camera"
+          }
+        }
+      }
+    },
+    "Chips.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tags added"
           }
         }
       }
@@ -770,6 +770,16 @@
         }
       }
     },
+    "Misc.NoContent.Indicator" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "-"
+          }
+        }
+      }
+    },
     "Misc.Randomized" : {
       "localizations" : {
         "en" : {
@@ -789,9 +799,6 @@
           }
         }
       }
-    },
-    "No tags assigned" : {
-
     },
     "Settings.Footer.Version" : {
       "localizations" : {

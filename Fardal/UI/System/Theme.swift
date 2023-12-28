@@ -41,12 +41,12 @@ enum Theme {
         /// Level 2 rounded rectangle. Use it if parent has `roundedRectangle1`
         static let roundedRectangle2 = RoundedRectangle(cornerRadius: Theme.cornerRadius2)
     }
-    
+
     /// Unified shapes
     enum Shadow {
         /// Level 1 rounded rectangle
         static let radius1: CGFloat = 2
-        
+
         /// Shadows acts as gradient border
         static let border: CGFloat = 1
     }

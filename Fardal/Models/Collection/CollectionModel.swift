@@ -54,16 +54,16 @@ extension CollectionModel {
         let images1: [ImageModel] = [
             .mocked(forImage: .mockPiMicro),
         ]
-        
+
         let images2: [ImageModel] = [
             .mocked(forImage: .mockPi1),
         ]
-        
+
         let customAttributes1: [ItemCustomAttribute] = [
             .mockedDateAttribute,
             .mockedPriceAttribute,
             .mockedLinkAttribute,
-            .mockedNoteAttribute
+            .mockedNoteAttribute,
         ]
 
         // 2. Make items
@@ -71,10 +71,10 @@ extension CollectionModel {
             title: "Raspberry Pi Zero",
             summary: "Low voltage SPC, used for camera"
         )
-        
+
         item1.imagesData = images1
         item1.customAttributes = customAttributes1
-        
+
         let item2 = ItemModel(title: "Raspberry Pi 3B", summary: "512 MB Memory")
         item2.imagesData = images2
 
