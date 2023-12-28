@@ -286,7 +286,7 @@ extension CollectionDetailView {
             }
             else {
                 // Mode: Filled items
-                LazyVStack {
+                List {
                     ForEach(items) { item in
                         NavigationLink {
                             ItemDetailView(initialState: .read(item))
