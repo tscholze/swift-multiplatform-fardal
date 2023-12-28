@@ -87,7 +87,6 @@ struct OptionalColorPicker: View {
     @State var selectedColor: Color?
 
     return HStack {
-        Text("FOO")
         OptionalColorPicker(selectedColor: $selectedColor, selectableColors: Theme.Colors.pastelColors)
     }
 }

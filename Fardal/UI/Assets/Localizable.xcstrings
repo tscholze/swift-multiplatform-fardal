@@ -167,6 +167,16 @@
         }
       }
     },
+    "CollectionDetailLinktItem.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No unassigned items found"
+          }
+        }
+      }
+    },
     "Dashboard.Section.AllImages.Empty.Hint" : {
       "localizations" : {
         "en" : {
@@ -799,9 +809,6 @@
           }
         }
       }
-    },
-    "No collection found" : {
-
     },
     "Settings.Footer.Version" : {
       "localizations" : {

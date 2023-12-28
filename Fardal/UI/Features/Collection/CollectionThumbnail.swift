@@ -67,9 +67,6 @@ enum CollectionThumbnailSize {
                 if let collection {
                     CollectionThumbnail(collection: collection, action: {})
                 }
-                else {
-                    Text("No collection found")
-                }
             }
             .task {
                 collection = await CollectionModel.makeMockedCollections()

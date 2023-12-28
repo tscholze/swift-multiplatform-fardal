@@ -33,27 +33,40 @@ struct CollectionDetailLinkItemView: View {
 
     var body: some View {
         NavigationView {
-            List(items) { item in
-                HStack {
-                    // Title
-                    Text(item.title)
-
-                    Spacer()
-
-                    // Actions
-                    if __selectedItems.contains(item) {
-                        Button(action: { onUnlinkItemTapped(item) }) {
-                            Image(systemName: "xmark")
+            Group {
+                if items.isEmpty {
+                    VStack {
+                        Spacer()
+                        Text("CollectionDetailLinktItem.Empty.Hint")
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(.secondary)
+                            .padding()
+                       Spacer()
+                    }
+                } else {
+                    List(items) { item in
+                        HStack {
+                            // Title
+                            Text(item.title)
+                            
+                            Spacer()
+                            
+                            // Actions
+                            if __selectedItems.contains(item) {
+                                Button(action: { onUnlinkItemTapped(item) }) {
+                                    Image(systemName: "xmark")
+                                }
+                            }
+                            else {
+                                Button(action: { onLinkItemTapped(item) }) {
+                                    Image(systemName: "link")
+                                }
+                            }
                         }
                     }
-                    else {
-                        Button(action: { onLinkItemTapped(item) }) {
-                            Image(systemName: "link")
-                        }
-                    }
+                    .searchable(text: $searchQuery)
                 }
             }
-            .searchable(text: $searchQuery)
             .toolbar(content: makeToolbar)
             .navigationBarTitleDisplayMode(.large)
             .navigationTitle("CollectionDetailLinkItem.Title")
@@ -95,5 +108,7 @@ extension CollectionDetailLinkItemView {
 
 #Preview {
     @State var selectedItems = [ItemModel]()
-    return CollectionDetailLinkItemView(selectedItems: $selectedItems)
+    return NavigationView {
+        CollectionDetailLinkItemView(selectedItems: $selectedItems)
+    }
 }

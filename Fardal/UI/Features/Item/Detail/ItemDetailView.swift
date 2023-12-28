@@ -572,7 +572,7 @@ extension ItemDetailView {
 
     private func onIconDataChanged(oldValue _: Data?, newValue: Data?) {
         guard let newValue else { return }
-        selectedImagesData.insert(.init(data: newValue), at: 0)
+        selectedImagesData.insert(.init(data: newValue,source: .icon), at: 0)
     }
 
     private func onCancelTapped() {
