@@ -288,21 +288,7 @@ extension CollectionDetailView {
                 // Mode: Filled items
                 List {
                     ForEach(items) { item in
-                        NavigationLink {
-                            ItemDetailView(initialState: .read(item))
-                        } label: {
-                            HStack {
-                                if let uiImage = item.imagesData?.first?.uiImage {
-                                    LabeledContent {
-                                        Image(uiImage: uiImage)
-                                            .resizable()
-                                            .frame(width: 24, height: 24)
-                                    } label: {
-                                        Text(item.title)
-                                    }
-                                }
-                            }
-                        }
+                       ItemNavigationLink(item: item)
                     }
                 }
             }

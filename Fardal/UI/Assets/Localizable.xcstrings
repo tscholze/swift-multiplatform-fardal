@@ -267,9 +267,6 @@
         }
       }
     },
-    "FOO" : {
-
-    },
     "ImageDetail.Actions.DeleteImage" : {
       "localizations" : {
         "en" : {
