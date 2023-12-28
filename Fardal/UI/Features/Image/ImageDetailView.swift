@@ -83,9 +83,7 @@ extension ImageDetailView {
 
     private func makeLinkedSection(for item: ItemModel) -> some View {
         Section("ImageDetail.Section.Usage.Title") {
-            NavigationLink(item.title) {
-                ItemDetailView(initialState: .read(item))
-            }
+            ItemNavigationLink(item: item)
         }
     }
 
