@@ -16,7 +16,14 @@
 ## Build tooling
 To have a versioned build phase tooling chain, the app uses [`mint`](https://github.com/yonaskolb/Mint) to have a defined version set of tools. 
 
-## Tools
+## Tech stack
+`Fardal` is meant to be 100% Swift and dependency-free app. It uses Swift, SwiftUI and SwiftData to be implemented. Simple external dependencies like a helper to work with `SFSymbols` are in use.
+
+Besides this, the app should only be designed using 100% stock controls. Additional styles for buttons or text are only allowed if the do not have any fallback to `UIKit` or other `inspect`-ion helpers to achieve the design.
+
+In later versions, Fardal could contain other Apple fameworks like `MLKit`.
+
+## Build tooling
 |Name|Configuration file|
 |-|-|
 |SwiftLint|`.swiftlint`|
@@ -30,22 +37,26 @@ The `SwiftFormat` command will be currently triggered by a shell command:
 mint run swiftformat .
 ```
 
-## Tech stack
-`Fardal` is meant to be 100% Swift and dependency-free app. It uses Swift, SwiftUI and SwiftData to be implemented. Simple external dependencies like a helper to work with `SFSymbols` are in use.
-
-Besides this, the app should only be designed using 100% stock controls. Additional styles for buttons or text are only allowed if the do not have any fallback to `UIKit` or other `inspect`-ion helpers to achieve the design.
-
-In later versions, Fardal could contain other Apple fameworks like `MLKit`.
-
 ## Blockers fixed
 ### Version 0.0.1
 I'm struggeling hard to get the `SwiftData` with inter-model relationships working. The unnamed Xcode crashes with no helpful stack-trace are a real bummer to continue with this app.
 
 ## How it looks
 ### Version 0.0.1
+
+**Row contents**
+1. Dashboard in empty and filled
+2. Collection detail in read and edit mode
+3. Item detail in empty and read mode
+4. Misc. views like custom pickers or other detail views
+
 | | | | |
 |-|-|-|-|
-|<img src="__docs/001-dashboard-empty-light.png"/>|<img src="__docs/001-dashboard-filled-light.png"/>|<img src="__docs/001-dashboard-item-detail-1.png"/>|<img src="__docs/001-dashboard-item-detail-2.png" />|
+|<img src="__docs/001-dashboard-empty-light.png"/>|<img src="__docs/001-dashboard-filled-light.png"/>|
+|<img src="__docs/001-collection-detail.png"/>|<img src="__docs/001-collection-detail-edit.png"/>||||
+|<img src="__docs/001-item-detail-empty-1.png"/>|<img src="__docs/001-item-detail-empty-2.png" />|<img src="__docs/001-item-detail-1.png"/>|<img src="__docs/001-item-detail-2.png" />|
+|<img src="__docs/001-symbol-wizard.png"/>|<img src="__docs/001-image-detail.png"/>|
+
 
 ## Used dependencies
 

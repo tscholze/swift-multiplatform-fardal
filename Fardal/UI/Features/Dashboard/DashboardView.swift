@@ -67,7 +67,7 @@ extension DashboardView {
                     )
                 }
                 else {
-                    ForEach(collections) { collection in
+                    ForEach(collections.prefix(10)) { collection in
                         CollectionThumbnail(
                             collection: collection,
                             size: .large,
@@ -105,7 +105,7 @@ extension DashboardView {
                 else {
                     ScrollView(.horizontal) {
                         LazyHStack {
-                            ForEach(items) { item in
+                            ForEach(items.prefix(10)) { item in
                                 ItemThumbnail(
                                     item: item,
                                     size: .large,
@@ -142,10 +142,8 @@ extension DashboardView {
             else {
                 List {
                     ForEach(items) { item in
-                        NavigationLink(value: item) {
-                            Text(item.title)
-                        }
-                        .buttonStyle(.borderless)
+                        ItemNavigationLink(item: item)
+                            .buttonStyle(.borderless)
                     }
                 }.frame(alignment: .leading)
             }

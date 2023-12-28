@@ -1,6 +1,16 @@
 {
   "images" : [
     {
+      "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb 1.jpeg",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
       "filename" : "_fb8a4d0f-411b-4e75-8d2f-d0c34b11bddb.jpeg",
       "idiom" : "universal"
     }

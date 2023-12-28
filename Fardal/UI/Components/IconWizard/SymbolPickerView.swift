@@ -37,6 +37,8 @@ struct SymbolPickerView: View {
         VStack {
             // Serach field
             TextField("SymbolPicker.SearchQuery.Title", text: $searchQuery)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal)
                 .onChange(
@@ -74,8 +76,9 @@ extension SymbolPickerView {
             filteredSymbols = allSymbols
         }
         else {
+            let lowercasedQuery = newValue.lowercased()
             filteredSymbols = allSymbols.filter { symbol in
-                symbol.rawValue.contains(newValue)
+                symbol.rawValue.contains(lowercasedQuery)
             }
         }
     }

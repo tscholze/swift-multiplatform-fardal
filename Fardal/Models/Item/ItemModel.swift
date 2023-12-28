@@ -67,17 +67,3 @@ final class ItemModel {
         customAttributes = []
     }
 }
-
-// MARK: - Mocked -
-
-extension ItemModel {
-    /// Gets a static mocked item entry to be used on Previews
-    static func makeMockedItem(with context: ModelContext) -> ItemModel {
-        let item = ItemModel(title: "Mocked", summary: "Mocked", updatedAt: .now)
-        context.insert(item)
-
-        item.imagesData = [] // <-- Crash
-
-        return item
-    }
-}
