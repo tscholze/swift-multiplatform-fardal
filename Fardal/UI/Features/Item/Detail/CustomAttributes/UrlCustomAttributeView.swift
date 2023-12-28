@@ -117,7 +117,14 @@ class UrlCustomAttributeStore {
 
     // MARK: - Init -
 
+    /// Creates a new store that shall be used in `UrlCustomAttributeView`.
+    ///
+    /// - Parameter attribute: Database model of the attribute
     init(attribute: ItemCustomAttribute) {
+        guard attribute.layout == ItemCustomAttributeType.url.rawValue else {
+            fatalError("Invalid layout for attribute.")
+        }
+
         // Validate payload
         guard let title = attribute.payload["title"],
               let rawUrl = attribute.payload["url"] else {

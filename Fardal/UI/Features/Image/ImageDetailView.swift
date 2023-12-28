@@ -15,7 +15,7 @@ struct ImageDetailView: View {
     private let imageModel: ImageModel
     private let intialViewMode: ViewMode
 
-    // MARK: - System -
+    // MARK: - System properties -
 
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
@@ -109,5 +109,5 @@ extension ImageDetailView {
 // MARK: - Preview -
 
 #Preview {
-    ImageDetailView(initialState: .read(.mockedPhoto))
+    ImageDetailView(initialState: .read(.mocked(forImage: .mockPiMicro)))
 }

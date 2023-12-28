@@ -800,6 +800,9 @@
         }
       }
     },
+    "No collection found" : {
+
+    },
     "Settings.Footer.Version" : {
       "localizations" : {
         "en" : {

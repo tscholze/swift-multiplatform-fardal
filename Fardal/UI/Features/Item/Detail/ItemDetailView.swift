@@ -330,7 +330,7 @@ extension ItemDetailView {
                 else {
                     List {
                         ForEach(customAttributes) { attribute in
-                            ItemCustomAttributeTypes(rawValue: attribute.layout)?
+                            ItemCustomAttributeType(rawValue: attribute.layout)?
                                 .makeView(for: attribute, with: viewMode)
                         }
                         .onDelete(perform: onDeleteCustomTapped)

@@ -21,9 +21,15 @@ struct SymbolPickerView: View {
     // MARK: - Private properties -
 
     private let allSymbols = Array(SFSymbol.allSymbols).sorted(by: { $0.rawValue < $1.rawValue })
+
+    // MARK: - System properties -
+
+    @Environment(\.dismiss) var dismiss
+
+    // MARK: - States -
+
     @State private var searchQuery = ""
     @State private var filteredSymbols = [SFSymbol]()
-    @Environment(\.dismiss) var dismiss
 
     // MARK: - UI -
 

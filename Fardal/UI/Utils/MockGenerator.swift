@@ -45,7 +45,7 @@ enum MockGenerator {
     ///
     /// - Parameter context: Defines the context of the items on the photo
     /// - Returns: `Data` of the mocked image
-    static func makeMockSquarePhotoData(
+    static func makeMockSquareRandomizedPhotoData(
         inContextOf context: Context
     ) -> Data {
         return context.mockedPhotos

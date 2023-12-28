@@ -18,7 +18,7 @@ struct ChipsView: View {
     /// Binding to set the chip's view mode
     @Binding var viewMode: ViewMode
 
-    // MARK: - Private properties -
+    // MARK: - States -
 
     @State private var newTagText = ""
     @State private var isValid = false

@@ -126,7 +126,14 @@ class NoteCustomAttributeStore {
 
     // MARK: - Init -
 
+    /// Creates a new store that shall be used in `NoteCustomAttributeView`.
+    ///
+    /// - Parameter attribute: Database model of the attribute
     init(attribute: ItemCustomAttribute) {
+        guard attribute.layout == ItemCustomAttributeType.note.rawValue else {
+            fatalError("Invalid layout for attribute.")
+        }
+
         // Validate payload
         guard let title = attribute.payload["title"],
               let text = attribute.payload["text"] else {

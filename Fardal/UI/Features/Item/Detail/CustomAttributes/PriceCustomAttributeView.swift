@@ -88,17 +88,19 @@ extension PriceCustomAttributeView {
         }
         .onChange(of: selectedCurrencyCode, onCurrencyCodeChanged(oldValue:newValue:))
         .onChange(of: price, onPriceChanged(oldValue:newValue:))
-        .onAppear {
-            title = store.title
-            price = store.price
-            selectedCurrencyCode = store.currencyCode
-        }
+        .onAppear(perform: onAppear)
     }
 }
 
 // MARK: - Actions -
 
 extension PriceCustomAttributeView {
+    private func onAppear() {
+        title = store.title
+        price = store.price
+        selectedCurrencyCode = store.currencyCode
+    }
+
     private func onTitleChanged(oldValue _: String, newValue: String) {
         store.title = newValue
     }
@@ -141,7 +143,14 @@ class PriceCustomAttributeStore {
 
     // MARK: - Init -
 
+    /// Creates a new store that shall be used in `PriceCustomAttributeView`.
+    ///
+    /// - Parameter attribute: Database model of the attribute
     init(attribute: ItemCustomAttribute) {
+        guard attribute.layout == ItemCustomAttributeType.price.rawValue else {
+            fatalError("Invalid layout for attribute.")
+        }
+
         // Validate payload
         guard let title = attribute.payload["title"],
               let code = attribute.payload["currencyCode"],

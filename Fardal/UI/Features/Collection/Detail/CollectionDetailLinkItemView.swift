@@ -18,14 +18,16 @@ struct CollectionDetailLinkItemView: View {
     /// User-selected items of the collection
     @Binding var selectedItems: [ItemModel]
 
-    // MARK: - Private Properties -
+    // MARK: - System properties -
 
     @Query(filter: #Predicate<ItemModel> { $0.collection == nil }, sort: \.title)
     private var items: [ItemModel]
+    @Environment(\.dismiss) var dismiss
+
+    // MARK: - States -
 
     @State private var __selectedItems = [ItemModel]()
     @State private var searchQuery = ""
-    @Environment(\.dismiss) var dismiss
 
     // MARK: - UI -
 
@@ -52,14 +54,7 @@ struct CollectionDetailLinkItemView: View {
                 }
             }
             .searchable(text: $searchQuery)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Misc.Cancel", action: { dismiss() })
-                }
-                ToolbarItem(placement: .primaryAction) {
-                    Button("Misc.Save", action: onSaveButtonTapped)
-                }
-            }
+            .toolbar(content: makeToolbar)
             .navigationBarTitleDisplayMode(.large)
             .navigationTitle("CollectionDetailLinkItem.Title")
         }
@@ -79,6 +74,20 @@ extension CollectionDetailLinkItemView {
 
     private func onSaveButtonTapped() {
         selectedItems = __selectedItems
+    }
+}
+
+// MARK: - View builders
+
+extension CollectionDetailLinkItemView {
+    @ToolbarContentBuilder
+    private func makeToolbar() -> some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Button("Misc.Cancel", action: { dismiss() })
+        }
+        ToolbarItem(placement: .primaryAction) {
+            Button("Misc.Save", action: onSaveButtonTapped)
+        }
     }
 }
 

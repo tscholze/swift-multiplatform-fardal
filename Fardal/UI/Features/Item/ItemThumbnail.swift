@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// Thumbnail representation of an `Item`
+/// Thumbnail representation of an `Item`.
 struct ItemThumbnail: View {
     // MARK: - Properties -
 

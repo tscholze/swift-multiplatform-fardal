@@ -15,6 +15,11 @@ struct CollectionDetailView: View {
     private let collection: CollectionModel?
     private let intialViewMode: ViewMode
 
+    // MARK: - System properties -
+
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
+
     // MARK: - States -
 
     @State private var isValid = true
@@ -27,17 +32,12 @@ struct CollectionDetailView: View {
     @State private var showAddItemSheet = false
     @State private var showAddItemAlert = false
 
-    // MARK: - System -
-
-    @Environment(\.modelContext) private var modelContext
-    @Environment(\.dismiss) private var dismiss
-
     // MARK: - Init -
 
     /// Initializes a new detail view with given state configuration
     ///
     /// - Parameter initialState: Initial state that defines the view mode and the datasource.
-    init(initialState: ViewInitalState<CollectionModel>, isModal _: Bool = false) {
+    init(initialState: ViewInitalState<CollectionModel>) {
         switch initialState {
         case let .read(collection):
             self.collection = collection

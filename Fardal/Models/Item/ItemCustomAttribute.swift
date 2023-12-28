@@ -10,7 +10,7 @@ import SwiftData
 import Foundation
 
 /// Defines the type of an `ItemCustomAttribute`.|
-enum ItemCustomAttributeTypes: String {
+enum ItemCustomAttributeType: String {
     // MARK: - Cases -
 
     /// Date information

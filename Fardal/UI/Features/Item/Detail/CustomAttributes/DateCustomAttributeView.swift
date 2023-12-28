@@ -53,15 +53,9 @@ struct DateCustomAttributeView: View {
                 DatePicker(selection: $selectedDate, displayedComponents: .date) {
                     EmptyView()
                 }
-                .onChange(
-                    of: selectedDate,
-                    onDateChanged(oldValue:newValue:)
-                )
             }
-            .onAppear {
-                title = store.title
-                selectedDate = store.date
-            }
+            .onChange(of: selectedDate, onDateChanged(oldValue:newValue:))
+            .onAppear(perform: onAppear)
         }
     }
 }
@@ -69,6 +63,11 @@ struct DateCustomAttributeView: View {
 // MARK: - Events -
 
 extension DateCustomAttributeView {
+    private func onAppear() {
+        title = store.title
+        selectedDate = store.date
+    }
+
     private func onTitleChanged(oldValue _: String, newValue: String) {
         store.title = newValue
     }
@@ -99,7 +98,14 @@ class DateCustomAttributeStore {
 
     // MARK: - Init -
 
+    /// Creates a new store that shall be used in `DateCustomAttributeView`.
+    ///
+    /// - Parameter attribute: Database model of the attribute
     init(attribute: ItemCustomAttribute) {
+        guard attribute.layout == ItemCustomAttributeType.date.rawValue else {
+            fatalError("Invalid layout for attribute.")
+        }
+
         // Validate payload
         guard let title = attribute.payload["title"],
               let rawDate = attribute.payload["date"],

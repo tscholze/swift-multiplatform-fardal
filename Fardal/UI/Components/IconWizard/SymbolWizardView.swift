@@ -16,12 +16,15 @@ struct SymbolWizardView: View {
     /// `Data` representation of  user's selected symbol
     @Binding var selectedData: Data?
 
-    // MARK: - Private properties -
+    // MARK: - System properties -
+
+    @Environment(\.dismiss) var dismiss
+
+    // MARK: - States -
 
     @State private var selectedSymbolName: String = ""
     @State private var selectedColor: Color = .accentColor
     @State private var selectedBackgroundColor: Color = .clear
-    @Environment(\.dismiss) var dismiss
 
     // MARK: - UI -
 

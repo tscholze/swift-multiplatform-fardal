@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// Thumbnail representation of a `CollectionModel`
+/// Thumbnail representation of a `CollectionModel`.
 struct CollectionThumbnail: View {
     // MARK: - Properties -
 
@@ -58,7 +58,24 @@ enum CollectionThumbnailSize {
 
 // MARK: - Preview -
 
-//
-// #Preview {
-//    CollectionThumbnail(collection: .mockedCollections.first!, action: {})
-// }
+#Preview {
+    struct AsyncTestView: View {
+        @State var collection: CollectionModel? = nil
+
+        var body: some View {
+            Group {
+                if let collection {
+                    CollectionThumbnail(collection: collection, action: {})
+                }
+                else {
+                    Text("No collection found")
+                }
+            }
+            .task {
+                collection = await CollectionModel.makeMockedCollections()
+            }
+        }
+    }
+
+    return AsyncTestView()
+}

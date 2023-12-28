@@ -83,11 +83,21 @@ extension ImageModel: Equatable {
 // MARK: - Mock -
 
 extension ImageModel {
-    static var mockedPhoto: ImageModel = .init(
-        data: MockGenerator.makeMockSquarePhotoData(inContextOf: .tradingcards),
-        source: .photo
-    )
+    /// Returns new randomized and mocked `ImageModel` in given content.
+    ///
+    /// - Parameter context: Informal context of the mocked image
+    /// - Returns: Mocked model
+    static func makeMockedPhoto(inContextOf context: MockGenerator.Context) -> ImageModel {
+        return .init(
+            data: MockGenerator.makeMockSquareRandomizedPhotoData(inContextOf: context),
+            source: .photo
+        )
+    }
 
+    /// Returns new  mocked `ImageModel` for givin original image
+    ///
+    /// - Parameter image: Original image on which the model shall be created
+    /// - Returns: Mocked model
     static func mocked(forImage image: UIImage) -> ImageModel {
         guard let data = image.jpegData(compressionQuality: 1) else {
             fatalError("Failed to convert data to jpeg data.")
@@ -96,11 +106,17 @@ extension ImageModel {
         return .init(data: data, source: .photo)
     }
 
+    /// Returns list of new  mocked `ImageModel` in context of Raspberry Pi
+    ///
+    /// - Returns: List if mocked models
     static func mockedRaspberryPisPhotos() -> [ImageModel] {
         MockGenerator.makeMockSquarePhotosData(inContextOf: .pi)
             .map { .init(data: $0, source: .photo, item: nil, tags: ["Raspberry", "Pi"]) }
     }
 
+    /// Returns list of new  mocked `ImageModel` in context of electronics
+    ///
+    /// - Returns: List if mocked models
     static func mockedElectronicPhotos() -> [ImageModel] {
         MockGenerator.makeMockSquarePhotosData(inContextOf: .electronic)
             .map { .init(data: $0, source: .photo, item: nil, tags: ["Mocked", "Image"]) }
