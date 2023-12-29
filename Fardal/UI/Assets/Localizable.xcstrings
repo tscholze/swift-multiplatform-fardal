@@ -7,6 +7,36 @@
     "Amazing hint" : {
 
     },
+    "AVCaptureDevice.FlashMode.Auto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flash: auto"
+          }
+        }
+      }
+    },
+    "AVCaptureDevice.FlashMode.Off" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flash: off"
+          }
+        }
+      }
+    },
+    "AVCaptureDevice.FlashMode.On" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flash: on"
+          }
+        }
+      }
+    },
     "CameraPicker.Action.Submit" : {
       "localizations" : {
         "en" : {
@@ -23,6 +53,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add mocked photo"
+          }
+        }
+      }
+    },
+    "CameraPicker.Section.TakenImages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken images"
+          }
+        }
+      }
+    },
+    "CameraPicker.Section.TakenImages.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No images taken to be analyzed"
           }
         }
       }
@@ -303,6 +353,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Information"
+          }
+        }
+      }
+    },
+    "ImageDetail.Section.Tags.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tags"
           }
         }
       }
@@ -807,15 +867,22 @@
         }
       }
     },
-    "Premium" : {
-
-    },
     "Profile.Section.Avatar.MockGreeting" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Good Morning, Tobias"
+          }
+        }
+      }
+    },
+    "Profile.Tier.Mock" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium"
           }
         }
       }
