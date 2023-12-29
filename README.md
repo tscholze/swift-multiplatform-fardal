@@ -37,25 +37,35 @@ The `SwiftFormat` command will be currently triggered by a shell command:
 mint run swiftformat .
 ```
 
+## Terminology
+|Name|Description|
+|-|-|
+|Fardal|Welsh for 'inventory'|
+|Collection|A summary of 'items' like "Trading cards" or "Rasberry Pis"
+|Item|A specific item you want to track like "Raspberry Pi 3B|
+|Image|An optional part of an 'Item' to have a better rememberence for this item. Can be a photo or a custom make symbol|
+|Symbol|Apple speak for an 'Icon' with a fore- and background color
+
+
 ## Blockers fixed
 ### Version 0.0.1
 I'm struggeling hard to get the `SwiftData` with inter-model relationships working. The unnamed Xcode crashes with no helpful stack-trace are a real bummer to continue with this app.
 
 ## How it looks
-### Version 0.0.1
+### Version 0.0.x
 
 **Row contents**
 1. Dashboard in empty and filled
 2. Collection detail in read and edit mode
 3. Item detail in empty and read mode
-4. Misc. views like custom pickers or other detail views
+4. Profile, Image detail, Symbol wizard
 
 | | | | |
 |-|-|-|-|
 |<img src="__docs/001-dashboard-empty-light.png"/>|<img src="__docs/001-dashboard-filled-light.png"/>|
 |<img src="__docs/001-collection-detail.png"/>|<img src="__docs/001-collection-detail-edit.png"/>||||
 |<img src="__docs/001-item-detail-empty-1.png"/>|<img src="__docs/001-item-detail-empty-2.png" />|<img src="__docs/001-item-detail-1.png"/>|<img src="__docs/001-item-detail-2.png" />|
-|<img src="__docs/001-symbol-wizard.png"/>|<img src="__docs/001-image-detail.png"/>|
+|<img src="__docs/001-profile.png"/>|<img src="__docs/001-symbol-wizard.png"/>|<img src="__docs/001-image-detail.png"/>|
 
 
 ## Used dependencies
@@ -68,7 +78,7 @@ I'm struggeling hard to get the `SwiftData` with inter-model relationships worki
 ## Keep in mind
 
 ### Not production ready
-This app is purely build for having fun! All features have room for improvements or could be done more elegant. This app was and will be never meant to run in production-like environments. Learning is fun!
+This app is purely build for educational usage! All features have room for improvements or could be done more elegant. This app was and will be never meant to run in production-like environments. Learning is fun!
 
 ### Thanks to
 - shinnayu from the iOS Development Discord

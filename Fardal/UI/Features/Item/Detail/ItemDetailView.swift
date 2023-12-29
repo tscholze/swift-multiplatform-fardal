@@ -88,7 +88,7 @@ struct ItemDetailView: View {
         .onChange(of: cameraImagesData, onChangeOfCameraImagesData(oldValue:newValue:))
         .navigationBarBackButtonHidden(viewMode == .edit)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar { makeToolbar() }
+        .toolbar(content: makeToolbar)
         .photosPicker(
             isPresented: $showPhotoPicker,
             selection: $imageSelection,
@@ -572,7 +572,7 @@ extension ItemDetailView {
 
     private func onIconDataChanged(oldValue _: Data?, newValue: Data?) {
         guard let newValue else { return }
-        selectedImagesData.insert(.init(data: newValue,source: .icon), at: 0)
+        selectedImagesData.insert(.init(data: newValue, source: .icon), at: 0)
     }
 
     private func onCancelTapped() {

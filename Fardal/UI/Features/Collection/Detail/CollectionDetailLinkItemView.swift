@@ -41,16 +41,17 @@ struct CollectionDetailLinkItemView: View {
                             .multilineTextAlignment(.center)
                             .foregroundStyle(.secondary)
                             .padding()
-                       Spacer()
+                        Spacer()
                     }
-                } else {
+                }
+                else {
                     List(items) { item in
                         HStack {
                             // Title
                             Text(item.title)
-                            
+
                             Spacer()
-                            
+
                             // Actions
                             if __selectedItems.contains(item) {
                                 Button(action: { onUnlinkItemTapped(item) }) {

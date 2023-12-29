@@ -26,6 +26,7 @@ struct DashboardView: View {
     // MARK: - States -
 
     @State var path = NavigationPath()
+    @State var showProfileSheet = false
 
     // MARK: - UI -
 
@@ -37,6 +38,8 @@ struct DashboardView: View {
                 makeItemListSection()
                 makeAllImages()
             }
+            .toolbar(content: makeToolbar)
+            .sheet(isPresented: $showProfileSheet, content: { ProfileView() })
             .navigationTitle("Dashboard.Title")
             .navigationDestination(for: CollectionModel.self) { collection in
                 CollectionDetailView(initialState: .read(collection))
@@ -55,6 +58,15 @@ struct DashboardView: View {
 // MARK: - View builders -
 
 extension DashboardView {
+    @ToolbarContentBuilder
+    private func makeToolbar() -> some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button(action: { showProfileSheet.toggle() }) {
+                ProfileAvatar(style: .button)
+            }
+        }
+    }
+
     @ViewBuilder
     private func makeCollectionsSection() -> some View {
         Section {
@@ -179,5 +191,7 @@ extension DashboardView {
 }
 
 #Preview {
-    DashboardView()
+    NavigationView {
+        DashboardView()
+    }
 }
