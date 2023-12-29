@@ -202,7 +202,7 @@ extension CameraModel: AVCapturePhotoCaptureDelegate {
                 takenImageData = .init(
                     data: data,
                     source: .photo,
-                    tags: tags.map { $0.value }
+                    tags: tags.map { .init(title: $0.value, mlConfidence: $0.confidence)}
                 )
             }
         }

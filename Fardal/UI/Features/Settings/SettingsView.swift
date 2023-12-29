@@ -22,6 +22,7 @@ struct SettingsView: View {
     @Query private var collections: [CollectionModel]
     @Query private var images: [ImageModel]
     @Query private var customAttributes: [ItemCustomAttribute]
+    @Query private var tags: [TagModel]
 
     // MARK: - UI -
 
@@ -70,6 +71,7 @@ extension SettingsView {
             LabeledContent("Settings.Section.DataInformation.NumberOfItems", value: "\(items.count) / ∞")
             LabeledContent("Settings.Section.DataInformation.NumberOfImages", value: "\(images.filter { $0.source == .photo }.count) / ∞")
             LabeledContent("Settings.Section.DataInformation.NumberOfCustomAttributes", value: "\(customAttributes.count) / ∞")
+            LabeledContent("Settings.Section.DataInformation.NumberOfTags", value: "\(tags.count) / ∞")
         }
     }
 
@@ -88,6 +90,7 @@ extension SettingsView {
                     try modelContext.delete(model: ItemModel.self)
                     try modelContext.delete(model: ItemCustomAttribute.self)
                     try modelContext.delete(model: ImageModel.self)
+                    try modelContext.delete(model: TagModel.self)
                 }
                 catch {
                     print("Failed to clear all data")

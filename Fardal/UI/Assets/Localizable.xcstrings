@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "%@" : {
+
+    },
     "Amazing hint" : {
 
     },
@@ -867,6 +870,9 @@
         }
       }
     },
+    "No tags found" : {
+
+    },
     "Profile.Section.Avatar.MockGreeting" : {
       "localizations" : {
         "en" : {
@@ -1103,6 +1109,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Number of items"
+          }
+        }
+      }
+    },
+    "Settings.Section.DataInformation.NumberOfTags" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of tags"
           }
         }
       }

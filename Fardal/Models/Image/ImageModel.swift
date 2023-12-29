@@ -26,6 +26,7 @@ import Foundation
     /// [Data] representation of the image
     var data: Data
 
+    /// Parent
     var item: ItemModel?
 
     /// Source of the image.
@@ -33,7 +34,8 @@ import Foundation
     var source: ImageModelSource
 
     /// List of tags that describes the content of the image
-    var tags: [String]
+    @Relationship(deleteRule: .cascade)
+    var tags: [TagModel]
 
     /// Timestamp at which the image was initially created
     let createdAt = Date.now
@@ -44,9 +46,10 @@ import Foundation
     ///
     /// - Parameters:
     ///   - data: Data representation of the image
+    ///   - item: Parent `ItemModel`
     ///   - source: Source type of the image (photo, icon, etc.)
     ///   - tags: List of tags that describes the content of the image
-    init(data: Data, source: ImageModelSource = .photo, item: ItemModel? = nil, tags: [String] = []) {
+    init(data: Data, source: ImageModelSource = .photo, item: ItemModel? = nil, tags: [TagModel] = []) {
         self.data = data
         self.item = item
         self.source = source
@@ -97,13 +100,18 @@ extension ImageModel {
     /// Returns new  mocked `ImageModel` for givin original image
     ///
     /// - Parameter image: Original image on which the model shall be created
+    /// - Parameter tags: List of string-based tags. Defaulr value: empty list
     /// - Returns: Mocked model
-    static func mocked(forImage image: UIImage) -> ImageModel {
+    static func mocked(forImage image: UIImage, withTags tags: [String] = []) -> ImageModel {
         guard let data = image.jpegData(compressionQuality: 1) else {
             fatalError("Failed to convert data to jpeg data.")
         }
+        
+        let tagModels = tags.map { tag in
+            TagModel(title: tag, mlConfidence: Double.random(in: 0.01...0.99))
+        }.sorted(by: { $0.mlConfidence > $1.mlConfidence })
 
-        return .init(data: data, source: .photo)
+        return .init(data: data, source: .photo, tags: tagModels)
     }
 
     /// Returns list of new  mocked `ImageModel` in context of Raspberry Pi
@@ -111,7 +119,7 @@ extension ImageModel {
     /// - Returns: List if mocked models
     static func mockedRaspberryPisPhotos() -> [ImageModel] {
         MockGenerator.makeMockSquarePhotosData(inContextOf: .pi)
-            .map { .init(data: $0, source: .photo, item: nil, tags: ["Raspberry", "Pi"]) }
+            .map { .init(data: $0, source: .photo, item: nil, tags: [.init(title: "Raspberry", mlConfidence: 0.45), .init(title: "Pi", mlConfidence: 0.12)]) }
     }
 
     /// Returns list of new  mocked `ImageModel` in context of electronics
@@ -119,7 +127,7 @@ extension ImageModel {
     /// - Returns: List if mocked models
     static func mockedElectronicPhotos() -> [ImageModel] {
         MockGenerator.makeMockSquarePhotosData(inContextOf: .electronic)
-            .map { .init(data: $0, source: .photo, item: nil, tags: ["Mocked", "Image"]) }
+            .map { .init(data: $0, source: .photo, item: nil, tags: [.init(title: "Mocked", mlConfidence: 0.87), .init(title: "Electric", mlConfidence: 0.74)]) }
     }
 }
 

@@ -85,9 +85,9 @@ extension CameraPicker {
                 Text("CameraPicker.Section.TakenImages")
                 Group {
                     if let imageData = takenImagesData.last {
-                        Text(imageData.tags.joined(separator: ", "))
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(3, reservesSpace: true)
+                        List(imageData.tags) { tag in
+                            LabeledContent(tag.title, value: tag.mlConfidence, format: .percent)
+                        }
                     } else {
                         Text("CameraPicker.Section.TakenImages.Empty.Hint")
                     }

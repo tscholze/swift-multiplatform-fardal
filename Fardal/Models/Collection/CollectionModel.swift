@@ -52,11 +52,11 @@ extension CollectionModel {
     static func makeMockedCollections() async -> CollectionModel {
         // 1. Make images
         let images1: [ImageModel] = [
-            .mocked(forImage: .mockPiMicro),
+            .mocked(forImage: .mockPiMicro, withTags: ["Zero", "Rasbperry", "Pi", "Tinkering", "2020"]),
         ]
 
         let images2: [ImageModel] = [
-            .mocked(forImage: .mockPi1),
+            .mocked(forImage: .mockPi1, withTags: ["Rasbperry", "Pi", "Tinkering", "2020"]),
         ]
 
         let customAttributes1: [ItemCustomAttribute] = [

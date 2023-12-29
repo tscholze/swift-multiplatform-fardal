@@ -36,6 +36,7 @@ struct FardalApp: App {
                 ItemModel.self,
                 ImageModel.self,
                 ItemCustomAttribute.self,
+                TagModel.self,
             ])
 
             // Make SwiftData configuration
