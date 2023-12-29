@@ -7,9 +7,12 @@
 
 import SwiftUI
 
+/// Renders the user's profile in a circlular shape
+/// with a banner attached if the user  has bought a IAP.
 struct ProfileAvatar: View {
     // MARK: - Properties -
 
+    /// Defines the represented style of the component.
     let style: ProfileAvatarStyle
 
     // MARK: - UI -
@@ -42,7 +45,7 @@ struct ProfileAvatar: View {
                         .background(Color.pastelYellow)
                         .overlay {
                             Theme.Shape.roundedRectangle2
-                                .stroke(.pastelGreenDark, lineWidth: style.borderWidth)
+                                .stroke(.pastelYellowDark, lineWidth: style.borderWidth)
                         }
                 }
         }
@@ -51,54 +54,71 @@ struct ProfileAvatar: View {
     }
 }
 
+// MARK: - ProfileAvatarStyle -
+
+
+/// Determines available styles for component
 enum ProfileAvatarStyle {
+    // MARK: - Cases -
+    
+    /// Used as a button content
     case button
+    
+    /// Used as a large scaled image
     case header
 
-    var dimension: CGFloat {
+    // MARK: - Computed properties -
+    
+    /// Gets the dimension of the style
+   fileprivate var dimension: CGFloat {
         switch self {
-        case .button: 50
+        case .button: 40
         case .header: 100
         }
     }
 
-    var borderWidth: CGFloat {
+    /// Gets the borderwidth of the style
+    fileprivate var borderWidth: CGFloat {
         switch self {
         case .button: 1
-        case .header: 4
+        case .header: 2
         }
     }
 
-    var photoOffsetTop: CGFloat {
+    /// Gets the off-center spacer of the avatar image
+    fileprivate var photoOffsetTop: CGFloat {
         switch self {
-        case .button: 2
+        case .button: 1
         case .header: 10
         }
     }
 
-    var showTierBanner: Bool {
+    /// Determines if the tier banner should be shown
+    fileprivate var showTierBanner: Bool {
         switch self {
         case .button: true
         case .header: true
         }
     }
     
-    
-    var fontWeight: Font.Weight {
+    /// Gets the font weight of the tier banner
+    fileprivate var fontWeight: Font.Weight {
         switch self {
         case .button: Font.Weight.regular
         case .header: Font.Weight.bold
         }
     }
     
-    var font: Font {
+    /// Gets the font  of the tier banner
+    fileprivate var font: Font {
         switch self {
         case .button: Font.caption2
         case .header: Font.body
         }
     }
     
-    var fontPadding: CGFloat {
+    /// Gets the text padding of the tier banner
+    fileprivate var fontPadding: CGFloat {
         switch self {
         case .button: 2
         case .header: 4
@@ -106,6 +126,8 @@ enum ProfileAvatarStyle {
     }
 }
 
+// MARK: - Preview -
+
 #Preview {
-    ProfileAvatar(style: .button)
+    ProfileAvatar(style: .header)
 }

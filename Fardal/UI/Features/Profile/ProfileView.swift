@@ -7,9 +7,15 @@
 
 import SwiftUI
 
+/// Represents a [View] that shows the detail and
+///  other self-service information for the signed-in user
 struct ProfileView: View {
+    // MARK: - System properties -
+    
     @Environment(\.openURL) private var openURL
 
+    // MARK: - UI -
+    
     var body: some View {
         Form {
             makeAvatarSection()
