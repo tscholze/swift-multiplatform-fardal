@@ -29,7 +29,7 @@ In later versions, Fardal could contain other Apple fameworks like `MLKit`.
 |SwiftLint|`.swiftlint`|
 |SwiftFormat|`.swiftformat`|
 
-## How to run
+### How to run
 Because of the SwiftUI Preview feature, mint will not run during build time. It would run every Preview refresh which lets Xcode crash.
 
 The `SwiftFormat` command will be currently triggered by a shell command:

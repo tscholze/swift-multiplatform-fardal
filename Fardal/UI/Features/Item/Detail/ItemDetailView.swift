@@ -39,8 +39,7 @@ struct ItemDetailView: View {
     // MARK: - Intermitten states -
 
     @State private var imageSelection: PhotosPickerItem? = nil
-    @State private var cameraModel = CameraModel()
-    @State private var cameraImagesData = [Data]()
+    @State private var cameraImagesData = [ImageModel]()
 
     // MARK: - Draft states -
 
@@ -122,7 +121,6 @@ struct ItemDetailView: View {
             content: { NavigationView { CollectionDetailView(initialState: .create) } }
         )
         .onAppear(perform: onViewAppear)
-        .task { await performStartupTasks() }
     }
 }
 
@@ -540,10 +538,8 @@ extension ItemDetailView {
         isValid = isValidInput()
     }
 
-    private func onChangeOfCameraImagesData(oldValue _: [Data], newValue: [Data]) {
-        newValue.forEach { data in
-            selectedImagesData.append(.init(data: data))
-        }
+    private func onChangeOfCameraImagesData(oldValue _: [ImageModel], newValue: [ImageModel]) {
+        selectedImagesData.append(contentsOf: newValue)
     }
 
     private func onChangeImageSelection(oldValue _: PhotosPickerItem?, newValue: PhotosPickerItem?) {
@@ -555,17 +551,6 @@ extension ItemDetailView {
                 let newImage = ImageModel(data: data)
                 selectedImagesData.append(newImage)
             default: print("Failed")
-            }
-        }
-    }
-
-    private func performStartupTasks() async {
-        Task.detached {
-            do {
-                try await cameraModel.initialize()
-            }
-            catch {
-                print("Camera init failed: \(error.localizedDescription)")
             }
         }
     }

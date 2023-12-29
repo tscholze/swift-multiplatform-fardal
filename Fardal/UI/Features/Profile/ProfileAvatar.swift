@@ -35,7 +35,7 @@ struct ProfileAvatar: View {
                     Spacer()
                         .frame(height: style.photoOffsetTop)
 
-                    Text("Premium")
+                    Text("Profile.Tier.Mock")
                         .font(style.font)
                         .fontWeight(style.fontWeight)
                         .lineLimit(1)

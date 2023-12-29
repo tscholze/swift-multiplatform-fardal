@@ -40,6 +40,7 @@ struct ImageDetailView: View {
         Form {
             makeImageSection()
             makeInformationSection()
+            makeTagsSection()
 
             if let item = imageModel.item {
                 makeLinkedSection(for: item)
@@ -53,6 +54,7 @@ struct ImageDetailView: View {
 // MARK: - View builders -
 
 extension ImageDetailView {
+    @ViewBuilder
     private func makeImageSection() -> some View {
         Section {
             EmptyView()
@@ -67,6 +69,7 @@ extension ImageDetailView {
         }
     }
 
+    @ViewBuilder
     private func makeInformationSection() -> some View {
         Section("ImageDetail.Section.Information.Title") {
             LabeledContent(
@@ -81,9 +84,19 @@ extension ImageDetailView {
         }
     }
 
+    @ViewBuilder
     private func makeLinkedSection(for item: ItemModel) -> some View {
         Section("ImageDetail.Section.Usage.Title") {
             ItemNavigationLink(item: item)
+        }
+    }
+    
+    @ViewBuilder
+    private func makeTagsSection() -> some View {
+        Section("ImageDetail.Section.Tags.Title") {
+            List(imageModel.tags, id: \.self) { tag in
+                Text(tag)
+            }
         }
     }
 
