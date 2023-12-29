@@ -807,6 +807,99 @@
         }
       }
     },
+    "Premium" : {
+
+    },
+    "Profile.Section.Avatar.MockGreeting" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good morning Tobias"
+          }
+        }
+      }
+    },
+    "ProfileView.Section.Help" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get in touch"
+          }
+        }
+      }
+    },
+    "ProfileView.Section.Help.About" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
+          }
+        }
+      }
+    },
+    "ProfileView.Section.Help.Contact" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact"
+          }
+        }
+      }
+    },
+    "ProfileView.Section.Help.Support" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support"
+          }
+        }
+      }
+    },
+    "ProfileView.Section.IAP" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your purchase"
+          }
+        }
+      }
+    },
+    "ProfileView.Section.IAP.Costs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Costs"
+          }
+        }
+      }
+    },
+    "ProfileView.Section.IAP.RenewDate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renew date"
+          }
+        }
+      }
+    },
+    "ProfileView.Section.IAP.Tier" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tier"
+          }
+        }
+      }
+    },
     "Settings.Footer.Version" : {
       "localizations" : {
         "en" : {

@@ -17,4 +17,9 @@ enum FardalConstants {
         static let maxNumberOfPhotosPerItem = 3
         static let maxLengthOfNoteText = 10
     }
+
+    enum Links {
+        static let githubUrl = URL(string: "https://github.com/tscholze/swift-multiplatform-fardal")!
+        static let contactUrl = URL(string: "http://twitter.com/tobonaut")!
+    }
 }

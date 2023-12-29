@@ -62,7 +62,7 @@ struct CollectionDetailView: View {
             makeActionsSection()
         }
         .onAppear(perform: onViewAppear)
-        .toolbar { makeToolbar() }
+        .toolbar(content: makeToolbar)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(viewMode == .edit)
         .alert("CollectionDetail.Actions.AddItem", isPresented: $showAddItemAlert) { makeAddItemAlertContent()
@@ -288,7 +288,7 @@ extension CollectionDetailView {
                 // Mode: Filled items
                 List {
                     ForEach(items) { item in
-                       ItemNavigationLink(item: item)
+                        ItemNavigationLink(item: item)
                     }
                 }
             }
