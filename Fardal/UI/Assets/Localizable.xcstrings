@@ -7,6 +7,9 @@
     "%@" : {
 
     },
+    "%lld%%" : {
+
+    },
     "Amazing hint" : {
 
     },
@@ -60,12 +63,12 @@
         }
       }
     },
-    "CameraPicker.Section.TakenImages" : {
+    "CameraPicker.Section.TagsOfLastImage" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taken images"
+            "value" : "Tags of last image:"
           }
         }
       }

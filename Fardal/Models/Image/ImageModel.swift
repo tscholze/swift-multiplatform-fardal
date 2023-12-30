@@ -34,8 +34,7 @@ import Foundation
     var source: ImageModelSource
 
     /// List of tags that describes the content of the image
-    @Relationship(deleteRule: .cascade)
-    var tags: [TagModel]
+    @Relationship(deleteRule: .cascade, inverse: \TagModel.imageModel) var tags: [TagModel]? = [TagModel]()
 
     /// Timestamp at which the image was initially created
     let createdAt = Date.now

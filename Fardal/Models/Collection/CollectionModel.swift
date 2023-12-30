@@ -69,25 +69,27 @@ extension CollectionModel {
         // 2. Make items
         let item1 = ItemModel(
             title: "Raspberry Pi Zero",
-            summary: "Low voltage SPC, used for camera"
+            summary: "Low voltage SPC, used for camera",
+            imagesData: images1,
+            customAttributes: customAttributes1
         )
 
-        item1.imagesData = images1
-        item1.customAttributes = customAttributes1
-
-        let item2 = ItemModel(title: "Raspberry Pi 3B", summary: "512 MB Memory")
-        item2.imagesData = images2
+        let item2 = ItemModel(
+            title: "Raspberry Pi 3B",
+            summary: "512 MB Memory",
+            imagesData: images2
+        )
 
         // 3. Make collection
-        let collection = CollectionModel(
-            title: "Raspberry Pis",
-            summary: "Container with Pis that date prior 2020"
-        )
-
-        let content = InitialAvatarView(name: collection.title, dimension: 256)
+        let content = InitialAvatarView(name: "Raspberry Pis", dimension: 256)
         let coverImageData = await ImageGenerator.fromContentToData(content: content)
-        collection.coverImageData = .init(data: coverImageData, source: .icon)
-        collection.items = [item1, item2]
+
+        let collection = CollectionModel(
+            coverImageData: .init(data: coverImageData, source: .icon),
+            title: "Raspberry Pis",
+            summary: "Container with Pis that date prior 2020",
+            items: [item1, item2]
+        )
 
         // Returned mocked data
         return collection

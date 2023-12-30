@@ -12,17 +12,17 @@ import Foundation
     // MARK: - Properties -
 
     /// Unique id of the stored image
-    @Attribute(.unique) let id = UUID()
+    @Attribute(.unique) var id = UUID()
 
     /// Title of the tag
-    let title: String
+    var title: String
 
     /// ML Confidence
     /// 0 = not AI tagged
-    let mlConfidence: Double = 0
+    var mlConfidence: Double = 0
 
     /// Timestamp at which the image was initially created
-    let createdAt = Date.now
+    var createdAt = Date.now
 
     // MARK: - Init -
 
@@ -30,4 +30,6 @@ import Foundation
         self.title = title
         self.mlConfidence = mlConfidence
     }
+
+    var imageModel: ImageModel?
 }

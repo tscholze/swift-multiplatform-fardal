@@ -3,4 +3,147 @@
    uuid = "E8247F87-045D-4669-94C9-61E96B6BA8CF"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4A7CFD08-09C0-4AD2-BDD0-85C16C20D3E4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fardal/UI/Features/Item/Detail/ItemDetailView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "571"
+            endingLineNumber = "571"
+            landmarkName = "onCancelTapped()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4A7CFD08-09C0-4AD2-BDD0-85C16C20D3E4 - b1dab4c27d2137aa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fardal.ItemDetailView.onCancelTapped() -&gt; ()"
+                  moduleName = "Fardal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tscholze/Code/__me/Fardal/Fardal/UI/Features/Item/Detail/ItemDetailView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571"
+                  offsetFromSymbolStart = "480">
+               </Location>
+               <Location
+                  uuid = "4A7CFD08-09C0-4AD2-BDD0-85C16C20D3E4 - b1dab4c27d2137aa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fardal.ItemDetailView.onCancelTapped() -&gt; ()"
+                  moduleName = "Fardal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tscholze/Code/__me/Fardal/Fardal/UI/Features/Item/Detail/ItemDetailView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571"
+                  offsetFromSymbolStart = "408">
+               </Location>
+               <Location
+                  uuid = "4A7CFD08-09C0-4AD2-BDD0-85C16C20D3E4 - b1dab4c27d2137aa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fardal.ItemDetailView.onCancelTapped() -&gt; ()"
+                  moduleName = "Fardal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tscholze/Code/__me/Fardal/Fardal/UI/Features/Item/Detail/ItemDetailView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571"
+                  offsetFromSymbolStart = "588">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AED92258-BDB1-4BBB-B3D1-F299BF216B0C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fardal/UI/Features/Item/Detail/ItemDetailView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "589"
+            endingLineNumber = "589"
+            landmarkName = "onCancelTapped()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "AED92258-BDB1-4BBB-B3D1-F299BF216B0C - b1dab4c27d214a74"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fardal.ItemDetailView.onCancelTapped() -&gt; ()"
+                  moduleName = "Fardal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tscholze/Code/__me/Fardal/Fardal/UI/Features/Item/Detail/ItemDetailView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "589"
+                  endingLineNumber = "589"
+                  offsetFromSymbolStart = "1532">
+               </Location>
+               <Location
+                  uuid = "AED92258-BDB1-4BBB-B3D1-F299BF216B0C - 47b709f5db80af82"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Fardal.ImageModel) -&gt; () in Fardal.ItemDetailView.onCancelTapped() -&gt; ()"
+                  moduleName = "Fardal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tscholze/Code/__me/Fardal/Fardal/UI/Features/Item/Detail/ItemDetailView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "590"
+                  endingLineNumber = "590"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  uuid = "AED92258-BDB1-4BBB-B3D1-F299BF216B0C - b1dab4c27d214a17"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fardal.ItemDetailView.onCancelTapped() -&gt; ()"
+                  moduleName = "Fardal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tscholze/Code/__me/Fardal/Fardal/UI/Features/Item/Detail/ItemDetailView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "590"
+                  endingLineNumber = "590"
+                  offsetFromSymbolStart = "1744">
+               </Location>
+               <Location
+                  uuid = "AED92258-BDB1-4BBB-B3D1-F299BF216B0C - 47b709f5db80afa3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Fardal.ImageModel) -&gt; () in Fardal.ItemDetailView.onCancelTapped() -&gt; ()"
+                  moduleName = "Fardal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tscholze/Code/__me/Fardal/Fardal/UI/Features/Item/Detail/ItemDetailView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "591"
+                  endingLineNumber = "591"
+                  offsetFromSymbolStart = "136">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

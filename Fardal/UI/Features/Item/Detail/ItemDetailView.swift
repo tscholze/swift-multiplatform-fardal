@@ -85,7 +85,7 @@ struct ItemDetailView: View {
             makeActionsSection()
         }
         .onChange(of: cameraImagesData, onChangeOfCameraImagesData(oldValue:newValue:))
-        .navigationBarBackButtonHidden(viewMode == .edit)
+        .navigationBarBackButtonHidden(viewMode != .read)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: makeToolbar)
         .photosPicker(
@@ -493,7 +493,7 @@ extension ItemDetailView {
         }
         else {
             // Cancel button
-            if viewMode != .create {
+            if viewMode != .read {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: { onCancelTapped() }) {
                         Text("ItemDetail.Action.Cancel")
@@ -561,12 +561,43 @@ extension ItemDetailView {
     }
 
     private func onCancelTapped() {
-        if item != nil {
-            populateViewWithItemInformation()
-            viewMode = .read
+        // If an item exists
+        // Check if it has imagesData
+        //  If yes,
+        //      -> make a diff to the item's images
+        //      -> Delete new added images from item
+        //  If no
+        //      -> Delete all temp image data
+        if let item {
+            if let imagesData = item.imagesData {
+                let originSet = Set(imagesData)
+                let newSet = Set(selectedImagesData)
+
+                newSet.symmetricDifference(originSet)
+                    .forEach { model in
+                        modelContext.delete(model)
+                    }
+            }
+            else {
+                selectedImagesData.forEach {
+                    modelContext.delete($0)
+                }
+            }
+
+            dismiss()
         }
         else {
-            dismiss()
+            selectedImagesData.forEach {
+                modelContext.delete($0)
+            }
+
+            if viewMode == .edit {
+                populateViewWithItemInformation()
+                viewMode = .read
+            }
+            else {
+                dismiss()
+            }
         }
     }
 

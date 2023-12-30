@@ -50,6 +50,8 @@ final class ItemModel {
         collection: CollectionModel? = nil,
         title: String,
         summary: String,
+        imagesData: [ImageModel] = [],
+        customAttributes: [ItemCustomAttribute] = [],
         hexColor: UInt? = nil,
         tags: [String] = [],
         updatedAt: Date? = nil,
@@ -63,7 +65,7 @@ final class ItemModel {
         self.createdAt = createdAt
         self.hexColor = hexColor
         self.tags = tags
-        imagesData = []
-        customAttributes = []
+        self.imagesData = imagesData
+        self.customAttributes = customAttributes
     }
 }

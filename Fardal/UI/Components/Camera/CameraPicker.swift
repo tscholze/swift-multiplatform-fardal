@@ -25,17 +25,25 @@ struct CameraPicker: View {
     @State private var takenImagesData = [ImageModel]()
     @State private var flashOpacity = 0.0
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
 
     // MARK: - View -
 
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.none) {
             HStack {
-                Button("Misc.Cancel") { dismiss() }
-                Spacer()
-                Button(cameraModel.flashMode.localizedName) { cameraModel.toggleFlash()
+                Button("Misc.Cancel") {
+                    dismiss()
                 }
+
                 Spacer()
+
+                Button(cameraModel.flashMode.localizedName) {
+                    cameraModel.toggleFlash()
+                }
+
+                Spacer()
+
                 Button("CameraPicker.Action.Submit") {
                     cameraImagesData = takenImagesData
                     dismiss()
@@ -72,6 +80,7 @@ extension CameraPicker {
             CameraPreview(cameraModel: cameraModel)
                 .onChange(of: cameraModel.takenImageData) { _, newValue in
                     guard let newValue else { return }
+                    modelContext.insert(newValue)
                     takenImagesData.append(newValue)
                 }
                 .overlay { Color.white.opacity(flashOpacity) }
@@ -82,25 +91,32 @@ extension CameraPicker {
     private func makeShutterButton() -> some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("CameraPicker.Section.TakenImages")
+                Text("CameraPicker.Section.TagsOfLastImage")
+                    .foregroundStyle(.white)
                 Group {
-                    if let imageData = takenImagesData.last {
-                        List(imageData.tags) { tag in
-                            LabeledContent(tag.title, value: tag.mlConfidence, format: .percent)
+                    if let tags = takenImagesData.last?.tags {
+                        VStack {
+                            ForEach(tags) { tag in
+                                LabeledContent {
+                                    Text("\(Int(tag.mlConfidence * 100))%")
+                                } label: {
+                                    Text(tag.title)
+                                }
+                                .foregroundStyle(.white)
+                            }
                         }
                     }
                     else {
                         Text("CameraPicker.Section.TakenImages.Empty.Hint")
                     }
                 }
+                .background(Color.black)
                 .font(.caption)
-
-                Spacer()
             }
             .frame(height: 60)
-            .foregroundStyle(.white)
 
             Spacer()
+            
             // Button
             Button("") {
                 flashOpacity = 1
@@ -134,9 +150,13 @@ extension CameraPicker {
                 // Simulator mock button.
                 if UIDevice.isSimulator {
                     Button("CameraPicker.Actions.Mock") {
-                        takenImagesData.append(
-                            .init(data: MockGenerator.makeMockSquareSymbol())
+                        let newModel = ImageModel(
+                            data: MockGenerator.makeMockSquareSymbol(),
+                            tags: [.init(title: "Mocked", mlConfidence: 0.97)]
                         )
+
+                        modelContext.insert(newModel)
+                        takenImagesData.append(newModel)
                     }
                     .tint(Color.pink)
                 }
@@ -160,7 +180,7 @@ extension CameraPicker {
                 }
                 else {
                     ForEach(Array(takenImagesData.enumerated()), id: \.offset) { index, model in
-                        Button(action: { takenImagesData.remove(at: index) }) {
+                        Button(action: { takenImagesData.remove(at: index); modelContext.delete(model) }) {
                             ZStack(alignment: .topTrailing) {
                                 model.image
                                     .resizable()

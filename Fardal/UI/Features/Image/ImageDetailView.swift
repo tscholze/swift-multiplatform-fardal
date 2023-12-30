@@ -94,11 +94,8 @@ extension ImageDetailView {
     @ViewBuilder
     private func makeTagsSection() -> some View {
         Section("ImageDetail.Section.Tags.Title") {
-            if imageModel.tags.isEmpty {
-                Text("No tags found")
-            }
-            else {
-                List(imageModel.tags, id: \.self) { tag in
+            if let tags = imageModel.tags {
+                List(tags, id: \.self) { tag in
                     HStack {
                         Text("\(tag.title)")
                         if tag.mlConfidence > 0 {
@@ -108,6 +105,9 @@ extension ImageDetailView {
                         }
                     }
                 }
+            }
+            else {
+                Text("No tags found")
             }
         }
     }

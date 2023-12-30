@@ -132,7 +132,7 @@ class CameraModel: NSObject, ObservableObject {
         }
     }
 
-    private func classifyImage(_ image: UIImage, maxLength: Int = 5) -> [Classification] {
+    private func classifyImage(_ image: UIImage, maxLength: Int = 3) -> [Classification] {
         guard let resizedImage = image.resizeImageTo(size: CGSize(width: 224, height: 224)),
               let buffer = resizedImage.convertToBuffer() else {
             print("Cannot resize image")
@@ -229,16 +229,54 @@ extension CameraModel {
     }
 }
 
+/// Model that describes the confidence of ML for a value
+private struct Classification {
+    /// Confidence in percent
+    /// E.g. 0.1 means 10%
+    let confidence: Double
+
+    /// Found value of recognition
+    let value: String
+
+    /// Human readable., formatted data
+    var formatted: String {
+        return "\(value): \(confidence * 100)%"
+    }
+}
+
+// MARK: - AVCaptureDevice.FlashMode extension -
+
+extension AVCaptureDevice.FlashMode {
+    /// Localized name of an `AVCaptureDevice.FlashMode`
+    var localizedName: String {
+        switch self {
+        case .off:
+            NSLocalizedString("AVCaptureDevice.FlashMode.Off", comment: "")
+        case .on:
+            NSLocalizedString("AVCaptureDevice.FlashMode.On", comment: "")
+        case .auto:
+            NSLocalizedString("AVCaptureDevice.FlashMode.Auto", comment: "")
+        @unknown default:
+            "X"
+        }
+    }
+}
+
+// MARK: - Fileprivate UIImage extentions -
+
+// Inspired by:
+// https://github.com/create-with-swift/coreml-with-swiftui
 extension UIImage {
-    func resizeImageTo(size: CGSize) -> UIImage? {
+    fileprivate func resizeImageTo(size: CGSize) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         draw(in: CGRect(origin: CGPoint.zero, size: size))
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
+
         return resizedImage
     }
 
-    func convertToBuffer() -> CVPixelBuffer? {
+    fileprivate func convertToBuffer() -> CVPixelBuffer? {
         let attributes = [
             kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
             kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue,
@@ -283,29 +321,5 @@ extension UIImage {
         CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
 
         return pixelBuffer
-    }
-}
-
-private struct Classification {
-    let confidence: Double
-    let value: String
-
-    var formatted: String {
-        return "\(value): \(confidence * 100)%"
-    }
-}
-
-extension AVCaptureDevice.FlashMode {
-    var localizedName: String {
-        switch self {
-        case .off:
-            NSLocalizedString("AVCaptureDevice.FlashMode.Off", comment: "")
-        case .on:
-            NSLocalizedString("AVCaptureDevice.FlashMode.On", comment: "")
-        case .auto:
-            NSLocalizedString("AVCaptureDevice.FlashMode.Auto", comment: "")
-        @unknown default:
-            "X"
-        }
     }
 }
