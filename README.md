@@ -12,6 +12,7 @@
 - Xcode 15+
 - iOS 17+
 - Swift 5.9
+- [Download](https://developer.apple.com/machine-learning/models/) ML model from Apple
 
 ## Build tooling
 To have a versioned build phase tooling chain, the app uses [`mint`](https://github.com/yonaskolb/Mint) to have a defined version set of tools. 
@@ -48,6 +49,9 @@ mint run swiftformat .
 
 
 ## Blockers fixed
+### Vesion 0.0.2
+Getting `MLKit` to be helpful at image detection / recognition. I use Apple's `MobileNetV2` model but it fails to recognize for example an USB-cabel. In this case it means that it is a doctor's stetoscope.
+
 ### Version 0.0.1
 I'm struggeling hard to get the `SwiftData` with inter-model relationships working. The unnamed Xcode crashes with no helpful stack-trace are a real bummer to continue with this app.
 
