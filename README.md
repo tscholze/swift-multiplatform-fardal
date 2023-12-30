@@ -79,6 +79,19 @@ I'm struggeling hard to get the `SwiftData` with inter-model relationships worki
 |[SFSafeSymbols](https://github.com/SFSafeSymbols/SFSafeSymbols)|no|
 |[SwiftUI-Flow](https://github.com/tevelee/SwiftUI-Flow)|yes, it will be replaced with `FlowRowLayout`|
 
+## Branching guideline
+### Terminology
+|Name|Description|
+|-|-|
+|`production`|Contains the latest source that are pushed to AppStoreConnect|
+|`main`|Always buildable source that are currently in development|
+|`t.scholze/38-poc-profile`|Contains the updates of `main` in addition of the feature in progress work|
+
+### Merge permission
+1. `production` is only updated via merges from `main`. No pushes or merges other branches allowed
+2. `main` gets its update from feature branches. Direct pushes are allowed but not promoted
+3. `feature` gets its update from developer's pushes or back merges from `main` but never from `production`
+
 ## Keep in mind
 
 ### Not production ready
