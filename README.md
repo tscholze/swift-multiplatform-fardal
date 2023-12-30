@@ -62,14 +62,14 @@ I'm struggeling hard to get the `SwiftData` with inter-model relationships worki
 1. Dashboard in empty and filled
 2. Collection detail in read and edit mode
 3. Item detail in empty and read mode
-4. Profile, Image detail, Symbol wizard, Camera
+4. Profile, Image detail, Symbol wizard
 
 | | | | |
 |-|-|-|-|
 |<img src="__docs/001-dashboard-empty-light.png"/>|<img src="__docs/001-dashboard-filled-light.png"/>|
 |<img src="__docs/001-collection-detail.png"/>|<img src="__docs/001-collection-detail-edit.png"/>||||
 |<img src="__docs/001-item-detail-empty-1.png"/>|<img src="__docs/001-item-detail-empty-2.png" />|<img src="__docs/001-item-detail-1.png"/>|<img src="__docs/001-item-detail-2.png" />|
-|<img src="__docs/001-profile.png"/>|<img src="__docs/001-symbol-wizard.png"/>|<img src="__docs/001-image-detail.png"/>|<img src="__docs/002-camera.jpeg"/>|
+|<img src="__docs/001-profile.png"/>|<img src="__docs/001-symbol-wizard.png"/>|<img src="__docs/001-image-detail.png"/>|
 
 
 ## Used dependencies
