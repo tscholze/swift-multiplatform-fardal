@@ -90,13 +90,14 @@ extension ImageDetailView {
             ItemNavigationLink(item: item)
         }
     }
-    
+
     @ViewBuilder
     private func makeTagsSection() -> some View {
         Section("ImageDetail.Section.Tags.Title") {
             if imageModel.tags.isEmpty {
                 Text("No tags found")
-            } else {
+            }
+            else {
                 List(imageModel.tags, id: \.self) { tag in
                     HStack {
                         Text("\(tag.title)")

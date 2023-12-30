@@ -106,9 +106,9 @@ extension ImageModel {
         guard let data = image.jpegData(compressionQuality: 1) else {
             fatalError("Failed to convert data to jpeg data.")
         }
-        
+
         let tagModels = tags.map { tag in
-            TagModel(title: tag, mlConfidence: Double.random(in: 0.01...0.99))
+            TagModel(title: tag, mlConfidence: Double.random(in: 0.01 ... 0.99))
         }.sorted(by: { $0.mlConfidence > $1.mlConfidence })
 
         return .init(data: data, source: .photo, tags: tagModels)

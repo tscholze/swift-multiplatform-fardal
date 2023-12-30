@@ -42,7 +42,7 @@ struct CameraPicker: View {
                 }
             }
             .padding()
-               
+
             makeCameraPreview()
             makeShutterButton()
             makeBottomContainer()
@@ -88,17 +88,18 @@ extension CameraPicker {
                         List(imageData.tags) { tag in
                             LabeledContent(tag.title, value: tag.mlConfidence, format: .percent)
                         }
-                    } else {
+                    }
+                    else {
                         Text("CameraPicker.Section.TakenImages.Empty.Hint")
                     }
                 }
                 .font(.caption)
-                
+
                 Spacer()
             }
             .frame(height: 60)
             .foregroundStyle(.white)
-            
+
             Spacer()
             // Button
             Button("") {
@@ -114,7 +115,7 @@ extension CameraPicker {
         .padding()
         .frame(maxWidth: .infinity, alignment: .trailing)
     }
-    
+
     @ViewBuilder
     private func makeBottomContainer() -> some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.large) {
@@ -156,7 +157,8 @@ extension CameraPicker {
                         .aspectRatio(contentMode: .fit)
                         .padding()
                         .opacity(0.2)
-                } else {
+                }
+                else {
                     ForEach(Array(takenImagesData.enumerated()), id: \.offset) { index, model in
                         Button(action: { takenImagesData.remove(at: index) }) {
                             ZStack(alignment: .topTrailing) {
@@ -165,7 +167,7 @@ extension CameraPicker {
                                     .scaledToFill()
                                     .frame(width: 80, height: 80)
                                     .clipped()
-                                
+
                                 Image(systemName: "xmark.circle.fill")
                                     .tint(Color.white)
                                     .shadow(radius: Theme.Shadow.radius1)

@@ -27,27 +27,27 @@ struct ProfileAvatar: View {
                 }
                 .aspectRatio(1, contentMode: .fit)
 
-                Image(.mockUserAvatar)
-                    .resizable()
-                    .scaledToFit()
+            Image(.mockUserAvatar)
+                .resizable()
+                .scaledToFit()
 
-                if style.showTierBanner {
-                    Spacer()
-                        .frame(height: style.photoOffsetTop)
+            if style.showTierBanner {
+                Spacer()
+                    .frame(height: style.photoOffsetTop)
 
-                    Text("Profile.Tier.Mock")
-                        .font(style.font)
-                        .fontWeight(style.fontWeight)
-                        .lineLimit(1)
-                        .foregroundStyle(.black)
-                        .minimumScaleFactor(0.1)
-                        .padding(style.fontPadding)
-                        .background(Color.pastelYellow)
-                        .overlay {
-                            Theme.Shape.roundedRectangle2
-                                .stroke(.pastelYellowDark, lineWidth: style.borderWidth)
-                        }
-                }
+                Text("Profile.Tier.Mock")
+                    .font(style.font)
+                    .fontWeight(style.fontWeight)
+                    .lineLimit(1)
+                    .foregroundStyle(.black)
+                    .minimumScaleFactor(0.1)
+                    .padding(style.fontPadding)
+                    .background(Color.pastelYellow)
+                    .overlay {
+                        Theme.Shape.roundedRectangle2
+                            .stroke(.pastelYellowDark, lineWidth: style.borderWidth)
+                    }
+            }
         }
         .frame(width: style.dimension, height: style.dimension)
         .padding()
@@ -56,21 +56,20 @@ struct ProfileAvatar: View {
 
 // MARK: - ProfileAvatarStyle -
 
-
 /// Determines available styles for component
 enum ProfileAvatarStyle {
     // MARK: - Cases -
-    
+
     /// Used as a button content
     case button
-    
+
     /// Used as a large scaled image
     case header
 
     // MARK: - Computed properties -
-    
+
     /// Gets the dimension of the style
-   fileprivate var dimension: CGFloat {
+    fileprivate var dimension: CGFloat {
         switch self {
         case .button: 40
         case .header: 100
@@ -100,7 +99,7 @@ enum ProfileAvatarStyle {
         case .header: true
         }
     }
-    
+
     /// Gets the font weight of the tier banner
     fileprivate var fontWeight: Font.Weight {
         switch self {
@@ -108,7 +107,7 @@ enum ProfileAvatarStyle {
         case .header: Font.Weight.bold
         }
     }
-    
+
     /// Gets the font  of the tier banner
     fileprivate var font: Font {
         switch self {
@@ -116,7 +115,7 @@ enum ProfileAvatarStyle {
         case .header: Font.body
         }
     }
-    
+
     /// Gets the text padding of the tier banner
     fileprivate var fontPadding: CGFloat {
         switch self {
