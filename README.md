@@ -50,7 +50,7 @@ mint run swiftformat .
 
 ## Blockers fixed
 ### Vesion 0.0.2
-Getting `MLKit` to be helpful at image detection / recognition. I use Apple's `MobileNetV2` model but it fails to recognize for example an USB-cabel. In this case it means that it is a doctor's stetoscope.
+Getting `MLKit` to be helpful at image detection / recognition. I use Apple's `MobileNetV2` model but it fails to recognize for example an USB-cabel. In this case it means that it is a doctor's stetoscope. Blocker from 0.0.1 still exists for 1:n relationships.
 
 ### Version 0.0.1
 I'm struggeling hard to get the `SwiftData` with inter-model relationships working. The unnamed Xcode crashes with no helpful stack-trace are a real bummer to continue with this app.
