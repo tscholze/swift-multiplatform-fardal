@@ -1,3 +1,5 @@
+![](__docs/github-social-media.png)
+
 # Fardal
 > SwiftUI and SwiftData based inventury app for collectors and anyone else who needs some list of stuff they own.
 > Currently it is in active development and works as a playground for myself. Please do not use it.
