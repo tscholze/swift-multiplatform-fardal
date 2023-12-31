@@ -48,7 +48,7 @@ struct Hint: View {
 // MARK: - Preview -
 
 #Preview {
-    Hint(titleKey: "Amazing hint", systemName: "questionmark")
+    Hint(titleKey: "Misc.Save", systemName: "questionmark")
 }
 
 /// Available styles  of a `Hint`

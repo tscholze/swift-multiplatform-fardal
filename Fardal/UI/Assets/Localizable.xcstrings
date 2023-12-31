@@ -4,13 +4,7 @@
     "" : {
 
     },
-    "%@" : {
-
-    },
     "%lld%%" : {
-
-    },
-    "Amazing hint" : {
 
     },
     "AVCaptureDevice.FlashMode.Auto" : {
@@ -359,6 +353,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Information"
+          }
+        }
+      }
+    },
+    "ImageDetail.Section.Tags.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tags found"
           }
         }
       }
@@ -872,9 +876,6 @@
           }
         }
       }
-    },
-    "No tags found" : {
-
     },
     "Profile.Section.Avatar.MockGreeting" : {
       "localizations" : {
