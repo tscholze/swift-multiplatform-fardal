@@ -40,12 +40,12 @@ struct ImageDetailView: View {
         Form {
             makeImageSection()
             makeInformationSection()
-            makeTagsSection()
-
+            
             if let item = imageModel.item {
                 makeLinkedSection(for: item)
             }
-
+            
+            makeTagsSection()
             makeActionsSection()
         }
     }
@@ -94,20 +94,17 @@ extension ImageDetailView {
     @ViewBuilder
     private func makeTagsSection() -> some View {
         Section("ImageDetail.Section.Tags.Title") {
-            if let tags = imageModel.tags {
+            if let tags = imageModel.tags?.filter({ $0.mlConfidence > 0 }) {
                 List(tags, id: \.self) { tag in
-                    HStack {
-                        Text("\(tag.title)")
-                        if tag.mlConfidence > 0 {
-                            Spacer()
-                            Text(tag.mlConfidence, format: .percent)
-                                .foregroundStyle(.secondary)
-                        }
+                    LabeledContent {
+                        Text("\(Int(tag.mlConfidence * 100))%")
+                    } label: {
+                        Text(tag.title)
                     }
                 }
             }
             else {
-                Text("No tags found")
+                Text("ImageDetail.Section.Tags.Empty.Hint")
             }
         }
     }
