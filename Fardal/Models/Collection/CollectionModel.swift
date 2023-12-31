@@ -52,7 +52,7 @@ extension CollectionModel {
     static func makeMockedCollections() async -> CollectionModel {
         // 1. Make images
         let images1: [ImageModel] = [
-            .mocked(forImage: .mockPiMicro, withTags: ["Zero", "Rasbperry", "Pi", "Tinkering", "2020"]),
+            .mocked(forImage: .mockPiMicro),
         ]
 
         let images2: [ImageModel] = [
@@ -69,27 +69,31 @@ extension CollectionModel {
         // 2. Make items
         let item1 = ItemModel(
             title: "Raspberry Pi Zero",
-            summary: "Low voltage SPC, used for camera",
-            imagesData: images1,
-            customAttributes: customAttributes1
+            summary: "Low voltage SPC, used for camera"
         )
+
+        item1.imagesData = images1
+        images1.forEach { $0.item = item1 }
+        item1.customAttributes = customAttributes1
 
         let item2 = ItemModel(
             title: "Raspberry Pi 3B",
-            summary: "512 MB Memory",
-            imagesData: images2
+            summary: "512 MB Memory"
         )
+        
+        item2.imagesData = images2
+        images2.forEach { $0.item = item2 }
 
         // 3. Make collection
-        let content = InitialAvatarView(name: "Raspberry Pis", dimension: 256)
-        let coverImageData = await ImageGenerator.fromContentToData(content: content)
-
         let collection = CollectionModel(
-            coverImageData: .init(data: coverImageData, source: .icon),
             title: "Raspberry Pis",
-            summary: "Container with Pis that date prior 2020",
-            items: [item1, item2]
+            summary: "Container with Pis that date prior 2020"
         )
+
+        let content = InitialAvatarView(name: collection.title, dimension: 256)
+        let coverImageData = await ImageGenerator.fromContentToData(content: content)
+        collection.coverImageData = .init(data: coverImageData, source: .icon)
+        collection.items = [item1, item2]
 
         // Returned mocked data
         return collection
