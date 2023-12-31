@@ -48,6 +48,7 @@ struct ImageDetailView: View {
             makeTagsSection()
             makeActionsSection()
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -61,11 +62,17 @@ extension ImageDetailView {
         } header: {
             EmptyView()
         } footer: {
+            HStack {
+                Spacer()
+       
             imageModel.image
                 .resizable()
                 .clipShape(Theme.Shape.roundedRectangle1)
                 .shadow(radius: Theme.Shadow.radius1)
-                .frame(width: 300, height: 300)
+                .frame(width: 200, height: 200)
+                
+                Spacer()
+            }
         }
     }
 
