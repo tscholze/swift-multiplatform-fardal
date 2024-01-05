@@ -25,14 +25,16 @@ struct DashboardView: View {
 
     // MARK: - States -
 
-    @State var path = NavigationPath()
-    @State var showProfileSheet = false
+    @State private var path = NavigationPath()
+    @State private var showProfileSheet = false
+    @State private var showSearchWithCodeSheet = false
 
     // MARK: - UI -
 
     var body: some View {
         NavigationStack(path: $path) {
             Form {
+                makeQuickActionsSection()
                 makeCollectionsSection()
                 makeLatestItemsSection()
                 makeItemListSection()
@@ -40,6 +42,7 @@ struct DashboardView: View {
             }
             .toolbar(content: makeToolbar)
             .sheet(isPresented: $showProfileSheet, content: { ProfileView() })
+            .sheet(isPresented: $showSearchWithCodeSheet, content: { SearchView() })
             .navigationTitle("Dashboard.Title")
             .navigationDestination(for: CollectionModel.self) { collection in
                 CollectionDetailView(initialState: .read(collection))
@@ -64,6 +67,71 @@ extension DashboardView {
             Button(action: { showProfileSheet.toggle() }) {
                 ProfileAvatar(style: .button)
             }
+        }
+    }
+
+    @ViewBuilder
+    private func makeQuickActionsSection() -> some View {
+        Section {
+            EmptyView()
+        } footer: {
+            HStack {
+                Spacer()
+                Button(action: {}) {
+                    VStack {
+                        Image(systemName: "magnifyingglass")
+                            .resizable()
+                            .scaledToFit()
+                        Text("Dashboard.Section.QuickActions.SearchText")
+                            .font(.caption)
+                    }
+                    .frame(width: 44, height: 44)
+                }
+                .shadow(radius: 2)
+
+                Button(action: { showSearchWithCodeSheet.toggle() }) {
+                    VStack {
+                        Image(systemName: "barcode.viewfinder")
+                            .resizable()
+                            .scaledToFit()
+                        Text("Dashboard.Section.QuickActions.SearchCode")
+                            .font(.caption)
+                    }
+                    .frame(width: 44, height: 44)
+                }
+                .shadow(radius: 2)
+
+                NavigationLink {
+                    CollectionDetailView(initialState: .create)
+                } label: {
+                    VStack {
+                        Image(systemName: "doc.on.doc")
+                            .resizable()
+                            .scaledToFit()
+                    Text("Dashboard.Section.QuickAction.AddCollection")
+                            .font(.caption)
+                    }
+                    .frame(width: 44, height: 44)
+                }
+                .shadow(radius: 2)
+                
+                NavigationLink {
+                    ItemDetailView(initialState: .create)
+                } label: {
+                    VStack {
+                        Image(systemName: "doc")
+                            .resizable()
+                            .scaledToFit()
+                        Text("Dashboard.Section.QuickActions.AddItem")
+                            .font(.caption)
+                    }
+                    .frame(width: 44, height: 44)
+                }
+                .shadow(radius: 2)
+
+                Spacer()
+            }
+            .buttonStyle(.borderedProminent)
         }
     }
 
@@ -190,8 +258,10 @@ extension DashboardView {
     }
 }
 
-#Preview {
-    NavigationView {
-        DashboardView()
-    }
-}
+//
+// #Preview {
+//    NavigationView {
+//        Text("")
+//        //DashboardView()
+//    }
+// }
