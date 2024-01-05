@@ -8,6 +8,7 @@
 import UIKit
 import Vision
 import CoreML
+import Combine
 import Foundation
 import AVFoundation
 
@@ -21,6 +22,9 @@ class CameraModel: NSObject, ObservableObject {
     private(set) var takenImageData: ImageModel?
 
     @Published
+    private(set) var recognizedWords = [String]()
+
+    @Published
     private(set) var flashMode = AVCaptureDevice.FlashMode.auto
 
     /// Preview layer that can be used to show a live feed of the camera finder.
@@ -32,6 +36,9 @@ class CameraModel: NSObject, ObservableObject {
     private let output = AVCapturePhotoOutput()
     private let classifier: MobileNetV2
     private var cameraSettings = AVCapturePhotoSettings()
+    private var modes = [CameraModelRecognitionMode]()
+    private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    private var timerSubscription: AnyCancellable?
 
     // MARK: - Init -
 
@@ -49,13 +56,20 @@ class CameraModel: NSObject, ObservableObject {
 
     /// Initializes a new `CameraModel`
     /// Must be called before usage.
-    func initialize() async throws {
+    func initialize(modes: [CameraModelRecognitionMode]) async throws {
+        self.modes = modes
+
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .denied, .restricted: throw CameraError.noPermissionGranted
         case .authorized: try setup()
         case .notDetermined: try await requestPermission()
         @unknown default: throw CameraError.unknown
         }
+    }
+
+    /// Clean deinit of the Camera model
+    func deinitialize() {
+        timerSubscription = nil
     }
 
     /// Takes the actual picture.
@@ -88,6 +102,11 @@ class CameraModel: NSObject, ObservableObject {
                 throw CameraError.deviceNotfound
             }
 
+            // Try to apply configuration
+            try device.lockForConfiguration()
+            device.focusMode = .continuousAutoFocus
+            device.unlockForConfiguration()
+
             // Get input from device
             let input = try AVCaptureDeviceInput(device: device)
 
@@ -119,6 +138,9 @@ class CameraModel: NSObject, ObservableObject {
             // the camera
             throw CameraError.deviceNotfound
         }
+
+        guard modes.contains(.autoscan) else { return }
+        timerSubscription = timer.sink { [weak self] _ in self?.takePicture() }
     }
 
     private func requestPermission() async throws {
@@ -191,19 +213,26 @@ extension CameraModel: AVCapturePhotoCaptureDelegate {
             return
         }
 
-        // 4. Classify image
-        let tags = classifyImage(.init(cgImage: cgImage))
-        print(tags.map(\.formatted).joined(separator: "\n"))
+        // 4. Check if text scan should be performed
+        if modes.contains(.text) {
+            let requestHandler = VNImageRequestHandler(cgImage: cgImage)
+            let request = VNRecognizeTextRequest(completionHandler: recognizeText)
+            try? requestHandler.perform([request])
+        }
 
-        // Return generated meep
-        Task {
-            await MainActor.run {
-                takenImageData = .init(
-                    data: data,
-                    source: .photo,
-                    tags: tags.map { .init(title: $0.value, mlConfidence: $0.confidence) }
-                )
-            }
+        // 5. Check if tag (classifcation of the image) should be performed
+        var tags = [Classification]()
+        if modes.contains(.content) {
+            tags = classifyImage(.init(cgImage: cgImage))
+        }
+
+        // 5. Check if an actual model should be created and published
+        if modes.contains(.generateModel) {
+            takenImageData = .init(
+                data: data,
+                source: .photo,
+                tags: tags.map { .init(title: $0.value, mlConfidence: $0.confidence) }
+            )
         }
     }
 }
@@ -211,21 +240,18 @@ extension CameraModel: AVCapturePhotoCaptureDelegate {
 // MARK: - MLCore -
 
 extension CameraModel {
-    private static func makeImageClassifier() -> VNCoreMLModel {
-        // Create an instance of the image classifier's wrapper class.
-        guard let imageClassifier = try? MobileNetV2(configuration: .init()) else {
-            fatalError("App failed to create an image classifier model instance.")
+    private func recognizeText(request: VNRequest, error _: Error?) {
+        guard let observations =
+            request.results as? [VNRecognizedTextObservation] else {
+            return
+        }
+        let recognizedStrings = observations.compactMap { observation in
+            // Return the string of the top VNRecognizedText instance.
+            return observation.topCandidates(1).first?.string
         }
 
-        // Get the underlying model instance.
-        let imageClassifierModel = imageClassifier.model
-
-        // Create a Vision instance using the image classifier's model instance.
-        guard let imageClassifierVisionModel = try? VNCoreMLModel(for: imageClassifierModel) else {
-            fatalError("App failed to create a `VNCoreMLModel` instance.")
-        }
-
-        return imageClassifierVisionModel
+        // Process the recognized strings.
+        recognizedWords = recognizedStrings
     }
 }
 
@@ -322,4 +348,11 @@ extension UIImage {
 
         return pixelBuffer
     }
+}
+
+enum CameraModelRecognitionMode {
+    case content
+    case text
+    case autoscan
+    case generateModel
 }

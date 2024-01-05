@@ -26,6 +26,7 @@ struct CollectionDetailView: View {
     @State private var viewMode: ViewMode = .read
     @State private var title = ""
     @State private var summary = ""
+    @State private var customId = ""
     @State private var items = [ItemModel]()
     @State private var coverData = Data()
     @State private var showLinkItemSheet = false
@@ -58,6 +59,7 @@ struct CollectionDetailView: View {
     var body: some View {
         Form {
             makeRequiredSection()
+            makeCustomIdSection()
             makeItemsSection()
             makeActionsSection()
         }
@@ -83,6 +85,7 @@ extension CollectionDetailView {
         viewMode = intialViewMode
         title = collection?.title ?? ""
         summary = collection?.summary ?? ""
+        customId = collection?.customId ?? ""
         items = collection?.items ?? []
 
         // Use existing cover image data or create a randomized one.
@@ -130,6 +133,7 @@ extension CollectionDetailView {
             collection.summary = summary
             collection.items = items
             collection.coverImageData = .init(data: coverData, source: .icon)
+            collection.customId = customId
             viewMode = .read
         }
 
@@ -139,6 +143,7 @@ extension CollectionDetailView {
             let newCollection = CollectionModel(
                 title: title,
                 summary: summary,
+                customId: customId,
                 items: items
             )
 
@@ -271,6 +276,29 @@ extension CollectionDetailView {
                     }
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    private func makeCustomIdSection() -> some View {
+        Section {
+            VStack(alignment: .leading) {
+                if viewMode == .read {
+                    if let customId = collection?.customId {
+                        Text(customId)
+                    }
+                    else {
+                        Text("Misc.NotSet")
+                    }
+                }
+                else {
+                    TextField("CollectionDetail.Section.CustomId.Text", text: $customId)
+                }
+            }
+        } header: {
+            Text("CollectionDetail.Section.CustomId")
+        } footer: {
+            Text("CollectionDetail.Section.CustomId.Hint")
         }
     }
 

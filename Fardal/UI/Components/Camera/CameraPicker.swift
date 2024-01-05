@@ -57,7 +57,10 @@ struct CameraPicker: View {
         }
         .background(Color.black)
         .navigationTitle("CameraPicker.Title")
-        .task { try? await cameraModel.initialize() }
+        .task { try? await cameraModel.initialize(
+            modes: [.content, .generateModel]
+        )
+        }
     }
 }
 
@@ -116,7 +119,7 @@ extension CameraPicker {
             .frame(height: 60)
 
             Spacer()
-            
+
             // Button
             Button("") {
                 flashOpacity = 1

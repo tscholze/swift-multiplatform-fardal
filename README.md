@@ -1,7 +1,7 @@
 ![](__docs/github-social-media.png)
 
 # Fardal
-> SwiftUI and SwiftData based inventury app for collectors and anyone else who needs some list of stuff they own.
+> This sample for an inventory app is used to explore the possiblities of a pure vanilla Swift, SwiftUI, SwiftData and CoreML based application.
 > Currently it is in active development and works as a playground for myself. Please do not use it.
 
  ## Build status
@@ -65,6 +65,7 @@ I'm struggeling hard to get the `SwiftData` with inter-model relationships worki
 2. Collection detail in read and edit mode
 3. Item detail in empty and read mode
 4. Profile, Image detail, Symbol wizard
+5. Search by handwritten code
 
 | | | | |
 |-|-|-|-|
@@ -72,6 +73,7 @@ I'm struggeling hard to get the `SwiftData` with inter-model relationships worki
 |<img src="__docs/001-collection-detail.png"/>|<img src="__docs/001-collection-detail-edit.png"/>||||
 |<img src="__docs/001-item-detail-empty-1.png"/>|<img src="__docs/001-item-detail-empty-2.png" />|<img src="__docs/001-item-detail-1.png"/>|<img src="__docs/001-item-detail-2.png" />|
 |<img src="__docs/001-profile.png"/>|<img src="__docs/001-symbol-wizard.png"/>|<img src="__docs/001-image-detail.png"/>|<img src="__docs/002-camera.jpeg"/>|
+|<img src="__docs/002-search-by-code.png" />||||
 
 
 ## Used dependencies

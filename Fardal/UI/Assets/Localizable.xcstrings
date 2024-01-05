@@ -157,6 +157,36 @@
         }
       }
     },
+    "CollectionDetail.Section.CustomId" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom ID"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Section.CustomId.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set a custom id to find it using the code scan feature"
+          }
+        }
+      }
+    },
+    "CollectionDetail.Section.CustomId.Text" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom ID"
+          }
+        }
+      }
+    },
     "CollectionDetail.Section.Items.Empty.Hint" : {
       "localizations" : {
         "en" : {
@@ -303,6 +333,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Latest items"
+          }
+        }
+      }
+    },
+    "Dashboard.Section.QuickAction.AddCollection" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        }
+      }
+    },
+    "Dashboard.Section.QuickActions.AddItem" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        }
+      }
+    },
+    "Dashboard.Section.QuickActions.SearchCode" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        }
+      }
+    },
+    "Dashboard.Section.QuickActions.SearchText" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
           }
         }
       }
@@ -857,6 +927,16 @@
         }
       }
     },
+    "Misc.NotSet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not set"
+          }
+        }
+      }
+    },
     "Misc.Randomized" : {
       "localizations" : {
         "en" : {
@@ -973,6 +1053,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tier"
+          }
+        }
+      }
+    },
+    "SearchByCode.Section.Found.Collections" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found collections"
+          }
+        }
+      }
+    },
+    "SearchByCode.Section.Found.Collections.Empty.Hint" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No collection found, yet."
+          }
+        }
+      }
+    },
+    "SearchByCode.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search by code"
           }
         }
       }

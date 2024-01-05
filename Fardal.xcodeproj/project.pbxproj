@@ -41,6 +41,7 @@
 		4A5D86692B356D9F0056FAC1 /* ChipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5D86682B356D9F0056FAC1 /* ChipsView.swift */; };
 		4A6DDF962B272AC6008B1534 /* DateCustomAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */; };
 		4A746A512B33746B000963AA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A746A502B33746B000963AA /* Launch Screen.storyboard */; };
+		4A79CB692B48207E00EA3DFD /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A79CB682B48207E00EA3DFD /* SearchView.swift */; };
 		4A848A342B24F2700090FC73 /* FardalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A332B24F2700090FC73 /* FardalApp.swift */; };
 		4A848A362B24F2700090FC73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A352B24F2700090FC73 /* ContentView.swift */; };
 		4A848A382B24F2700090FC73 /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A848A372B24F2700090FC73 /* ItemModel.swift */; };
@@ -104,6 +105,7 @@
 		4A5D86682B356D9F0056FAC1 /* ChipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsView.swift; sourceTree = "<group>"; };
 		4A6DDF952B272AC6008B1534 /* DateCustomAttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCustomAttributeView.swift; sourceTree = "<group>"; };
 		4A746A502B33746B000963AA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		4A79CB682B48207E00EA3DFD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		4A848A302B24F2700090FC73 /* Fardal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fardal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A848A332B24F2700090FC73 /* FardalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FardalApp.swift; sourceTree = "<group>"; };
 		4A848A352B24F2700090FC73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -362,6 +364,14 @@
 			path = System;
 			sourceTree = "<group>";
 		};
+		4A79CB672B48206F00EA3DFD /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				4A79CB682B48207E00EA3DFD /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		4A848A272B24F2700090FC73 = {
 			isa = PBXGroup;
 			children = (
@@ -456,6 +466,7 @@
 		4AED2B5E2B2C5F6600E348A0 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4A79CB672B48206F00EA3DFD /* Search */,
 				4AFC7D1C2B3EB83700A6866A /* Profile */,
 				4A99D8FA2B39C74600245A81 /* Image */,
 				4AF864262B30C3CE00F567EB /* Dashboard */,
@@ -634,6 +645,7 @@
 				4A4627892B3C354C004CEAA6 /* FlowLayout.swift in Sources */,
 				4A04AD092B25B87500CA9053 /* ItemDetailView.swift in Sources */,
 				4AED2B612B2C5F7700E348A0 /* SettingsView.swift in Sources */,
+				4A79CB692B48207E00EA3DFD /* SearchView.swift in Sources */,
 				4A8D11032B3815D3002A534F /* LabelStyles.swift in Sources */,
 				4A06F84E2B2A2D7C00F93E37 /* UrlCustomAttributeView.swift in Sources */,
 				4AFC7D202B3EC14D00A6866A /* ProfileView.swift in Sources */,
@@ -776,6 +788,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Fardal/Preview Content\"";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6WAYJC7M67;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Used to take photos of your item";
@@ -797,6 +810,7 @@
 				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.tscholze.Fardal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "anfema Wildcard Provisioning Profile";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

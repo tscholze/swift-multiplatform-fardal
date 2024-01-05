@@ -40,11 +40,11 @@ struct ImageDetailView: View {
         Form {
             makeImageSection()
             makeInformationSection()
-            
+
             if let item = imageModel.item {
                 makeLinkedSection(for: item)
             }
-            
+
             makeTagsSection()
             makeActionsSection()
         }
@@ -64,13 +64,13 @@ extension ImageDetailView {
         } footer: {
             HStack {
                 Spacer()
-       
-            imageModel.image
-                .resizable()
-                .clipShape(Theme.Shape.roundedRectangle1)
-                .shadow(radius: Theme.Shadow.radius1)
-                .frame(width: 200, height: 200)
-                
+
+                imageModel.image
+                    .resizable()
+                    .clipShape(Theme.Shape.roundedRectangle1)
+                    .shadow(radius: Theme.Shadow.radius1)
+                    .frame(width: 200, height: 200)
+
                 Spacer()
             }
         }
