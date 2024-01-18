@@ -8,23 +8,31 @@
 import SwiftUI
 import SwiftData
 
+/// Root content view
+/// Allows the user to navigate the app and provides
+/// a tab view.
 struct ContentView: View {
-    // MARK: - Properties -
-
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [ItemModel]
-
     // MARK: - UI -
 
     var body: some View {
         TabView {
             DashboardView()
+                .tabItem { Label("Dashboard.Title", systemSymbol: .house) }
+            
             SettingsView()
+                .tabItem {
+                    Label("Settings.Title", systemSymbol: .gearshape)
+                }
         }
     }
 }
 
+// MARK: - Preview -
+
 #Preview {
     ContentView()
-        .modelContainer(for: ItemModel.self, inMemory: true)
+        .modelContainer(
+            for: ItemModel.self,
+            inMemory: true
+        )
 }

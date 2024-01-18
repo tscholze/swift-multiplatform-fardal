@@ -54,7 +54,6 @@ struct DashboardView: View {
                 ImageDetailView(initialState: .read(imageData))
             }
         }
-        .tabItem { Label("Dashboard.Title", systemSymbol: .house) }
     }
 }
 

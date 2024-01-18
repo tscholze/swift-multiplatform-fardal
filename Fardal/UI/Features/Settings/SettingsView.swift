@@ -38,10 +38,6 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings.Title")
         }
-        .tabItem {
-            Image(systemName: "gearshape")
-            Text("Settings.Title")
-        }
     }
 }
 
