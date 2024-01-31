@@ -5,19 +5,19 @@
 //  Created by Tobias Scholze on 22.12.23.
 //
 
+import SwiftUI
 import SwiftData
 import Foundation
 
 @Model final class CollectionModel {
-    // MARK: - Properties -
+    // MARK: - DB properties -
 
     /// Unique id of the item
     @Attribute(.unique)
     var id = UUID()
 
     /// Cover image as data
-    @Relationship(deleteRule: .cascade)
-    var coverImageData: ImageModel?
+    var coverImageData: Data
 
     /// Human read-able title
     var title: String
@@ -26,7 +26,7 @@ import Foundation
     var summary: String
 
     /// User provided custom id
-    var customId: String?
+    var customId: String
 
     /// List of attached items of the collection
     var items: [ItemModel]
@@ -34,26 +34,44 @@ import Foundation
     /// Timestamp at which the image was initially created
     let createdAt = Date.now
 
+    // MARK: - Computed properties -
+
+    var coverImage: Image {
+        guard let uiImage = UIImage(data: coverImageData) else {
+            fatalError("Cannot transform cover image data to  UIImage.")
+        }
+
+        return .init(uiImage: uiImage)
+    }
+
     // MARK: - Init -
 
     init(
-        coverImageData: ImageModel? = nil,
         title: String,
         summary: String,
-        customId: String? = nil,
+        customId: String = "",
         items: [ItemModel] = []
     ) {
-        self.coverImageData = coverImageData
         self.title = title
         self.summary = summary
         self.customId = customId
         self.items = items
+        coverImageData = .init()
+
+        Task {
+            let name = title.isEmpty ? "?" : title
+            let content = InitialAvatarView(name: name, dimension: 256)
+            self.coverImageData = await ImageGenerator.fromContentToData(content: content)
+        }
     }
 }
 
 // MARK: - Mock -
 
 extension CollectionModel {
+    /// Creates a mocked collection with embedded items and images.
+    ///
+    /// - Returns: Mocked collection model.t
     static func makeMockedCollections() async -> CollectionModel {
         // 1. Make images
         let images1: [ImageModel] = [
@@ -96,9 +114,6 @@ extension CollectionModel {
             customId: "RPis"
         )
 
-        let content = InitialAvatarView(name: collection.title, dimension: 256)
-        let coverImageData = await ImageGenerator.fromContentToData(content: content)
-        collection.coverImageData = .init(data: coverImageData, source: .icon)
         collection.items = [item1, item2]
 
         // Returned mocked data

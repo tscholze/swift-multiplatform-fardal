@@ -76,57 +76,42 @@ extension DashboardView {
         } footer: {
             HStack {
                 Spacer()
+
                 Button(action: {}) {
-                    VStack {
-                        Image(systemName: "magnifyingglass")
-                            .resizable()
-                            .scaledToFit()
-                        Text("Dashboard.Section.QuickActions.SearchText")
-                            .font(.caption)
-                    }
-                    .frame(width: 44, height: 44)
+                    Image(systemName: "magnifyingglass")
+                        .resizable()
+                        .scaledToFit()
+                        .padding(8)
+                        .frame(width: 44, height: 44)
                 }
-                .shadow(radius: 2)
 
                 Button(action: { showSearchWithCodeSheet.toggle() }) {
-                    VStack {
-                        Image(systemName: "barcode.viewfinder")
-                            .resizable()
-                            .scaledToFit()
-                        Text("Dashboard.Section.QuickActions.SearchCode")
-                            .font(.caption)
-                    }
-                    .frame(width: 44, height: 44)
+                    Image(systemName: "barcode.viewfinder")
+                        .resizable()
+                        .scaledToFit()
+                        .padding(8)
+                        .frame(width: 44, height: 44)
                 }
-                .shadow(radius: 2)
 
                 NavigationLink {
                     CollectionDetailView(initialState: .create)
                 } label: {
-                    VStack {
-                        Image(systemName: "doc.on.doc")
-                            .resizable()
-                            .scaledToFit()
-                    Text("Dashboard.Section.QuickAction.AddCollection")
-                            .font(.caption)
-                    }
-                    .frame(width: 44, height: 44)
+                    Image(systemName: "doc.on.doc")
+                        .resizable()
+                        .scaledToFit()
+                        .padding(8)
+                        .frame(width: 44, height: 44)
                 }
-                .shadow(radius: 2)
-                
+
                 NavigationLink {
                     ItemDetailView(initialState: .create)
                 } label: {
-                    VStack {
-                        Image(systemName: "doc")
-                            .resizable()
-                            .scaledToFit()
-                        Text("Dashboard.Section.QuickActions.AddItem")
-                            .font(.caption)
-                    }
-                    .frame(width: 44, height: 44)
+                    Image(systemName: "doc")
+                        .resizable()
+                        .scaledToFit()
+                        .padding(8)
+                        .frame(width: 44, height: 44)
                 }
-                .shadow(radius: 2)
 
                 Spacer()
             }

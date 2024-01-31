@@ -12,7 +12,7 @@ import SwiftUI
 struct CollectionDetailView: View {
     // MARK: - Private properties -
 
-    private let collection: CollectionModel?
+    @Bindable private var collection: CollectionModel
     private let intialViewMode: ViewMode
 
     // MARK: - System properties -
@@ -24,9 +24,6 @@ struct CollectionDetailView: View {
 
     @State private var isValid = true
     @State private var viewMode: ViewMode = .read
-    @State private var title = ""
-    @State private var summary = ""
-    @State private var customId = ""
     @State private var items = [ItemModel]()
     @State private var coverData = Data()
     @State private var showLinkItemSheet = false
@@ -45,7 +42,7 @@ struct CollectionDetailView: View {
             intialViewMode = .read
 
         case .create:
-            collection = nil
+            collection = .init(title: "", summary: "")
             intialViewMode = .create
 
         case let .edit(collection):
@@ -83,31 +80,17 @@ struct CollectionDetailView: View {
 extension CollectionDetailView {
     private func onViewAppear() {
         viewMode = intialViewMode
-        title = collection?.title ?? ""
-        summary = collection?.summary ?? ""
-        customId = collection?.customId ?? ""
-        items = collection?.items ?? []
-
-        // Use existing cover image data or create a randomized one.
-        if let data = collection?.coverImageData?.data {
-            coverData = data
-        }
-        else {
-            Task {
-                await updateCoverData()
-            }
-        }
     }
 
     private func onTitleChanged(oldValue _: String, newValue _: String) {
         Task {
             await updateCoverData()
-            isValid = validateUserInput()
+            updateInputValidity()
         }
     }
 
     private func onSummaryChanged(oldValue _: String, newValue _: String) {
-        isValid = validateUserInput()
+        updateInputValidity()
     }
 
     private func onEditButtonTapped() {
@@ -115,41 +98,28 @@ extension CollectionDetailView {
     }
 
     private func onCancelTapped() {
-        if let collection {
-            title = collection.title
-            summary = collection.summary
-            items = collection.items
+        switch viewMode {
+        case .create: dismiss()
+        case .read: dismiss()
+        case .edit:
+            while modelContext.undoManager?.canUndo == true {
+                modelContext.undoManager?.undo()
+            }
             viewMode = .read
-        }
-        else {
-            dismiss()
         }
     }
 
     private func onSaveButtonTapped() {
-        // If it is an update ...
-        if let collection {
-            collection.title = title
-            collection.summary = summary
-            collection.items = items
-            collection.coverImageData = .init(data: coverData, source: .icon)
-            collection.customId = customId
-            viewMode = .read
-        }
-
-        // if it is a creation ...
-        else {
-            let image = ImageModel(data: coverData, source: .icon)
-            let newCollection = CollectionModel(
-                title: title,
-                summary: summary,
-                customId: customId,
-                items: items
-            )
-
-            newCollection.coverImageData = image
-            modelContext.insert(newCollection)
+        switch viewMode {
+        case .create:
+            modelContext.insert(collection)
             dismiss()
+        case .edit:
+            try? modelContext.save()
+            viewMode = .read
+
+        default:
+            fatalError("Unsupported operation for view mode: '\(viewMode)'")
         }
     }
 
@@ -158,20 +128,23 @@ extension CollectionDetailView {
     }
 
     private func updateCoverData() async {
-        let content = InitialAvatarView(name: title.isEmpty ? "?" : title, dimension: 256)
-        coverData = await ImageGenerator.fromContentToData(content: content)
+        let name = collection.title.isEmpty ? "?" : collection.title
+        let content = InitialAvatarView(name: name, dimension: 256)
+        let data = await ImageGenerator.fromContentToData(content: content)
+        collection.coverImageData = data
     }
 }
 
 // MARK: - Validations -
 
 extension CollectionDetailView {
-    func validateUserInput() -> Bool {
-        if title.isEmpty || summary.isEmpty {
-            return false
+    func updateInputValidity() {
+        isValid = if collection.title.isEmpty || collection.summary.isEmpty {
+            false
         }
-
-        return true
+        else {
+            true
+        }
     }
 }
 
@@ -239,9 +212,9 @@ extension CollectionDetailView {
                         }
 
                         VStack(alignment: .leading) {
-                            Text(title)
+                            Text(collection.title)
                             Divider()
-                            Text(summary)
+                            Text(collection.summary)
                         }
                     }
                 }
@@ -264,14 +237,20 @@ extension CollectionDetailView {
                         }
 
                         VStack(alignment: .leading) {
-                            TextField("CollectionDetail.Section.Required.Name", text: $title)
-                                .onChange(of: title, onTitleChanged(oldValue:newValue:))
+                            TextField(
+                                "CollectionDetail.Section.Required.Name",
+                                text: $collection.title
+                            )
+                            .onChange(of: collection.title, onTitleChanged(oldValue:newValue:))
 
                             Divider()
 
                             // Summary
-                            TextField("CollectionDetail.Section.Required.Summary", text: $summary)
-                                .onChange(of: summary, onSummaryChanged(oldValue:newValue:))
+                            TextField(
+                                "CollectionDetail.Section.Required.Summary",
+                                text: $collection.summary
+                            )
+                            .onChange(of: collection.summary, onSummaryChanged(oldValue:newValue:))
                         }
                     }
                 }
@@ -284,15 +263,18 @@ extension CollectionDetailView {
         Section {
             VStack(alignment: .leading) {
                 if viewMode == .read {
-                    if let customId = collection?.customId {
-                        Text(customId)
+                    if collection.customId.isEmpty {
+                        Text("Misc.NotSet")
                     }
                     else {
-                        Text("Misc.NotSet")
+                        Text(collection.customId)
                     }
                 }
                 else {
-                    TextField("CollectionDetail.Section.CustomId.Text", text: $customId)
+                    TextField(
+                        "CollectionDetail.Section.CustomId.Text",
+                        text: $collection.customId
+                    )
                 }
             }
         } header: {
@@ -342,7 +324,7 @@ extension CollectionDetailView {
         } header: {
             EmptyView()
         } footer: {
-            if let collection {
+            if viewMode != .create {
                 HStack {
                     Spacer()
                     Button("CollectionDetail.Actions.DeleteCollection", role: .destructive) {

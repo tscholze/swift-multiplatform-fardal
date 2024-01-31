@@ -65,13 +65,10 @@ struct SearchView: View {
 
 extension SearchView {
     private func onRecognizedWordsChanged(oldValue _: [String], newValue: [String]) {
-        guard let firstKeyword = newValue.first else {
-            return
-        }
+        guard let firstKeyword = newValue.first else { return }
 
         filteredCollections = collections.filter {
-            guard let customId = $0.customId else { return false }
-            return customId.localizedStandardContains(firstKeyword)
+            return $0.customId.localizedStandardContains(firstKeyword)
         }
     }
 }

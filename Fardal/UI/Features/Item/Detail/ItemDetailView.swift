@@ -14,14 +14,13 @@ import SwiftData
 struct ItemDetailView: View {
     // MARK: - Private properties -
 
-    private var item: ItemModel?
+    @Bindable private var item: ItemModel
     private let intialViewMode: ViewMode
 
     // MARK: - System properties -
 
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    @Query private var collections: [CollectionModel]
 
     // MARK: - Presenation states -
 
@@ -43,14 +42,7 @@ struct ItemDetailView: View {
 
     // MARK: - Draft states -
 
-    @State private var title = ""
-    @State private var summary = ""
     @State private var iconData: Data? = nil
-    @State private var collection: CollectionModel? = nil
-    @State private var selectedColor: Color? = nil
-    @State private var selectedChip: [ChipModel] = []
-    @State private var selectedImagesData = [ImageModel]()
-    @State private var customAttributes = [ItemCustomAttribute]()
 
     // MARK: - Init -
 
@@ -64,7 +56,7 @@ struct ItemDetailView: View {
             intialViewMode = .read
 
         case .create:
-            item = nil
+            item = .init(title: "", summary: "")
             intialViewMode = .create
 
         case let .edit(item):
@@ -84,10 +76,14 @@ struct ItemDetailView: View {
             makeCustomAttributesSection()
             makeActionsSection()
         }
-        .onChange(of: cameraImagesData, onChangeOfCameraImagesData(oldValue:newValue:))
         .navigationBarBackButtonHidden(viewMode != .read)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: makeToolbar)
+        .onAppear(perform: onViewAppear)
+        .onChange(
+            of: cameraImagesData,
+            onChangeOfCameraImagesData(oldValue:newValue:)
+        )
         .photosPicker(
             isPresented: $showPhotoPicker,
             selection: $imageSelection,
@@ -114,13 +110,12 @@ struct ItemDetailView: View {
         )
         .sheet(
             isPresented: $showLinkCollectionSheet,
-            content: { ItemDetailLinkCollectionView(selectedCollection: $collection) }
+            content: { ItemDetailLinkCollectionView(selectedCollection: $item.collection) }
         )
         .sheet(
             isPresented: $showAddCollectionSheet,
             content: { NavigationView { CollectionDetailView(initialState: .create) } }
         )
-        .onAppear(perform: onViewAppear)
     }
 }
 
@@ -130,21 +125,31 @@ extension ItemDetailView {
     @ViewBuilder
     private func makeRequiredSection() -> some View {
         Section("ItemDetail.Section.Required.Title") {
-            // Name
             if viewMode == .read {
-                Text(title)
-                Text(summary)
+                Text(item.title)
+                Text(item.summary)
             }
             else {
                 VStack(alignment: .leading) {
-                    TextField("ItemDetail.Section.Required.Name", text: $title)
-                        .onChange(of: title, onTitleChanged(oldValue:newValue:))
+                    // Name
+                    TextField(
+                        "ItemDetail.Section.Required.Name",
+                        text: $item.title
+                    )
+                    .onChange(of: item.title) {
+                        updateInputValidity()
+                    }
 
                     Divider()
 
                     // Summary
-                    TextField("ItemDetail.Section.Required.Summary", text: $summary)
-                        .onChange(of: summary, onSummaryChanged(oldValue:newValue:))
+                    TextField(
+                        "ItemDetail.Section.Required.Summary",
+                        text: $item.summary
+                    )
+                    .onChange(of: item.summary) {
+                        updateInputValidity()
+                    }
                 }
             }
         }
@@ -153,12 +158,12 @@ extension ItemDetailView {
     @ViewBuilder
     private func makeCollectionSection() -> some View {
         Section {
-            if let collection {
+            if let collection = item.collection {
                 NavigationLink {
                     CollectionDetailView(initialState: .read(collection))
                 } label: {
                     HStack(spacing: Theme.Spacing.medium) {
-                        collection.coverImageData!.image
+                        collection.coverImage
                             .resizable()
                             .clipShape(Theme.Shape.roundedRectangle2)
                             .frame(width: 60, height: 60)
@@ -196,26 +201,37 @@ extension ItemDetailView {
     @ViewBuilder
     private func makeTaggingSection() -> some View {
         Section("ItemDetail.Section.Tagging.Title") {
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: Theme.Spacing.small) {
                 // Flag
                 HStack {
-                    Theme.Shape.roundedRectangle2
-                        .fill(selectedColor ?? .clear)
-                        .shadow(radius: Theme.Shadow.border)
-                        .frame(width: 72, height: 72, alignment: .topLeading)
+                    Group {
+                        if let color = item.color {
+                            Theme.Shape.roundedRectangle2
+                                .fill(color)
+                                .shadow(radius: Theme.Shadow.border)
+                        }
+                        else {
+                            Theme.Shape.roundedRectangle2
+                                .stroke(style: StrokeStyle(lineWidth: 1, dash: [3, 2]))
+                                .opacity(0.5)
+                        }
+                    }
+                    .frame(width: 72, height: 72, alignment: .topLeading)
 
                     OptionalColorPicker(
-                        selectedColor: $selectedColor,
+                        selectedColor: $item.color,
                         selectableColors:
                         Theme.Colors.pastelColors
                     )
                     .disabled(viewMode == .read)
                 }
 
-                Divider()
-
-                // Tags / Chips
-                ChipsView(chips: $selectedChip, viewMode: $viewMode)
+                /// Divider()
+                ///
+                /// // Tags / Chips
+                /// ChipsView(chips: $item.tags.map { ChipModel(title: $0) }, viewMode: $viewMode)
+                ///
+                /// 
             }
             .padding(.vertical)
         }
@@ -225,11 +241,7 @@ extension ItemDetailView {
     private func makePhotosSection() -> some View {
         Section {
             // Show how to add images hint if list is empty
-            if selectedImagesData.isEmpty {
-                makeEmptyImagesHint()
-                    .frame(height: 60)
-            }
-            else {
+            if let images = item.imagesData, images.isEmpty == false {
                 ScrollView(.horizontal) {
                     HStack {
                         // Live camera feed
@@ -240,36 +252,27 @@ extension ItemDetailView {
                         //
 
                         // List of images
-                        ForEach(selectedImagesData, id: \.id) { imageData in
+                        ForEach(item.imagesData ?? [], id: \.id) { imageData in
                             // Render image
                             Image(uiImage: imageData.uiImage)
                                 .resizable()
                                 .aspectRatio(1, contentMode: .fill)
                                 .clipShape(Theme.Shape.roundedRectangle2)
-                                .overlay(alignment: .topTrailing) {
-                                    // Show delete button in case of edit / create
-                                    // is enabled
-                                    if viewMode != .read {
-                                        Button {
-                                            selectedImagesData.removeAll(where: { $0.id == imageData.id })
-                                        } label: {
-                                            Image(systemName: "x.circle.fill")
-                                                .foregroundStyle(.white)
-                                                .opacity(0.6)
-                                                .shadow(radius: Theme.Shadow.radius1)
-                                                .padding(4)
-                                        }
-                                    }
-                                }
                         }
+
+                        // TODO: Add Image deletion button
                     }
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 60)
             }
+            else {
+                makeEmptyImagesHint()
+                    .frame(height: 60)
+            }
         } header: {
             HStack {
-                Text("ItemDetail.Section.Photos.Title \(selectedImagesData.count) / \(FardalConstants.Item.maxNumberOfPhotosPerItem)")
+                Text("ItemDetail.Section.Photos.Title \(item.numberOfImages) / \(FardalConstants.Item.maxNumberOfPhotosPerItem)")
                 if viewMode != .read {
                     HStack {
                         Spacer()
@@ -277,7 +280,8 @@ extension ItemDetailView {
                             showAddMediaSheet.toggle()
                         } label: {
                             Image(systemName: "plus.circle")
-                        }.disabled(selectedImagesData.count == FardalConstants.Item.maxNumberOfPhotosPerItem)
+                        }
+                        .disabled(item.imagesData?.count == FardalConstants.Item.maxNumberOfPhotosPerItem)
                     }
                 }
             }
@@ -322,12 +326,12 @@ extension ItemDetailView {
     private func makeCustomAttributesSection() -> some View {
         Section {
             Group {
-                if customAttributes.isEmpty {
+                if item.customAttributes?.isEmpty == true {
                     makeEmptyCustomAttributeHint()
                 }
                 else {
                     List {
-                        ForEach(customAttributes) { attribute in
+                        ForEach(item.customAttributes ?? []) { attribute in
                             ItemCustomAttributeType(rawValue: attribute.layout)?
                                 .makeView(for: attribute, with: viewMode)
                         }
@@ -348,9 +352,7 @@ extension ItemDetailView {
 
                     Button(
                         action: { onAddCustomTapped() },
-                        label: {
-                            Image(systemName: "plus.circle")
-                        }
+                        label: { Image(systemName: "plus.circle") }
                     )
                 }
             }
@@ -398,13 +400,10 @@ extension ItemDetailView {
         } header: {
             EmptyView()
         } footer: {
-            if let item {
+            if viewMode != .create {
                 HStack {
                     Spacer()
                     Button("ItemDetail.Actions.DeleteItem", role: .destructive) {
-                        // TODO: Replace it with cascade rule if it would work
-                        item.customAttributes?.forEach { modelContext.delete($0) }
-                        item.imagesData?.forEach { modelContext.delete($0) }
                         modelContext.delete(item)
                         dismiss()
                     }
@@ -516,100 +515,61 @@ extension ItemDetailView {
 // MARK: - Actions -
 
 extension ItemDetailView {
-    private func isValidInput() -> Bool {
-        if title.isEmpty || summary.isEmpty {
-            return false
+    private func updateInputValidity() {
+        isValid = if item.title.isEmpty || item.summary.isEmpty {
+            false
         }
         else {
-            return true
+            true
         }
     }
 
     private func onViewAppear() {
         viewMode = intialViewMode
-        populateViewWithItemInformation()
+        updateInputValidity()
     }
 
-    private func onTitleChanged(oldValue _: String, newValue _: String) {
-        isValid = isValidInput()
+    private func onChangeOfCameraImagesData(
+        oldValue _: [ImageModel],
+        newValue: [ImageModel]
+    ) {
+        newValue.forEach { addImageData($0) }
     }
 
-    private func onSummaryChanged(oldValue _: String, newValue _: String) {
-        isValid = isValidInput()
-    }
-
-    private func onChangeOfCameraImagesData(oldValue _: [ImageModel], newValue: [ImageModel]) {
-        selectedImagesData.append(contentsOf: newValue)
-    }
-
-    private func onChangeImageSelection(oldValue _: PhotosPickerItem?, newValue: PhotosPickerItem?) {
+    private func onChangeImageSelection(
+        oldValue _: PhotosPickerItem?,
+        newValue: PhotosPickerItem?
+    ) {
         guard let newValue else { return }
 
         newValue.loadTransferable(type: Data.self) { result in
             switch result {
             case let .success(.some(data)):
                 let newImage = ImageModel(data: data)
-                selectedImagesData.append(newImage)
+                addImageData(newImage)
             default: print("Failed")
             }
         }
     }
 
-    private func onIconDataChanged(oldValue _: Data?, newValue: Data?) {
+    private func onIconDataChanged(
+        oldValue _: Data?,
+        newValue: Data?
+    ) {
         guard let newValue else { return }
-        selectedImagesData.insert(.init(data: newValue, source: .icon), at: 0)
+        addImageData(.init(data: newValue, source: .icon))
     }
 
     private func onCancelTapped() {
-        // If an item exists
-        // Check if it has imagesData
-        //  If yes,
-        //      -> make a diff to the item's images
-        //      -> Delete new added images from item
-        //  If no
-        //      -> Delete all temp image data
-        if let item {
-            if let imagesData = item.imagesData {
-                let originSet = Set(imagesData)
-                let newSet = Set(selectedImagesData)
-
-                newSet.symmetricDifference(originSet)
-                    .forEach { model in
-                        modelContext.delete(model)
-                    }
+        switch viewMode {
+        case .create: dismiss()
+        case .read: dismiss()
+        case .edit:
+            while modelContext.undoManager?.canUndo == true {
+                modelContext.undoManager?.undo()
             }
-            else {
-                selectedImagesData.forEach {
-                    modelContext.delete($0)
-                }
-            }
-
-            dismiss()
+            viewMode = .read
         }
-        else {
-            selectedImagesData.forEach {
-                modelContext.delete($0)
-            }
-
-            if viewMode == .edit {
-                populateViewWithItemInformation()
-                viewMode = .read
-            }
-            else {
-                dismiss()
-            }
-        }
-    }
-
-    private func populateViewWithItemInformation() {
-        title = item?.title ?? ""
-        summary = item?.summary ?? ""
-        selectedChip = item?.tags.map { ChipModel(title: $0) } ?? []
-        selectedColor = Color(hex: item?.hexColor ?? 0xFFFFFF)
-        selectedImagesData = item?.imagesData ?? []
-        customAttributes = item?.customAttributes ?? []
-        isValid = isValidInput()
-        collection = item?.collection
     }
 
     private func onAddCollectionTapped() {
@@ -620,85 +580,69 @@ extension ItemDetailView {
         showIconWizard.toggle()
     }
 
+    private func addImageData(_ imageData: ImageModel) {
+        if item.imagesData == nil {
+            item.imagesData = [imageData]
+        }
+        else {
+            item.imagesData?.insert(imageData, at: 0)
+        }
+    }
+
     private func onAddCustomTapped() {
         showAddCustomAttributeSheet.toggle()
     }
 
     private func onAddPriceCustomAttributeTapped() {
-        customAttributes.append(.emptyPriceAttribute)
-        showAddCustomAttributeSheet.toggle()
+        addCustomAttribute(.emptyPriceAttribute)
     }
 
     private func onAddDateCustomAttributeTapped() {
-        customAttributes.append(.emptyDateAttribute)
-        showAddCustomAttributeSheet.toggle()
+        addCustomAttribute(.emptyDateAttribute)
     }
 
     private func onAddUrlCustomAttributeTapped() {
-        customAttributes.append(.emptyUrlAttribute)
-        showAddCustomAttributeSheet.toggle()
+        addCustomAttribute(.emptyUrlAttribute)
     }
 
     private func onAddNoteCustomAttributeTapped() {
-        customAttributes.append(.emptyNoteAttribute)
+        addCustomAttribute(.emptyNoteAttribute)
+    }
+
+    private func addCustomAttribute(_ attribute: ItemCustomAttribute) {
+        if item.customAttributes == nil {
+            item.customAttributes = [attribute]
+        }
+        else {
+            item.customAttributes?.append(attribute)
+        }
+
         showAddCustomAttributeSheet.toggle()
     }
 
     private func onDeleteCustomTapped(withIndexSet indexSet: IndexSet) {
-        guard let index = indexSet.first else { return }
-        let attribute = customAttributes[index]
-        customAttributes.removeAll(where: { $0.id == attribute.id })
+        guard let index = indexSet.first, let attribute = item.customAttributes?[index] else { return }
+
+        item.customAttributes?.remove(at: index)
+        modelContext.delete(attribute)
     }
 
     private func onSaveButtonTapped() {
-        if let item {
-            // Remove attributes from database which are deleted in drafts
-            item.customAttributes?.forEach { itemAttribute in
-                if customAttributes.contains(itemAttribute) == false {
-                    modelContext.delete(itemAttribute)
-                }
-            }
-
-            // TODO: Check if this is also needed for imagesData
-            item.title = title
-            item.summary = summary
-            item.customAttributes = customAttributes
-            item.hexColor = selectedColor?.hexValue
-            item.tags = selectedChip.map(\.title)
-            item.imagesData = selectedImagesData
-            item.updatedAt = .now
-            viewMode = .read
-        }
-        else {
-            let newItem = ItemModel(
-                title: title,
-                summary: summary,
-                hexColor: selectedColor?.hexValue,
-                updatedAt: .now
-            )
-
-            // Set other models
-            newItem.imagesData = selectedImagesData
-            newItem.customAttributes = customAttributes
-
-            modelContext.insert(newItem)
+        switch viewMode {
+        case .create:
+            modelContext.insert(item)
             dismiss()
+        case .edit:
+            try? modelContext.save()
+            viewMode = .read
+
+        default:
+            fatalError("Unsupported operation for view mode: '\(viewMode)'")
         }
     }
 
     private func onEditButtonTapped() {
         viewMode = .edit
-    }
-}
-
-extension ItemDetailView {
-    private func validateInput() {
-        if title.isEmpty || summary.isEmpty {
-            isValid = false
-        }
-        else {
-            isValid = true
-        }
     }
 }
 

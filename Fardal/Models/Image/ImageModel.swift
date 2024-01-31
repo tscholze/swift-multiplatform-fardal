@@ -29,9 +29,13 @@ import Foundation
     /// Parent
     var item: ItemModel?
 
+    var sourceId = 0
+
     /// Source of the image.
     /// E.g. icon or photo
-    var source: ImageModelSource
+    var source: ImageModelSource {
+        return .init(rawValue: sourceId)!
+    }
 
     /// List of tags that describes the content of the image
     @Relationship(deleteRule: .cascade, inverse: \TagModel.imageModel) var tags: [TagModel]? = [TagModel]()
@@ -51,7 +55,7 @@ import Foundation
     init(data: Data, source: ImageModelSource = .photo, item: ItemModel? = nil, tags: [TagModel] = []) {
         self.data = data
         self.item = item
-        self.source = source
+        sourceId = source.rawValue
         self.tags = tags
     }
 }
@@ -133,10 +137,19 @@ extension ImageModel {
 // MARK: - ImageModelSource-
 
 /// Origin source of an `ImageModel`
-enum ImageModelSource: String, Codable {
+enum ImageModelSource: Int, Codable {
     /// Icon, Symbol or other non photographical images
-    case icon
+    case icon = 0
 
     /// Photo taken by a camera
-    case photo
+    case photo = 1
+
+    // MARK: - Computed properties -
+
+    var localizedTitle: String {
+        switch self {
+        case .icon: NSLocalizedString("ImageModel.Source.Icon.Title", comment: "")
+        case .photo: NSLocalizedString("ImageModel.Source.Icon.Photo", comment: "")
+        }
+    }
 }

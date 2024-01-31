@@ -11,6 +11,8 @@ import Foundation
 
 @Model
 final class ItemModel {
+    // MARK: - DB properties -
+
     /// Unique id of the item
     @Attribute(.unique)
     let id: UUID
@@ -33,6 +35,7 @@ final class ItemModel {
 
     /// List of data objects that represents attached images.
     /// Could be photos or icons.
+    @Relationship(deleteRule: .cascade)
     var imagesData: [ImageModel]?
 
     /// List of custom attributes
@@ -43,6 +46,31 @@ final class ItemModel {
 
     /// Created timestamp
     let createdAt: Date = Date.now
+
+    // MARK: - Computed properties -
+
+    var numberOfImages: Int {
+        return imagesData?.count ?? 0
+    }
+
+    var numberOfAttributes: Int {
+        return customAttributes?.count ?? 0
+    }
+
+    var color: Color? {
+        get {
+            return if let hexColor {
+                .init(hex: hexColor)
+            }
+            else {
+                nil
+            }
+        }
+
+        set {
+            hexColor = newValue?.hexValue
+        }
+    }
 
     // MARK: - Init -
 

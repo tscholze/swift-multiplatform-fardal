@@ -83,7 +83,6 @@ extension CameraPicker {
             CameraPreview(cameraModel: cameraModel)
                 .onChange(of: cameraModel.takenImageData) { _, newValue in
                     guard let newValue else { return }
-                    modelContext.insert(newValue)
                     takenImagesData.append(newValue)
                 }
                 .overlay { Color.white.opacity(flashOpacity) }
@@ -158,7 +157,6 @@ extension CameraPicker {
                             tags: [.init(title: "Mocked", mlConfidence: 0.97)]
                         )
 
-                        modelContext.insert(newModel)
                         takenImagesData.append(newModel)
                     }
                     .tint(Color.pink)

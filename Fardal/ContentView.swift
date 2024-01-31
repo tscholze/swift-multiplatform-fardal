@@ -18,7 +18,7 @@ struct ContentView: View {
         TabView {
             DashboardView()
                 .tabItem { Label("Dashboard.Title", systemSymbol: .house) }
-            
+
             SettingsView()
                 .tabItem {
                     Label("Settings.Title", systemSymbol: .gearshape)

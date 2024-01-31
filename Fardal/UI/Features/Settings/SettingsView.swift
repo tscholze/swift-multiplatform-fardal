@@ -76,7 +76,8 @@ extension SettingsView {
         Section("Settings.Section.Actions") {
             Button("Settings.Section.Actions.InsertMockCollections") {
                 Task {
-                    await modelContext.insert(CollectionModel.makeMockedCollections())
+                    let collection = await CollectionModel.makeMockedCollections()
+                    modelContext.insert(collection)
                 }
             }
 

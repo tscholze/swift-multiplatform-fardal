@@ -33,7 +33,7 @@ struct InitialAvatarView: View {
 
     var body: some View {
         Text(compressedInitials)
-            .opacity(0.4)
+            .opacity(0.6)
             .font(.system(size: dimension))
             .minimumScaleFactor(0.01)
             .padding()

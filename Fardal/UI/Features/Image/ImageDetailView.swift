@@ -86,7 +86,7 @@ extension ImageDetailView {
 
             LabeledContent(
                 "ImageDetail.Section.Information.Source",
-                value: imageModel.source.rawValue.localizedCapitalized
+                value: imageModel.source.localizedTitle
             )
         }
     }

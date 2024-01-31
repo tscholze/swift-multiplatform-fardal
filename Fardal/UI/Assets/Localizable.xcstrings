@@ -338,6 +338,7 @@
       }
     },
     "Dashboard.Section.QuickAction.AddCollection" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -348,6 +349,7 @@
       }
     },
     "Dashboard.Section.QuickActions.AddItem" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -358,6 +360,7 @@
       }
     },
     "Dashboard.Section.QuickActions.SearchCode" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -368,6 +371,7 @@
       }
     },
     "Dashboard.Section.QuickActions.SearchText" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -453,6 +457,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Usage"
+          }
+        }
+      }
+    },
+    "ImageModel.Source.Icon.Photo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photo"
+          }
+        }
+      }
+    },
+    "ImageModel.Source.Icon.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icon"
           }
         }
       }
