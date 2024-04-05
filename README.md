@@ -4,6 +4,9 @@
 > This sample for an inventory app is used to explore the possiblities of a pure vanilla Swift, SwiftUI, SwiftData and CoreML based application.
 > Currently it is in active development and works as a playground for myself. Please do not use it.
 
+## Information
+Due to the always breaking `SwiftData` information management and the lack of a proper community in context of more than a ToDo app, this repository is currently on hold.
+
  ## Build status
 
 |Service|Status|
